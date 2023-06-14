@@ -1,11 +1,8 @@
-import './App.css';
+import "./App.css";
+import GroupList from "./GroupList/GroupList";
 
 function App() {
-  return (
-    <div className="App">
-      Application
-    </div>
-  );
+  return <GroupList />;
 }
 
 export default App;
