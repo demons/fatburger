@@ -1,6 +1,6 @@
 import { useGroups } from "../store";
 
-function Group({ group }) {
+function GroupItem({ group }) {
   const removeGroup = useGroups((state) => state.removeGroup);
 
   return (
@@ -11,4 +11,4 @@ function Group({ group }) {
   );
 }
 
-export default Group;
+export default GroupItem;

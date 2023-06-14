@@ -2,13 +2,13 @@
 
 import { useGroups } from "../store";
 import AddGroupForm from "./AddGroupForm";
-import Group from "./Group";
+import GroupItem from "./GroupItem";
 
 function GroupList() {
   const groups = useGroups((state) => state.groups);
 
   const renderedGroups = groups.map((group) => (
-    <Group key={group.id} group={group} />
+    <GroupItem key={group.id} group={group} />
   ));
 
   return (
