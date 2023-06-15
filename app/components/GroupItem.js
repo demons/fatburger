@@ -1,19 +1,11 @@
-import { useGroups, useItems, useProducts } from "../store";
+import { useGroups } from "../store";
 import Amount from "./Amount";
 import ItemList from "./ItemList";
 
-function GroupItem({ group }) {
+function GroupItem({ group, items }) {
   const removeGroup = useGroups((state) => state.removeGroup);
-  const { getProductById } = useProducts();
 
-  const items = useItems((state) =>
-    state.items
-      .filter((item) => item.groupId === group.id)
-      .map((item) => {
-        const product = getProductById(item.productId);
-        return product;
-      })
-  );
+  const filteredItems = items.filter((item) => item.groupId === group.id);
 
   return (
     <div className="group-item">
@@ -22,7 +14,7 @@ function GroupItem({ group }) {
         <Amount />
         <button onClick={(e) => removeGroup(group.id)}>Удалить</button>
       </div>
-      <ItemList items={items} />
+      <ItemList items={filteredItems} />
     </div>
   );
 }
