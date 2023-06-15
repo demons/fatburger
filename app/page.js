@@ -11,7 +11,10 @@ export default function GroupListPage() {
   const items = useItems((state) =>
     state.items.map((item) => {
       const product = getProductById(item.productId);
-      return product;
+      return {
+        groupId: item.groupId,
+        ...product,
+      };
     })
   );
 
