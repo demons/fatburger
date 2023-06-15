@@ -6,17 +6,9 @@ import GroupList from "./components/GroupList";
 import { useGroups } from "./store";
 
 export default function GroupListPage() {
-  const { getProductById } = useGroups();
+  const { getGroupItems } = useGroups();
 
-  const items = useGroups((state) =>
-    state.items.map((item) => {
-      const product = getProductById(item.productId);
-      return {
-        groupId: item.groupId,
-        ...product,
-      };
-    })
-  );
+  const items = getGroupItems();
 
   return (
     <main>

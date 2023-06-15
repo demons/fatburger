@@ -4,6 +4,17 @@ export default (set, get) => ({
     { id: 2, groupId: 2, productId: 2 },
   ],
 
+  getGroupItems: () => {
+    const { getProductById } = get();
+
+    return get().items.map((item) => {
+      const product = getProductById(item.productId);
+      return {
+        groupId: item.groupId,
+        ...product,
+      };
+    });
+  },
   removeItemsByGroupId: (itemId) => {
     const removeProductById = (productId) => {
       const filteredProducts = get().products.filter(
