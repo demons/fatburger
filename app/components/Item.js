@@ -1,5 +1,10 @@
+import { useProducts } from "../store";
+
 function Item({ data }) {
-  return <div>{data.title}</div>;
+  const { productId } = data;
+  const { title } = useProducts((state) => state.getProductById(productId));
+
+  return <div>{title}</div>;
 }
 
 export default Item;
