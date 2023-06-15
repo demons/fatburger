@@ -3,7 +3,7 @@ import Amount from "./Amount";
 import ItemList from "./ItemList";
 
 function GroupItem({ group, items }) {
-  const removeGroup = useGroups((state) => state.removeGroup);
+  const { removeGroup } = useGroups();
 
   const filteredItems = items.filter((item) => item.groupId === group.id);
 
