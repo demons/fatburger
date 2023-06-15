@@ -1,5 +1,6 @@
 import { useGroups } from "../store";
 import Amount from "./Amount";
+import ItemList from "./ItemList";
 
 function GroupItem({ group }) {
   const removeGroup = useGroups((state) => state.removeGroup);
@@ -11,6 +12,7 @@ function GroupItem({ group }) {
         <Amount />
         <button onClick={(e) => removeGroup(group.id)}>Удалить</button>
       </div>
+      <ItemList />
     </div>
   );
 }
