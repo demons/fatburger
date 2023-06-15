@@ -10,12 +10,12 @@ export const useGroups = create((set, get) => ({
     { id: 1, groupId: 1, productId: 1 },
     { id: 2, groupId: 2, productId: 2 },
   ],
-  products: {
-    1: { id: 1, productTemplateId: 1, count: 50 },
-    2: { id: 2, productTemplateId: 2, count: 20 },
-  },
-  productTemplates: {
-    1: {
+  products: [
+    { id: 1, productTemplateId: 1, count: 50 },
+    { id: 2, productTemplateId: 2, count: 20 },
+  ],
+  productTemplates: [
+    {
       id: 1,
       title: "Морковь",
       maker: "Магнит",
@@ -24,7 +24,7 @@ export const useGroups = create((set, get) => ({
       fat: 2.5,
       carb: 3.4,
     },
-    2: {
+    {
       id: 2,
       title: "Картофель",
       maker: "Пятерочка",
@@ -33,7 +33,7 @@ export const useGroups = create((set, get) => ({
       fat: 3.1,
       carb: 1.5,
     },
-  },
+  ],
 
   addGroup: (title) => {
     const newGroup = { id: nanoid(), title };
@@ -46,8 +46,10 @@ export const useGroups = create((set, get) => ({
     set({ groups: filtered });
   },
   getProductById: (id) => {
-    const product = get().products[id];
-    const productTemplate = get().productTemplates[product.productTemplateId];
+    const product = get().products.find((product) => product.id === id);
+    const productTemplate = get().productTemplates.find(
+      (productTemplate) => productTemplate.id === product.productTemplateId
+    );
 
     delete productTemplate.id;
 
