@@ -38,7 +38,7 @@ export const useProducts = create((set, get) => ({
       energy: 200,
       protein: 5.0,
       fat: 2.5,
-      carg: 3.4,
+      carb: 3.4,
     },
     2: {
       id: 2,
