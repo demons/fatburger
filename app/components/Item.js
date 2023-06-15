@@ -1,12 +1,7 @@
-import { useProducts } from "../store";
-
-function Item({ data, index }) {
-  const { productId } = data;
-  const { title } = useProducts((state) => state.getProductById(productId));
-
+function Item({ item, index }) {
   return (
     <div>
-      {index}. {title}
+      {index}. {item.title}
     </div>
   );
 }
