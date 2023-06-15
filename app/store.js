@@ -40,14 +40,14 @@ export const useGroups = create((set, get) => ({
 
     set({ groups: [...get().groups, newGroup] });
   },
-  removeGroup: (id) => {
-    get().removeItemsByGroupId(id);
-    const filtered = get().groups.filter((group) => group.id !== id);
+  removeGroup: (groupId) => {
+    get().removeItemsByGroupId(groupId);
+    const filtered = get().groups.filter((group) => group.id !== groupId);
 
     set({ groups: filtered });
   },
 
-  removeItemsByGroupId: (id) => {
+  removeItemsByGroupId: (itemId) => {
     const removeProductById = (productId) => {
       const filteredProducts = get().products.filter(
         (product) => product.id !== productId
@@ -57,7 +57,7 @@ export const useGroups = create((set, get) => ({
     };
 
     const filteredItems = get().items.filter((item) => {
-      if (item.groupId === id) {
+      if (item.groupId === itemId) {
         removeProductById(item.productId);
         return false;
       }
@@ -67,8 +67,8 @@ export const useGroups = create((set, get) => ({
     set({ items: filteredItems });
   },
 
-  getProductById: (id) => {
-    const product = get().products.find((product) => product.id === id);
+  getProductById: (productId) => {
+    const product = get().products.find((product) => product.id === productId);
 
     if (!product) {
       return null;
