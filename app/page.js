@@ -3,12 +3,12 @@
 import AddGroupForm from "./components/AddGroupForm";
 import Amount from "./components/Amount";
 import GroupList from "./components/GroupList";
-import { useItems, useProducts } from "./store";
+import { useGroups } from "./store";
 
 export default function GroupListPage() {
-  const { getProductById } = useProducts();
+  const { getProductById } = useGroups();
 
-  const items = useItems((state) =>
+  const items = useGroups((state) =>
     state.items.map((item) => {
       const product = getProductById(item.productId);
       return {

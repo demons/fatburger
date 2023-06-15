@@ -6,26 +6,10 @@ export const useGroups = create((set, get) => ({
     { id: 1, title: "Завтрак" },
     { id: 2, title: "Обед" },
   ],
-  addGroup: (title) => {
-    const newGroup = { id: nanoid(), title };
-
-    set({ groups: [...get().groups, newGroup] });
-  },
-  removeGroup: (id) => {
-    const filtered = get().groups.filter((group) => group.id !== id);
-
-    set({ groups: filtered });
-  },
-}));
-
-export const useItems = create((set, get) => ({
   items: [
     { id: 1, groupId: 1, productId: 1 },
     { id: 2, groupId: 2, productId: 2 },
   ],
-}));
-
-export const useProducts = create((set, get) => ({
   products: {
     1: { id: 1, productTemplateId: 1, count: 50 },
     2: { id: 2, productTemplateId: 2, count: 20 },
@@ -49,6 +33,17 @@ export const useProducts = create((set, get) => ({
       fat: 3.1,
       carb: 1.5,
     },
+  },
+
+  addGroup: (title) => {
+    const newGroup = { id: nanoid(), title };
+
+    set({ groups: [...get().groups, newGroup] });
+  },
+  removeGroup: (id) => {
+    const filtered = get().groups.filter((group) => group.id !== id);
+
+    set({ groups: filtered });
   },
   getProductById: (id) => {
     const product = get().products[id];
