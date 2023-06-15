@@ -2,6 +2,7 @@ export default (set, get) => ({
   products: [
     { id: 1, productTemplateId: 1, count: 50 },
     { id: 2, productTemplateId: 2, count: 20 },
+    { id: 3, productTemplateId: 2, count: 19 },
   ],
 
   getProductById: (productId) => {
