@@ -2,17 +2,30 @@ export default (set, get) => ({
   items: [
     { id: 1, groupId: 1, productId: 1 },
     { id: 2, groupId: 2, productId: 2 },
+    { id: 3, groupId: 2, dishId: 1 },
   ],
 
   getGroupItems: () => {
-    const { getProductById } = get();
+    const { getProductById, getDishById } = get();
 
     return get().items.map((item) => {
-      const product = getProductById(item.productId);
-      return {
+      let common = {
         groupId: item.groupId,
-        ...product,
       };
+
+      if (item.productId) {
+        const product = getProductById(item.productId);
+        return {
+          ...common,
+          ...product,
+        };
+      } else {
+        const dish = getDishById(item.dishId);
+        return {
+          ...common,
+          ...dish,
+        };
+      }
     });
   },
   removeItemsByGroupId: (itemId) => {
