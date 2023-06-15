@@ -1,5 +1,5 @@
 export default (set, get) => ({
-  items: [
+  groupItems: [
     { id: 1, groupId: 1, productId: 1 },
     { id: 2, groupId: 2, productId: 2 },
     { id: 3, groupId: 2, dishId: 1 },
@@ -8,7 +8,7 @@ export default (set, get) => ({
   getGroupItems: () => {
     const { getProductById, getDishById } = get();
 
-    return get().items.map((item) => {
+    return get().groupItems.map((item) => {
       let common = {
         groupId: item.groupId,
       };
@@ -37,7 +37,7 @@ export default (set, get) => ({
       set({ products: filteredProducts });
     };
 
-    const filteredItems = get().items.filter((item) => {
+    const filteredItems = get().groupItems.filter((item) => {
       if (item.groupId === itemId) {
         removeProductById(item.productId);
         return false;
@@ -45,6 +45,6 @@ export default (set, get) => ({
       return true;
     });
 
-    set({ items: filteredItems });
+    set({ groupItems: filteredItems });
   },
 });
