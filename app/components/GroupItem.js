@@ -11,7 +11,7 @@ function GroupItem({ group, items }) {
     <div className="group-item">
       <div className="header">
         <div className="title">{group.title}</div>
-        <Amount />
+        <Amount items={filteredItems} />
         <button onClick={(e) => removeGroup(group.id)}>Удалить</button>
       </div>
       <ItemList items={filteredItems} />
