@@ -4,7 +4,7 @@ function GroupItem({ group }) {
   const removeGroup = useGroups((state) => state.removeGroup);
 
   return (
-    <div>
+    <div className="group-item">
       {group.title}
       <button onClick={(e) => removeGroup(group.id)}>Удалить</button>
     </div>
