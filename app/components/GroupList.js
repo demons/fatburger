@@ -12,7 +12,7 @@ function GroupList() {
   ));
 
   return (
-    <div>
+    <div className="group-list">
       <div className="groups">{renderedGroups}</div>
       <AddGroupForm />
     </div>
