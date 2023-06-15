@@ -11,3 +11,9 @@
 .group-item:last-child {
   margin-bottom: 0;
 }
+
+.amount {
+  border: 1px solid black;
+  margin-bottom: 5px;
+  padding: 10px;
+}
