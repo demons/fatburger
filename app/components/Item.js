@@ -1,5 +1,5 @@
-function Item() {
-  return <div>Item</div>;
+function Item({ data }) {
+  return <div>{data.title}</div>;
 }
 
 export default Item;

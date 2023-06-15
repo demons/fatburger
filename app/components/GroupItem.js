@@ -12,7 +12,7 @@ function GroupItem({ group }) {
         <Amount />
         <button onClick={(e) => removeGroup(group.id)}>Удалить</button>
       </div>
-      <ItemList />
+      <ItemList groupId={group.id} />
     </div>
   );
 }
