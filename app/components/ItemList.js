@@ -6,7 +6,9 @@ function ItemList({ groupId }) {
     state.items.filter((item) => item.groupId === groupId)
   );
 
-  const renderedItems = items.map((item) => <Item key={item.id} data={item} />);
+  const renderedItems = items.map((item, index) => (
+    <Item key={item.id} data={item} index={index + 1} />
+  ));
 
   return <div>{renderedItems}</div>;
 }

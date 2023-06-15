@@ -1,10 +1,14 @@
 import { useProducts } from "../store";
 
-function Item({ data }) {
+function Item({ data, index }) {
   const { productId } = data;
   const { title } = useProducts((state) => state.getProductById(productId));
 
-  return <div>{title}</div>;
+  return (
+    <div>
+      {index}. {title}
+    </div>
+  );
 }
 
 export default Item;
