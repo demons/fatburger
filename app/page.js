@@ -1,3 +1,6 @@
+"use client";
+
+import AddGroupForm from "./components/AddGroupForm";
 import GroupList from "./components/GroupList";
 
 export default function GroupListPage() {
@@ -5,6 +8,7 @@ export default function GroupListPage() {
     <main>
       <h1>Список групп</h1>
       <GroupList />
+      <AddGroupForm />
     </main>
   );
 }

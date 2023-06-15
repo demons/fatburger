@@ -1,7 +1,6 @@
 "use client";
 
 import { useGroups } from "../store";
-import AddGroupForm from "./AddGroupForm";
 import GroupItem from "./GroupItem";
 
 function GroupList() {
@@ -11,12 +10,7 @@ function GroupList() {
     <GroupItem key={group.id} group={group} />
   ));
 
-  return (
-    <div className="group-list">
-      <div className="groups">{renderedGroups}</div>
-      <AddGroupForm />
-    </div>
-  );
+  return <div className="group-list">{renderedGroups}</div>;
 }
 
 export default GroupList;
