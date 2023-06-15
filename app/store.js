@@ -20,7 +20,14 @@ export const useGroups = create((set, get) => ({
 
 export const useItems = create((set, get) => ({
   items: [
-    { id: 1, groupId: 1, title: "Лук" },
-    { id: 2, groupId: 2, title: "Морковь" },
+    { id: 1, groupId: 1, productId: 1 },
+    { id: 2, groupId: 2, productId: 2 },
+  ],
+}));
+
+export const useProducts = create((set, get) => ({
+  products: [
+    { id: 1, productTemplateId: 1, count: 50 },
+    { id: 2, productTemplateId: 2, count: 20 },
   ],
 }));
