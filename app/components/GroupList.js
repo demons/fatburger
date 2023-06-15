@@ -1,13 +1,13 @@
 "use client";
 
 import { useGroups } from "../store";
-import GroupItem from "./GroupItem";
+import Group from "./Group";
 
 function GroupList({ items }) {
   const groups = useGroups((state) => state.groups);
 
   const renderedGroups = groups.map((group) => (
-    <GroupItem key={group.id} group={group} items={items} />
+    <Group key={group.id} group={group} items={items} />
   ));
 
   return <div className="group-list">{renderedGroups}</div>;
