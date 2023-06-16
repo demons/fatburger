@@ -1,11 +1,11 @@
 import GroupItem from "./GroupItem";
 
-function GroupItemList({ items }) {
-  const renderedItems = items.map((item, index) => (
-    <GroupItem key={item.id} item={item} index={index + 1} />
+function GroupItemList({ groupItems }) {
+  const renderedGroupItems = groupItems.map((groupItem, index) => (
+    <GroupItem key={groupItem.id} groupItem={groupItem} index={index + 1} />
   ));
 
-  return <div>{renderedItems}</div>;
+  return <div>{renderedGroupItems}</div>;
 }
 
 export default GroupItemList;

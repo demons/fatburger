@@ -1,7 +1,7 @@
-function GroupItem({ item, index }) {
+function GroupItem({ groupItem, index }) {
   return (
     <div>
-      {index}. {item.title}
+      {index}. {groupItem.title}
     </div>
   );
 }

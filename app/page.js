@@ -14,7 +14,7 @@ export default function GroupListPage() {
     <main>
       <h1>Список групп</h1>
       <Amount items={groupItems} />
-      <GroupList items={groupItems} />
+      <GroupList groupItems={groupItems} />
       <AddGroupForm />
     </main>
   );
