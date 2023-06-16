@@ -1,23 +1,23 @@
 export default (set, get) => ({
   groupItems: [
-    { id: 1, groupId: 1, productId: 1 },
-    { id: 2, groupId: 2, productId: 2 },
+    { id: 1, groupId: 1, ingredientId: 1 },
+    { id: 2, groupId: 2, ingredientId: 2 },
     { id: 3, groupId: 2, dishId: 1 },
   ],
 
   getGroupItems: () => {
-    const { getProductById, getDishById } = get();
+    const { getIngredientById, getDishById } = get();
 
     return get().groupItems.map((item) => {
       let common = {
         groupId: item.groupId,
       };
 
-      if (item.productId) {
-        const product = getProductById(item.productId);
+      if (item.ingredientId) {
+        const ingredient = getIngredientById(item.ingredientId);
         return {
           ...common,
-          ...product,
+          ...ingredient,
         };
       } else {
         const dish = getDishById(item.dishId);
@@ -29,17 +29,17 @@ export default (set, get) => ({
     });
   },
   removeItemsByGroupId: (itemId) => {
-    const removeProductById = (productId) => {
-      const filteredProducts = get().products.filter(
-        (product) => product.id !== productId
+    const removeIngredientById = (ingredientId) => {
+      const filteredIngredients = get().ingredients.filter(
+        (ingredient) => ingredient.id !== ingredientId
       );
 
-      set({ products: filteredProducts });
+      set({ ingredients: filteredIngredients });
     };
 
     const filteredItems = get().groupItems.filter((item) => {
       if (item.groupId === itemId) {
-        removeProductById(item.productId);
+        removeIngredientById(item.ingredientId);
         return false;
       }
       return true;

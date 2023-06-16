@@ -1,23 +1,25 @@
 export default (set, get) => ({
-  products: [
+  ingredients: [
     { id: 1, productTemplateId: 1, count: 50 },
     { id: 2, productTemplateId: 2, count: 20 },
     { id: 3, productTemplateId: 2, count: 19 },
   ],
 
-  getProductById: (productId) => {
-    const product = get().products.find((product) => product.id === productId);
+  getIngredientById: (ingredientId) => {
+    const ingredient = get().ingredients.find(
+      (ingredient) => ingredient.id === ingredientId
+    );
 
-    if (!product) {
+    if (!ingredient) {
       return null;
     }
 
     const { id: _, ...productTemplate } = get().productTemplates.find(
-      (productTemplate) => productTemplate.id === product.productTemplateId
+      (productTemplate) => productTemplate.id === ingredient.productTemplateId
     );
 
     return {
-      ...product,
+      ...ingredient,
       ...productTemplate,
     };
   },
