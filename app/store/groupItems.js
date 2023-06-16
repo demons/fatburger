@@ -28,6 +28,13 @@ export default (set, get) => ({
       }
     });
   },
+  getGroupItemsByGroupId: (groupId) => {
+    const { getGroupItems } = get();
+
+    const groupItems = getGroupItems();
+
+    return groupItems.filter((groupItem) => groupItem.groupId === groupId);
+  },
   removeItemsByGroupId: (itemId) => {
     const removeIngredientById = (ingredientId) => {
       const filteredIngredients = get().ingredients.filter(

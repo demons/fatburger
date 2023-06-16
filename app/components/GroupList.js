@@ -3,11 +3,11 @@
 import { useGroups } from "../store";
 import Group from "./Group";
 
-function GroupList({ groupItems }) {
+function GroupList() {
   const groups = useGroups((state) => state.groups);
 
   const renderedGroups = groups.map((group) => (
-    <Group key={group.id} group={group} groupItems={groupItems} />
+    <Group key={group.id} group={group} />
   ));
 
   return <div className="group-list">{renderedGroups}</div>;

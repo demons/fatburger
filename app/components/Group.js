@@ -2,15 +2,13 @@ import { useGroups } from "../store";
 import Amount from "./Amount";
 import GroupItemList from "./GroupItemList";
 
-function Group({ group, groupItems }) {
-  const { removeGroup } = useGroups();
+function Group({ group }) {
+  const { removeGroup, getGroupItemsByGroupId } = useGroups();
 
-  const filteredGroupItems = groupItems.filter(
-    (groupItem) => groupItem.groupId === group.id
-  );
+  const groupItems = getGroupItemsByGroupId(group.id);
 
   let ingredients = [];
-  filteredGroupItems.forEach((groupItem) => {
+  groupItems.forEach((groupItem) => {
     if (groupItem.groupItems) {
       ingredients = [...ingredients, ...groupItem.groupItems];
     } else {
@@ -25,7 +23,7 @@ function Group({ group, groupItems }) {
         <Amount items={ingredients} />
         <button onClick={(e) => removeGroup(group.id)}>Удалить</button>
       </div>
-      <GroupItemList groupItems={filteredGroupItems} />
+      <GroupItemList groupItems={groupItems} />
     </div>
   );
 }
