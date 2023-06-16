@@ -1,11 +1,11 @@
-import Amount from "./Amount";
+import AmountItem from "./AmountItem";
 
 function GroupItem({ groupItem, index }) {
   const ingredients = groupItem.items ? groupItem.items : [groupItem];
 
   return (
     <div>
-      {index}. {groupItem.title} <Amount items={ingredients} />
+      {index}. {groupItem.title} <AmountItem items={ingredients} />
     </div>
   );
 }

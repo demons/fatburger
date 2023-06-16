@@ -1,4 +1,4 @@
-function Amount({ items = [] }) {
+function AmountItem({ items = [] }) {
   const initAmount = {
     energy: 0,
     protein: 0,
@@ -16,13 +16,13 @@ function Amount({ items = [] }) {
   }, initAmount);
 
   return (
-    <div className="amount">
-      <div className="amount-item">Калории: {energy}</div>
-      <div className="amount-item">Белки: {protein}</div>
-      <div className="amount-item">Жиры: {fat}</div>
-      <div className="amount-item">Углеводы: {carb}</div>
+    <div className="amount-item">
+      <div className="field">Калории: {energy}</div>
+      <div className="field">Белки: {protein}</div>
+      <div className="field">Жиры: {fat}</div>
+      <div className="field">Углеводы: {carb}</div>
     </div>
   );
 }
 
-export default Amount;
+export default AmountItem;

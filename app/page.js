@@ -1,7 +1,7 @@
 "use client";
 
 import AddGroupForm from "./components/AddGroupForm";
-import Amount from "./components/Amount";
+import AmountItem from "./components/AmountItem";
 import GroupList from "./components/GroupList";
 import { useGroups } from "./store";
 
@@ -13,7 +13,7 @@ export default function GroupListPage() {
   return (
     <main>
       <h1>Список групп</h1>
-      <Amount items={ingredients} />
+      <AmountItem items={ingredients} />
       <GroupList />
       <AddGroupForm />
     </main>

@@ -1,5 +1,5 @@
 import { useGroups } from "../store";
-import Amount from "./Amount";
+import AmountItem from "./AmountItem";
 import GroupItemList from "./GroupItemList";
 
 function Group({ group }) {
@@ -14,7 +14,7 @@ function Group({ group }) {
     <div className="group-item">
       <div className="header">
         <div className="title">{group.title}</div>
-        <Amount items={ingredients} />
+        <AmountItem items={ingredients} />
         <button onClick={(e) => removeGroup(group.id)}>Удалить</button>
       </div>
       <GroupItemList groupItems={groupItems} />

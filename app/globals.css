@@ -12,7 +12,7 @@
   margin-bottom: 0;
 }
 
-.amount {
+.amount-item {
   display: flex;
   justify-content: space-evenly;
   border: 1px solid black;
