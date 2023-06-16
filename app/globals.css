@@ -2,14 +2,20 @@
   border: 1px solid black;
 }
 
-.group-item {
+.group {
   border: 1px solid red;
   margin-bottom: 5px;
   padding: 10px;
 }
 
-.group-item:last-child {
+.group:last-child {
   margin-bottom: 0;
+}
+
+.group .header {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
 }
 
 .amount-item {
@@ -18,10 +24,4 @@
   border: 1px solid black;
   margin-bottom: 5px;
   padding: 10px;
-}
-
-.group-item .header {
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
 }

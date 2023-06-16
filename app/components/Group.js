@@ -11,7 +11,7 @@ function Group({ group }) {
   let ingredients = getIngredientsByGroupId(group.id);
 
   return (
-    <div className="group-item">
+    <div className="group">
       <div className="header">
         <div className="title">{group.title}</div>
         <AmountItem items={ingredients} />
