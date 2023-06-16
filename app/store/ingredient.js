@@ -23,4 +23,19 @@ export default (set, get) => ({
       ...product,
     };
   },
+
+  getIngredientsByGroupId: (groupId) => {
+    const { getGroupItemsByGroupId } = get();
+
+    const groupItems = getGroupItemsByGroupId(groupId);
+
+    let ingredients = [];
+    return groupItems.forEach((groupItem) => {
+      if (groupItem.groupItems) {
+        ingredients = [...ingredients, ...groupItem.groupItems];
+      } else {
+        ingredients = [...ingredients, groupItem];
+      }
+    });
+  },
 });

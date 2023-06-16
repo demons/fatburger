@@ -3,18 +3,12 @@ import Amount from "./Amount";
 import GroupItemList from "./GroupItemList";
 
 function Group({ group }) {
-  const { removeGroup, getGroupItemsByGroupId } = useGroups();
+  const { removeGroup, getGroupItemsByGroupId, getIngredientsByGroupId } =
+    useGroups();
 
   const groupItems = getGroupItemsByGroupId(group.id);
 
-  let ingredients = [];
-  groupItems.forEach((groupItem) => {
-    if (groupItem.groupItems) {
-      ingredients = [...ingredients, ...groupItem.groupItems];
-    } else {
-      ingredients = [...ingredients, groupItem];
-    }
-  });
+  let ingredients = getIngredientsByGroupId(group.id);
 
   return (
     <div className="group-item">
