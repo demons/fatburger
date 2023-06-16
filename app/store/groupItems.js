@@ -35,15 +35,15 @@ export default (set, get) => ({
 
     return groupItems.filter((groupItem) => groupItem.groupId === groupId);
   },
-  removeItemsByGroupId: (itemId) => {
+  removeItemsByGroupId: (groupId) => {
     const { groupItems, removeIngredientById, removeDish } = get();
 
     const filteredGroupItems = groupItems.filter(
-      (groupItem) => groupItem.groupId !== itemId
+      (groupItem) => groupItem.groupId !== groupId
     );
 
     groupItems
-      .filter((groupItem) => groupItem.groupId === itemId)
+      .filter((groupItem) => groupItem.groupId === groupId)
       .forEach((groupItem) => {
         if (groupItem.ingredientId) {
           removeIngredientById(groupItem.ingredientId);
