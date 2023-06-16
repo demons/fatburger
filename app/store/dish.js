@@ -32,4 +32,26 @@ export default (set, get) => ({
       items: filteredDishItems,
     };
   },
+  removeDish: (dishId) => {
+    const { dishes, removeDishItemsByDishId } = get();
+
+    const filteredDishes = dishes.filter((dish) => dish.id !== dishId);
+
+    removeDishItemsByDishId(dishId);
+
+    set({ dishes: filteredDishes });
+  },
+  removeDishItemsByDishId: (dishId) => {
+    const { dishItems, removeIngredientById } = get();
+
+    const filteredDishItems = dishItems.filter(
+      (dishItem) => dishItem.dishId !== dishId
+    );
+
+    dishItems
+      .filter((dishItem) => dishItem.dishId === dishId)
+      .forEach((dishItem) => removeIngredientById(dishItem.ingredientId));
+
+    set({ dishItems: filteredDishItems });
+  },
 });

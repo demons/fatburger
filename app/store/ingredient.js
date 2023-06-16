@@ -42,4 +42,11 @@ export default (set, get) => ({
       }
     });
   },
+  removeIngredientById: (ingredientId) => {
+    const filteredIngredients = get().ingredients.filter(
+      (ingredient) => ingredient.id !== ingredientId
+    );
+
+    set({ ingredients: filteredIngredients });
+  },
 });
