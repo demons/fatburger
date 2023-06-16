@@ -10,7 +10,7 @@
 .group .header {
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-between;
 }
 
 .amount-item {
@@ -22,5 +22,6 @@
 
 .group-item .header {
   display: flex;
+  align-items: center;
   justify-content: space-between;
 }
