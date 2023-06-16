@@ -44,13 +44,15 @@ export default (set, get) => ({
   removeDishItemsByDishId: (dishId) => {
     const { dishItems, removeIngredientById } = get();
 
-    const filteredDishItems = dishItems.filter(
-      (dishItem) => dishItem.dishId !== dishId
-    );
+    const filteredDishItems = dishItems.filter((dishItem) => {
+      if (dishItem.dishId !== dishId) {
+        return true;
+      }
 
-    dishItems
-      .filter((dishItem) => dishItem.dishId === dishId)
-      .forEach((dishItem) => removeIngredientById(dishItem.ingredientId));
+      removeIngredientById(dishItem.ingredientId);
+
+      return false;
+    });
 
     set({ dishItems: filteredDishItems });
   },

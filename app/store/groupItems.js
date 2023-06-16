@@ -38,19 +38,19 @@ export default (set, get) => ({
   removeItemsByGroupId: (groupId) => {
     const { groupItems, removeIngredientById, removeDish } = get();
 
-    const filteredGroupItems = groupItems.filter(
-      (groupItem) => groupItem.groupId !== groupId
-    );
+    const filteredGroupItems = groupItems.filter((groupItem) => {
+      if (groupItem.groupId !== groupId) {
+        return true;
+      }
 
-    groupItems
-      .filter((groupItem) => groupItem.groupId === groupId)
-      .forEach((groupItem) => {
-        if (groupItem.ingredientId) {
-          removeIngredientById(groupItem.ingredientId);
-        } else if (groupItem.dishId) {
-          removeDish(groupItem.dishId);
-        }
-      });
+      if (groupItem.ingredientId) {
+        removeIngredientById(groupItem.ingredientId);
+      } else if (groupItem.dishId) {
+        removeDish(groupItem.dishId);
+      }
+
+      return false;
+    });
 
     set({ groupItems: filteredGroupItems });
   },
