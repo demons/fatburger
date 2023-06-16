@@ -1,5 +1,5 @@
 export default (set, get) => ({
-  productTemplates: [
+  products: [
     {
       id: 1,
       title: "Морковь",
