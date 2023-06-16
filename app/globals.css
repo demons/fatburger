@@ -7,7 +7,7 @@
   margin-bottom: 0;
 }
 
-.group .header {
+.group > .header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -20,7 +20,7 @@
   padding: 10px;
 }
 
-.group-item .header {
+.group-item > .header {
   display: flex;
   align-items: center;
   justify-content: space-between;
