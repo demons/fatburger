@@ -1,6 +1,11 @@
 .group {
   border: 1px solid black;
   margin-bottom: 5px;
+  cursor: pointer;
+}
+
+.group:hover {
+  background-color: #eee;
 }
 
 .group:last-child {
