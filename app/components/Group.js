@@ -3,8 +3,7 @@ import AmountItem from "./AmountItem";
 import GroupItemList from "./GroupItemList";
 
 function Group({ group }) {
-  const { removeGroup, getGroupItemsByGroupId, getIngredientsByGroupId } =
-    useGroups();
+  const { getGroupItemsByGroupId, getIngredientsByGroupId } = useGroups();
 
   const groupItems = getGroupItemsByGroupId(group.id);
 
