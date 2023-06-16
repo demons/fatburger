@@ -8,19 +8,19 @@ export default (set, get) => ({
   getGroupItems: () => {
     const { getIngredientById, getDishById } = get();
 
-    return get().groupItems.map((item) => {
+    return get().groupItems.map((groupItem) => {
       let common = {
-        groupId: item.groupId,
+        groupId: groupItem.groupId,
       };
 
-      if (item.ingredientId) {
-        const ingredient = getIngredientById(item.ingredientId);
+      if (groupItem.ingredientId) {
+        const ingredient = getIngredientById(groupItem.ingredientId);
         return {
           ...common,
           ...ingredient,
         };
       } else {
-        const dish = getDishById(item.dishId);
+        const dish = getDishById(groupItem.dishId);
         return {
           ...common,
           ...dish,
