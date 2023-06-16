@@ -6,16 +6,16 @@ export default (set, get) => ({
   dishItems: [{ id: 1, dishId: 1, ingredientId: 3 }],
 
   getDishById: (dishId) => {
-    const { getIngredientById } = get();
+    const { dishes, dishItems, getIngredientById } = get();
 
-    const dish = get().dishes.find((dish) => dish.id === dishId);
+    const dish = dishes.find((dish) => dish.id === dishId);
 
     if (!dish) {
       return null;
     }
 
-    const filteredDishItems = get()
-      .dishItems.filter((dishItem) => dishItem.dishId === dishId)
+    const filteredDishItems = dishItems
+      .filter((dishItem) => dishItem.dishId === dishId)
       .map((dishItem) => {
         const { id: _, ...ingredient } = getIngredientById(
           dishItem.ingredientId

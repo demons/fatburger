@@ -6,7 +6,9 @@ export default (set, get) => ({
   ],
 
   getIngredientById: (ingredientId) => {
-    const ingredient = get().ingredients.find(
+    const { ingredients, products } = get();
+
+    const ingredient = ingredients.find(
       (ingredient) => ingredient.id === ingredientId
     );
 
@@ -14,7 +16,7 @@ export default (set, get) => ({
       return null;
     }
 
-    const { id: _, ...product } = get().products.find(
+    const { id: _, ...product } = products.find(
       (product) => product.id === ingredient.productId
     );
 
@@ -43,7 +45,9 @@ export default (set, get) => ({
     });
   },
   removeIngredientById: (ingredientId) => {
-    const filteredIngredients = get().ingredients.filter(
+    const { ingredients } = get();
+
+    const filteredIngredients = ingredients.filter(
       (ingredient) => ingredient.id !== ingredientId
     );
 

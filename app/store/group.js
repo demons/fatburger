@@ -7,13 +7,17 @@ export default (set, get) => ({
   ],
 
   addGroup: (title) => {
+    const { groups } = get();
+
     const newGroup = { id: nanoid(), title };
 
-    set({ groups: [...get().groups, newGroup] });
+    set({ groups: [...groups, newGroup] });
   },
   removeGroup: (groupId) => {
-    get().removeItemsByGroupId(groupId);
-    const filtered = get().groups.filter((group) => group.id !== groupId);
+    const { groups, removeItemsByGroupId } = get();
+
+    removeItemsByGroupId(groupId);
+    const filtered = groups.filter((group) => group.id !== groupId);
 
     set({ groups: filtered });
   },
