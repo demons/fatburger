@@ -15,7 +15,6 @@ function Group({ group }) {
       <div className="header">
         <div className="title">{group.title}</div>
         <AmountItem items={ingredients} />
-        <button onClick={(e) => removeGroup(group.id)}>Удалить</button>
       </div>
       <GroupItemList groupItems={groupItems} />
     </div>
