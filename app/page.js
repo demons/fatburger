@@ -8,13 +8,13 @@ import { useGroups } from "./store";
 export default function GroupListPage() {
   const { getGroupItems } = useGroups();
 
-  const items = getGroupItems();
+  const groupItems = getGroupItems();
 
   return (
     <main>
       <h1>Список групп</h1>
-      <Amount items={items} />
-      <GroupList items={items} />
+      <Amount items={groupItems} />
+      <GroupList items={groupItems} />
       <AddGroupForm />
     </main>
   );
