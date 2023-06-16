@@ -23,7 +23,11 @@ export default (set, get) => ({
       ...product,
     };
   },
+  getIngredients: () => {
+    const { ingredients, getIngredientById } = get();
 
+    return ingredients.map((ingredient) => getIngredientById(ingredient.id));
+  },
   getIngredientsByGroupId: (groupId) => {
     const { getGroupItemsByGroupId } = get();
 

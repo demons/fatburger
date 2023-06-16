@@ -6,14 +6,14 @@ import GroupList from "./components/GroupList";
 import { useGroups } from "./store";
 
 export default function GroupListPage() {
-  const { getGroupItems } = useGroups();
+  const { getIngredients } = useGroups();
 
-  const groupItems = getGroupItems();
+  const ingredients = getIngredients();
 
   return (
     <main>
       <h1>Список групп</h1>
-      <Amount items={groupItems} />
+      <Amount items={ingredients} />
       <GroupList />
       <AddGroupForm />
     </main>
