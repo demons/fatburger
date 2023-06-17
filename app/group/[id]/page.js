@@ -3,9 +3,9 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useGroups } from "@/app/store";
-import AmountItem from "@/app/components/AmountItem";
-import GroupItemList from "@/app/components/GroupItemList";
-import NotFoundPage from "@/app/components/NotFoundPage";
+import AmountItem from "@/components/AmountItem";
+import GroupItemList from "@/components/GroupItemList";
+import NotFoundPage from "@/components/NotFoundPage";
 
 export default function Page({ params }) {
   const router = useRouter();

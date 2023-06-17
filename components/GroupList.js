@@ -1,6 +1,6 @@
 "use client";
 
-import { useGroups } from "../store";
+import { useGroups } from "../app/store";
 import Group from "./Group";
 
 function GroupList() {

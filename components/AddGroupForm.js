@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useGroups } from "../store";
+import { useGroups } from "../app/store";
 
 function AddGroupForm() {
   const [title, setTitle] = useState("");

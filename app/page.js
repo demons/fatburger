@@ -1,8 +1,8 @@
 "use client";
 
-import AddGroupForm from "./components/AddGroupForm";
-import AmountItem from "./components/AmountItem";
-import GroupList from "./components/GroupList";
+import AddGroupForm from "@/components/AddGroupForm";
+import AmountItem from "@/components/AmountItem";
+import GroupList from "@/components/GroupList";
 import { useGroups } from "./store";
 
 export default function GroupListPage() {

@@ -1,6 +1,6 @@
 "use client";
 
-import { useGroups } from "../store";
+import { useGroups } from "../app/store";
 import GroupItem from "./GroupItem";
 
 function GroupItemList({ groupId, isEditable }) {
