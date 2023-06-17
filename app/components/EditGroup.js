@@ -24,7 +24,7 @@ export default function EditGroup({ groupId }) {
         <div className="title">{group.title}</div>
         <AmountItem items={getIngredientsByGroupId(groupId)} />
       </div>
-      <GroupItemList groupId={groupId} />
+      <GroupItemList groupId={groupId} isEditable={true} />
     </div>
   );
 }
