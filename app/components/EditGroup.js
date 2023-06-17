@@ -25,6 +25,10 @@ export default function EditGroup({ groupId }) {
         <AmountItem items={getIngredientsByGroupId(groupId)} />
       </div>
       <GroupItemList groupId={groupId} isEditable={true} />
+      <div className="buttons">
+        <button>Добавить ингредиент</button>
+        <button>Добавить блюдо</button>
+      </div>
     </div>
   );
 }
