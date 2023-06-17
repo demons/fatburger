@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useGroups } from "../store";
 import AmountItem from "./AmountItem";
 import GroupItemList from "./GroupItemList";
+import NotFoundPage from "./NotFoundPage";
 
 export default function EditGroup({ groupId }) {
   const router = useRouter();
@@ -12,24 +13,18 @@ export default function EditGroup({ groupId }) {
   const group = getGroupById(groupId);
 
   if (!group) {
-    content = <div>Группа с id: "{groupId}" не найдена!</div>;
-  } else {
-    content = (
-      <>
-        <AmountItem items={getIngredients()} />
-        <div className="header">
-          <div className="title">{group.title}</div>
-          <AmountItem items={getIngredientsByGroupId(groupId)} />
-        </div>
-        <GroupItemList groupId={groupId} />
-      </>
-    );
+    return <NotFoundPage timeout={1500} />;
   }
 
   return (
     <div className="edit-group">
       <button onClick={() => router.push(`/`)}>Готово</button>
-      {content}
+      <AmountItem items={getIngredients()} />
+      <div className="header">
+        <div className="title">{group.title}</div>
+        <AmountItem items={getIngredientsByGroupId(groupId)} />
+      </div>
+      <GroupItemList groupId={groupId} />
     </div>
   );
 }
