@@ -11,15 +11,25 @@ export default function EditGroup({ groupId }) {
 
   const group = getGroupById(groupId);
 
+  if (!group) {
+    content = <div>Группа с id: "{groupId}" не найдена!</div>;
+  } else {
+    content = (
+      <>
+        <AmountItem items={getIngredients()} />
+        <div className="header">
+          <div className="title">{group.title}</div>
+          <AmountItem items={getIngredientsByGroupId(groupId)} />
+        </div>
+        <GroupItemList groupId={groupId} />
+      </>
+    );
+  }
+
   return (
     <div className="edit-group">
       <button onClick={() => router.push(`/`)}>Готово</button>
-      <AmountItem items={getIngredients()} />
-      <div className="header">
-        <div className="title">{group.title}</div>
-        <AmountItem items={getIngredientsByGroupId(groupId)} />
-      </div>
-      <GroupItemList groupId={groupId} />
+      {content}
     </div>
   );
 }
