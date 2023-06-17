@@ -5,9 +5,7 @@ import GroupItemList from "./GroupItemList";
 
 function Group({ group }) {
   const router = useRouter();
-  const { getGroupItemsByGroupId, getIngredientsByGroupId } = useGroups();
-
-  const groupItems = getGroupItemsByGroupId(group.id);
+  const { getIngredientsByGroupId } = useGroups();
 
   let ingredients = getIngredientsByGroupId(group.id);
 
@@ -17,7 +15,7 @@ function Group({ group }) {
         <div className="title">{group.title}</div>
         <AmountItem items={ingredients} />
       </div>
-      <GroupItemList groupItems={groupItems} />
+      <GroupItemList groupId={group.id} />
     </div>
   );
 }
