@@ -36,13 +36,16 @@ export default (set, get) => ({
     const groupItems = getGroupItemsByGroupId(groupId);
 
     let ingredients = [];
-    return groupItems.forEach((groupItem) => {
-      if (groupItem.groupItems) {
-        ingredients = [...ingredients, ...groupItem.groupItems];
+
+    groupItems.forEach((groupItem) => {
+      if (groupItem.items) {
+        ingredients = [...ingredients, ...groupItem.items];
       } else {
         ingredients = [...ingredients, groupItem];
       }
     });
+
+    return ingredients;
   },
   removeIngredientById: (ingredientId) => {
     const { ingredients } = get();
