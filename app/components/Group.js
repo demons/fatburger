@@ -10,10 +10,13 @@ function Group({ group }) {
   let ingredients = getIngredientsByGroupId(group.id);
 
   return (
-    <div className="group" onClick={() => router.push(`/group/${group.id}`)}>
+    <div className="group">
       <div className="header">
         <div className="title">{group.title}</div>
         <AmountItem items={ingredients} />
+        <button onClick={() => router.push(`/group/${group.id}`)}>
+          Редактировать
+        </button>
         <button onClick={() => removeGroup(group.id)}>Удалить</button>
       </div>
       <GroupItemList groupId={group.id} />
