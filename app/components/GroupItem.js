@@ -8,9 +8,7 @@ function GroupItem({ groupItem, index, isEditable }) {
 
   const buttons = (
     <>
-      <button onClick={() => removeGroupItem(groupItem.id)}>
-        Удалить - {groupItem.id}
-      </button>
+      <button onClick={() => removeGroupItem(groupItem.id)}>Удалить</button>
     </>
   );
 
