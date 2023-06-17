@@ -14,7 +14,7 @@ function Group({ group }) {
       <div className="header">
         <div className="title">{group.title}</div>
         <AmountItem items={ingredients} />
-        <button onClick={() => router.push(`/group/${group.id}`)}>
+        <button onClick={() => router.push(`/groups/${group.id}`)}>
           Редактировать
         </button>
         <button onClick={() => removeGroup(group.id)}>Удалить</button>
