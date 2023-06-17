@@ -14,9 +14,9 @@ export default (set, get) => ({
     set({ groups: [...groups, newGroup] });
   },
   removeGroup: (groupId) => {
-    const { groups, removeItemsByGroupId } = get();
+    const { groups, removeGroupItemsByGroupId } = get();
 
-    removeItemsByGroupId(groupId);
+    removeGroupItemsByGroupId(groupId);
     const filtered = groups.filter((group) => group.id !== groupId);
 
     set({ groups: filtered });
