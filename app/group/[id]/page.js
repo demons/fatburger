@@ -1,3 +1,5 @@
+import EditGroup from "@/app/components/EditGroup";
+
 export default function Page({ params }) {
-  return <div>Group {params.id}</div>;
+  return <EditGroup />;
 }
