@@ -30,3 +30,9 @@
   align-items: center;
   justify-content: space-between;
 }
+
+.edit-group > .header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
