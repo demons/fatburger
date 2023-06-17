@@ -1,3 +1,5 @@
+import { nanoid } from "nanoid";
+
 export default (set, get) => ({
   groupItems: [
     { id: "1", groupId: "1", ingredientId: "1" },
@@ -5,6 +7,19 @@ export default (set, get) => ({
     { id: "3", groupId: "2", dishId: "1" },
   ],
 
+  addGroupItem: (groupId, productId, count) => {
+    const { groupItems, addIngredient } = get();
+
+    const { id: ingredientId } = addIngredient(productId, count);
+
+    const newGroupItem = {
+      id: nanoid(),
+      groupId,
+      ingredientId,
+    };
+
+    set({ groupItems: [...groupItems, newGroupItem] });
+  },
   getGroupItems: () => {
     const { getIngredientById, getDishById } = get();
 
