@@ -1,8 +1,8 @@
 export default (set, get) => ({
   groupItems: [
-    { id: 1, groupId: 1, ingredientId: 1 },
-    { id: 2, groupId: 2, ingredientId: 2 },
-    { id: 3, groupId: 2, dishId: 1 },
+    { id: "1", groupId: "1", ingredientId: "1" },
+    { id: "2", groupId: "2", ingredientId: "2" },
+    { id: "3", groupId: "2", dishId: "1" },
   ],
 
   getGroupItems: () => {

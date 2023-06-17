@@ -2,8 +2,8 @@ import { nanoid } from "nanoid";
 
 export default (set, get) => ({
   groups: [
-    { id: 1, title: "Завтрак" },
-    { id: 2, title: "Обед" },
+    { id: "1", title: "Завтрак" },
+    { id: "2", title: "Обед" },
   ],
 
   addGroup: (title) => {

@@ -1,7 +1,7 @@
 export default (set, get) => ({
   products: [
     {
-      id: 1,
+      id: "1",
       title: "Морковь",
       maker: "Магнит",
       energy: 200,
@@ -10,7 +10,7 @@ export default (set, get) => ({
       carb: 3.4,
     },
     {
-      id: 2,
+      id: "2",
       title: "Картофель",
       maker: "Пятерочка",
       energy: 300,
