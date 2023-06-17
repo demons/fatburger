@@ -35,19 +35,39 @@ export default (set, get) => ({
 
     return groupItems.filter((groupItem) => groupItem.groupId === groupId);
   },
+  _removeGroupItemsChildrend: (groupItem) => {
+    const { removeIngredientById, removeDish } = get();
+
+    if (groupItem.ingredientId) {
+      removeIngredientById(groupItem.ingredientId);
+    } else if (groupItem.dishId) {
+      removeDish(groupItem.dishId);
+    }
+  },
+  removeGroupItem: (groupItemId) => {
+    const { groupItems, _removeGroupItemsChildrend } = get();
+
+    const filteredGroupItems = groupItems.filter((groupItem) => {
+      if (groupItem.id !== groupItemId) {
+        return true;
+      }
+
+      _removeGroupItemsChildrend(groupItem);
+
+      return false;
+    });
+
+    set({ groupItems: filteredGroupItems });
+  },
   removeGroupItemsByGroupId: (groupId) => {
-    const { groupItems, removeIngredientById, removeDish } = get();
+    const { groupItems, _removeGroupItemsChildrend } = get();
 
     const filteredGroupItems = groupItems.filter((groupItem) => {
       if (groupItem.groupId !== groupId) {
         return true;
       }
 
-      if (groupItem.ingredientId) {
-        removeIngredientById(groupItem.ingredientId);
-      } else if (groupItem.dishId) {
-        removeDish(groupItem.dishId);
-      }
+      _removeGroupItemsChildrend(groupItem);
 
       return false;
     });
