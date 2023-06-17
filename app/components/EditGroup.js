@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useGroups } from "../store";
 import AmountItem from "./AmountItem";
@@ -26,7 +27,7 @@ export default function EditGroup({ groupId }) {
       </div>
       <GroupItemList groupId={groupId} isEditable={true} />
       <div className="buttons">
-        <button>Добавить ингредиент</button>
+        <Link href="/product/add">Добавить ингредиент</Link>
         <button>Добавить блюдо</button>
       </div>
     </div>
