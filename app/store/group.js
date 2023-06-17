@@ -21,4 +21,9 @@ export default (set, get) => ({
 
     set({ groups: filtered });
   },
+  getGroupById: (groupId) => {
+    const { groups } = get();
+
+    return groups.find((group) => group.id === groupId);
+  },
 });
