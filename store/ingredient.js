@@ -1,3 +1,5 @@
+import { nanoid } from "nanoid";
+
 export default (set, get) => ({
   ingredients: [
     { id: "1", productId: "1", count: 50 },
@@ -5,6 +7,19 @@ export default (set, get) => ({
     { id: "3", productId: "2", count: 19 },
   ],
 
+  addIngredient: (productId, count) => {
+    const { ingredients } = get();
+
+    const newIngredient = {
+      id: nanoid(),
+      productId,
+      count,
+    };
+
+    set({ ingredients: [...ingredients, newIngredient] });
+
+    return newIngredient;
+  },
   getIngredientById: (ingredientId) => {
     const { ingredients, products } = get();
 
