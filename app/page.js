@@ -3,7 +3,7 @@
 import AddGroupForm from "@/components/AddGroupForm";
 import AmountItem from "@/components/AmountItem";
 import GroupList from "@/components/GroupList";
-import { useGroups } from "./store";
+import { useGroups } from "@/store";
 
 export default function GroupListPage() {
   const { getIngredients } = useGroups();

@@ -1,5 +1,5 @@
 import { useRouter } from "next/navigation";
-import { useGroups } from "../app/store";
+import { useGroups } from "@/store";
 import AmountItem from "./AmountItem";
 import GroupItemList from "./GroupItemList";
 

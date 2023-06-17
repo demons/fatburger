@@ -1,4 +1,4 @@
-import { useGroups } from "../app/store";
+import { useGroups } from "@/store";
 import AmountItem from "./AmountItem";
 
 function GroupItem({ groupItem, index, isEditable }) {

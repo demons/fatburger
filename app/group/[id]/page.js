@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useGroups } from "@/app/store";
+import { useGroups } from "@/store";
 import AmountItem from "@/components/AmountItem";
 import GroupItemList from "@/components/GroupItemList";
 import NotFoundPage from "@/components/NotFoundPage";
