@@ -1,3 +1,9 @@
-export default function EditGroup() {
-  return "GroupItemList";
+import GroupItemList from "./GroupItemList";
+
+export default function EditGroup({ groupId }) {
+  return (
+    <div>
+      <GroupItemList groupId={groupId} />
+    </div>
+  );
 }
