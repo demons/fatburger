@@ -1,8 +1,8 @@
 export default (set, get) => ({
   ingredients: [
-    { id: 1, productId: 1, count: 50 },
-    { id: 2, productId: 2, count: 20 },
-    { id: 3, productId: 2, count: 19 },
+    { id: "1", productId: "1", count: 50 },
+    { id: "2", productId: "2", count: 20 },
+    { id: "3", productId: "2", count: 19 },
   ],
 
   getIngredientById: (ingredientId) => {
