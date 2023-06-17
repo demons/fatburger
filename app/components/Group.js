@@ -5,7 +5,7 @@ import GroupItemList from "./GroupItemList";
 
 function Group({ group }) {
   const router = useRouter();
-  const { getIngredientsByGroupId } = useGroups();
+  const { getIngredientsByGroupId, removeGroup } = useGroups();
 
   let ingredients = getIngredientsByGroupId(group.id);
 
@@ -14,6 +14,7 @@ function Group({ group }) {
       <div className="header">
         <div className="title">{group.title}</div>
         <AmountItem items={ingredients} />
+        <button onClick={() => removeGroup(group.id)}>Удалить</button>
       </div>
       <GroupItemList groupId={group.id} />
     </div>
