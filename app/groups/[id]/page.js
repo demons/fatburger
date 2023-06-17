@@ -28,7 +28,9 @@ export default function Page({ params }) {
       </div>
       <GroupItemList groupId={groupId} isEditable={true} />
       <div className="buttons">
-        <Link href="/product/add">Добавить ингредиент</Link>
+        <Link href={`/groups/${groupId}/addIngredient`}>
+          Добавить ингредиент
+        </Link>
         <button>Добавить блюдо</button>
       </div>
     </div>
