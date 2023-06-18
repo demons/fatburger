@@ -1,10 +1,12 @@
 "use client";
 
 import { useGroups } from "@/store";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function Page({ params }) {
   const [dish, setDish] = useState({ ingredients: [] });
+  const router = useRouter();
 
   const { groupId, dishTemplateId } = params;
   const { createDishFromDishTemplate, getProductById } = useGroups();
@@ -20,6 +22,10 @@ export default function Page({ params }) {
     setDish({ ...dish });
   };
 
+  const handleCancel = () => {
+    router.push(`/groups/${groupId}`);
+  };
+
   const renderedIngredients = dish.ingredients.map((ingredient) => {
     const product = getProductById(ingredient.productId);
 
@@ -33,6 +39,7 @@ export default function Page({ params }) {
 
   return (
     <div>
+      <button onClick={handleCancel}>Отмена</button>
       {dish.title}
       <div>{renderedIngredients}</div>
     </div>
