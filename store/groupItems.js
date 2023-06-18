@@ -7,16 +7,21 @@ export default (set, get) => ({
     { id: "3", groupId: "2", dishId: "1" },
   ],
 
+  createGroupItem: (groupId, payload) => {
+    return {
+      id: nanoid(),
+      groupId,
+      ...payload,
+    };
+  },
   addGroupItem: (groupId, productId, count) => {
     const { groupItems, ingredients, createIngredient } = get();
 
     const newIngredient = createIngredient(productId, count);
 
-    const newGroupItem = {
-      id: nanoid(),
-      groupId,
+    const newGroupItem = createGroupItem(groupId, {
       ingredientId: newIngredient.id,
-    };
+    });
 
     set({
       ingredients: [...ingredients, newIngredient],
