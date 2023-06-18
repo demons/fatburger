@@ -7,18 +7,12 @@ export default (set, get) => ({
     { id: "3", productId: "2", count: 19 },
   ],
 
-  addIngredient: (productId, count) => {
-    const { ingredients } = get();
-
-    const newIngredient = {
+  createIngredient: (productId, count) => {
+    return {
       id: nanoid(),
       productId,
       count,
     };
-
-    set({ ingredients: [...ingredients, newIngredient] });
-
-    return newIngredient;
   },
   getIngredientById: (ingredientId) => {
     const { ingredients, products } = get();

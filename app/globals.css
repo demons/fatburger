@@ -36,3 +36,13 @@
   align-items: center;
   justify-content: space-between;
 }
+
+.product-item {
+  border: 1px solid black;
+  padding: 10px;
+  margin-bottom: 5px;
+}
+
+.product-item:last-child {
+  margin-bottom: 0;
+}
