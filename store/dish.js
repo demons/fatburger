@@ -54,6 +54,10 @@ export default (set, get) => ({
       ),
     };
   },
+  addDishItem: (dishItem) => {
+    const { dishItems } = get();
+    set({ dishItems: [...dishItems, dishItem] });
+  },
   removeDish: (dishId) => {
     const { dishes, removeDishItemsByDishId } = get();
 
