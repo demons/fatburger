@@ -12,12 +12,16 @@ export default function Page({ params }) {
   const groupId = params.id;
 
   const renderedProducts = products.map((product) => {
-    return <div key={product.id}>{product.title}</div>;
+    return (
+      <div className="product-item" key={product.id}>
+        {product.title}
+      </div>
+    );
   });
 
   return (
     <div>
-      {renderedProducts}
+      <div>{renderedProducts}</div>
       <input
         type="text"
         value={count}
