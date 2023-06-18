@@ -9,7 +9,8 @@ export default function Page({ params }) {
   const router = useRouter();
 
   const { groupId, dishTemplateId } = params;
-  const { createDishFromDishTemplate, getProductById } = useGroups();
+  const { createDishFromDishTemplate, getProductById, addDishToGroup } =
+    useGroups();
 
   useEffect(() => {
     setDish(createDishFromDishTemplate(dishTemplateId));
@@ -20,6 +21,14 @@ export default function Page({ params }) {
       (ingredient) => ingredient.id !== ingredientId
     );
     setDish({ ...dish });
+  };
+
+  const handleReady = () => {
+    // Add dish to the store
+    addDishToGroup(groupId, dish);
+
+    // Redirect
+    router.push(`/groups/${groupId}`);
   };
 
   const handleCancel = () => {
@@ -39,6 +48,7 @@ export default function Page({ params }) {
 
   return (
     <div>
+      <button onClick={handleReady}>Готово</button>
       <button onClick={handleCancel}>Отмена</button>
       {dish.title}
       <div>{renderedIngredients}</div>
