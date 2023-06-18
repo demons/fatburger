@@ -19,4 +19,10 @@ export default (set, get) => ({
       carb: 1.5,
     },
   ],
+
+  getProductById: (productId) => {
+    const { products } = get();
+
+    return products.find((product) => product.id === productId);
+  },
 });
