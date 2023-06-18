@@ -58,6 +58,25 @@ export default (set, get) => ({
     const { dishItems } = get();
     set({ dishItems: [...dishItems, dishItem] });
   },
+  addDish: (dish) => {
+    const { dishes, addDishItem, addIngredient } = get();
+
+    dish.ingredients.forEach((ingredient) => {
+      // Add ingredient
+      addIngredient(ingredient);
+
+      // Add dishItem
+      const newDishItem = {
+        id: nanoid(),
+        dishId: dish.id,
+        ingredientId: ingredient.id,
+      };
+      addDishItem(newDishItem);
+    });
+
+    // Add dish
+    set({ dishes: [...dishes, dish] });
+  },
   removeDish: (dishId) => {
     const { dishes, removeDishItemsByDishId } = get();
 
