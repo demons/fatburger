@@ -16,8 +16,19 @@ export default function Page({ params }) {
     input.current.select();
   }, []);
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    addGroupItem(groupId, productId, count);
+    router.push(`/groups/${groupId}`);
+  };
+
+  const handleCancelClick = () => {
+    router.push(`/groups/${groupId}/products`);
+  };
+
   return (
-    <div>
+    <form onSubmit={handleSubmit}>
       <input
         type="number"
         ref={input}
@@ -25,18 +36,10 @@ export default function Page({ params }) {
         onChange={(e) => setCount(e.target.value)}
         autoFocus
       />
-      <button
-        onClick={() => {
-          addGroupItem(groupId, productId, count);
-
-          router.push(`/groups/${groupId}`);
-        }}
-      >
-        Добавить
-      </button>
-      <button onClick={() => router.push(`/groups/${groupId}/products`)}>
+      <button type="submit">Добавить</button>
+      <button type="button" onClick={handleCancelClick}>
         Отмена
       </button>
-    </div>
+    </form>
   );
 }
