@@ -7,4 +7,12 @@ export default (set, get) => ({
     { id: "1", dishTemplateId: "1", productId: "1" },
     { id: "2", dishTemplateId: "2", productId: "2" },
   ],
+
+  getDishTemplateById: (dishTemplateId) => {
+    const { dishTemplates } = get();
+
+    return dishTemplates.find(
+      (dishTemplate) => dishTemplate.id === dishTemplateId
+    );
+  },
 });
