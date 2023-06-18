@@ -15,4 +15,11 @@ export default (set, get) => ({
       (dishTemplate) => dishTemplate.id === dishTemplateId
     );
   },
+  getDishTemplateItemsByDishTemplateId: (dishTemplateId) => {
+    const { dishTemplateItems } = get();
+
+    return dishTemplateItems.filter(
+      (dishTemplateItem) => dishTemplateItem.dishTemplateId === dishTemplateId
+    );
+  },
 });
