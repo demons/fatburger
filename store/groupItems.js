@@ -28,6 +28,17 @@ export default (set, get) => ({
       groupItems: [...groupItems, newGroupItem],
     });
   },
+  addDishToGroup: (groupId, dish) => {
+    const { groupItems, addDish, createGroupItem } = get();
+
+    addDish(dish);
+
+    const newGroupItem = createGroupItem(groupId, {
+      dishId: dish.id,
+    });
+
+    set({ groupItems: [...groupItems, newGroupItem] });
+  },
   getGroupItems: () => {
     const { getIngredientById, getDishById } = get();
 
