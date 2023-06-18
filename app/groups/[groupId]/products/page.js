@@ -1,41 +1,24 @@
 "use client";
 
 import { useGroups } from "@/store";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import Link from "next/link";
 
 export default function Page({ params }) {
-  const { products, addGroupItem } = useGroups();
-  const [count, setCount] = useState(0);
-  const router = useRouter();
+  const { products } = useGroups();
 
   const { groupId } = params;
 
   const renderedProducts = products.map((product) => {
     return (
-      <div className="product-item" key={product.id}>
+      <Link
+        className="product-item"
+        key={product.id}
+        href={`/groups/${groupId}/products/${product.id}`}
+      >
         {product.title}
-      </div>
+      </Link>
     );
   });
 
-  return (
-    <div>
-      <div>{renderedProducts}</div>
-      <input
-        type="text"
-        value={count}
-        onChange={(e) => setCount(e.target.value)}
-      />
-      <button
-        onClick={() => {
-          addGroupItem(groupId, "1", count);
-
-          router.push(`/groups/${groupId}`);
-        }}
-      >
-        Добавить
-      </button>
-    </div>
-  );
+  return <div>{renderedProducts}</div>;
 }
