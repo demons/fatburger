@@ -35,7 +35,11 @@ export default (set, get) => ({
     };
   },
   createDishFromDishTemplate: (dishTemplateId) => {
-    const { getDishTemplateById, getDishTemplateItemsByDishTemplateId } = get();
+    const {
+      getDishTemplateById,
+      getDishTemplateItemsByDishTemplateId,
+      createIngredient,
+    } = get();
 
     const dishTemplate = getDishTemplateById(dishTemplateId);
     const dishTemplateItems =
@@ -45,11 +49,9 @@ export default (set, get) => ({
     return {
       id: dishId,
       title: dishTemplate.title,
-      items: dishTemplateItems.map(({ productId }) => ({
-        id: nanoid(),
-        dishId,
-        productId,
-      })),
+      ingredients: dishTemplateItems.map(({ productId }) =>
+        createIngredient(productId, 0)
+      ),
     };
   },
   removeDish: (dishId) => {
