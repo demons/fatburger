@@ -15,7 +15,8 @@ export default (set, get) => ({
     };
   },
   addGroupItem: (groupId, productId, count) => {
-    const { groupItems, ingredients, createIngredient } = get();
+    const { groupItems, ingredients, createIngredient, createGroupItem } =
+      get();
 
     const newIngredient = createIngredient(productId, count);
 
