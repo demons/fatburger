@@ -9,7 +9,7 @@ export default function Page({ params }) {
   const [count, setCount] = useState(0);
   const router = useRouter();
 
-  const groupId = params.id;
+  const { groupId } = params;
 
   const renderedProducts = products.map((product) => {
     return (

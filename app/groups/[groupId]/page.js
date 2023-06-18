@@ -11,7 +11,7 @@ export default function Page({ params }) {
   const router = useRouter();
   const { getGroupById, getIngredientsByGroupId, getIngredients } = useGroups();
 
-  const groupId = params.id;
+  const { groupId } = params;
   const group = getGroupById(groupId);
 
   if (!group) {
