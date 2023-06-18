@@ -1,3 +1,5 @@
+import { nanoid } from "nanoid";
+
 export default (set, get) => ({
   dishes: [
     { id: "1", title: "Копия печеный картофель" },
@@ -30,6 +32,24 @@ export default (set, get) => ({
     return {
       ...dish,
       items: filteredDishItems,
+    };
+  },
+  createDishFromDishTemplate: (dishTemplateId) => {
+    const { getDishTemplateById, getDishTemplateItemsByDishTemplateId } = get();
+
+    const dishTemplate = getDishTemplateById(dishTemplateId);
+    const dishTemplateItems =
+      getDishTemplateItemsByDishTemplateId(dishTemplateId);
+
+    const dishId = nanoid();
+    return {
+      id: dishId,
+      title: dishTemplate.title,
+      items: dishTemplateItems.map(({ productId }) => ({
+        id: nanoid(),
+        dishId,
+        productId,
+      })),
     };
   },
   removeDish: (dishId) => {
