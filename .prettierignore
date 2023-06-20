@@ -1,5 +1,5 @@
 build
 coverage
-.next
+.next/
 *.md
-node_modules
+node_modules/
