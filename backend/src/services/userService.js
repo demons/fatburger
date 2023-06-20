@@ -1,16 +1,16 @@
-const bcrypt = require('bcrypt');
-const uuid = require('uuid');
-const { User } = require('../db/models');
-const mailService = require('./mailService');
-const tokenService = require('./tokenService');
-const UserDto = require('../dtos/userDto');
-const ApiError = require('../error/apiError');
+const bcrypt = require("bcrypt");
+const uuid = require("uuid");
+const { User } = require("../db/models");
+// const mailService = require("./mailService");
+const tokenService = require("./tokenService");
+const UserDto = require("../dtos/userDto");
+const ApiError = require("../error/apiError");
 
 class UserService {
   async registration(email, password) {
     const candidate = await User.findOne({ where: { email } });
     if (candidate) {
-      throw ApiError.badRequest('Пользователь с таким адресом уже существует');
+      throw ApiError.badRequest("Пользователь с таким адресом уже существует");
     }
     const hashedPassword = await bcrypt.hash(password, 10);
     const activationLink = uuid.v4();
@@ -20,10 +20,12 @@ class UserService {
       password: hashedPassword,
       activationLink,
     });
-    await mailService.sendActivationMail(
-      email,
-      `${process.env.API_URL}/api/activate/${activationLink}`
-    );
+
+    // Отправка ключа для активации на почту
+    // await mailService.sendActivationMail(
+    //   email,
+    //   `${process.env.API_URL}/api/activate/${activationLink}`
+    // );
 
     const userDto = new UserDto(user);
     const tokens = tokenService.generateTokens({ ...userDto });
@@ -35,7 +37,7 @@ class UserService {
   async activate(activationLink) {
     const user = await User.findOne({ where: { activationLink } });
     if (!user) {
-      throw ApiError.badRequest('Некорректная ссылка активации');
+      throw ApiError.badRequest("Некорректная ссылка активации");
     }
     user.isActivated = true;
     await user.save();
@@ -44,11 +46,11 @@ class UserService {
   async login(email, password) {
     const user = await User.findOne({ where: { email } });
     if (!user) {
-      throw ApiError.badRequest('Пользователь с таким email не найден');
+      throw ApiError.badRequest("Пользователь с таким email не найден");
     }
     const isPassEquals = await bcrypt.compare(password, user.password);
     if (!isPassEquals) {
-      throw ApiError.badRequest('Неверный email или пароль');
+      throw ApiError.badRequest("Неверный email или пароль");
     }
     const userDto = new UserDto(user);
     const tokens = tokenService.generateTokens({ ...userDto });
@@ -61,7 +63,7 @@ class UserService {
     // Проверяем токен
     const userInfo = await tokenService.validateGoogleToken(token);
     if (!userInfo) {
-      throw ApiError.badRequest('Неверный google token');
+      throw ApiError.badRequest("Неверный google token");
     }
 
     // Ищем пользователя с googleId
@@ -71,7 +73,7 @@ class UserService {
     if (!user) {
       user = await User.create({
         googleId: userInfo.sub,
-        email: userInfo.email || '',
+        email: userInfo.email || "",
         isActivated: userInfo.email_verified || false,
         picture: userInfo.picture,
         name: userInfo.name,
