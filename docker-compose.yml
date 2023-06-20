@@ -19,6 +19,7 @@ services:
     restart: always
     volumes:
       - ./backend:/code
+      - /code/node_modules
 
   frontend:
     build:
