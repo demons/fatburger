@@ -1,13 +1,8 @@
-FROM python:3.11-alpine
-
+FROM node:18-alpine
 WORKDIR /code
 
-COPY ./requirements.txt /code/requirements.txt
+COPY ./package*.json .
 
-RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
+RUN npm install
 
-# COPY ./app /code/app
-
-# CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
-CMD ["uvicorn", "app.main:app", "--reload", "--host", "0.0.0.0", "--port", "8000"]
-# CMD "/bin/bash"
+CMD ["npm", "run", "dev"]
