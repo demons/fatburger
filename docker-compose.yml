@@ -3,7 +3,7 @@ version: "3.6"
 services:
   proxy:
     image: nginx:stable-alpine
-    restart: always
+    restart: unless-stopped
     ports:
       - ${PROXY_PORT}:80
     volumes:
@@ -16,16 +16,37 @@ services:
     build:
       context: backend
       dockerfile: Dockerfile
-    restart: always
+    restart: unless-stopped
+    environment:
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
     volumes:
       - ./backend:/code
       - /code/node_modules
+    depends_on:
+      - db
 
   frontend:
     build:
       context: frontend
       dockerfile: Dockerfile
-    restart: always
+    restart: unless-stopped
     volumes:
       - ./frontend:/code
       - /code/node_modules
+
+  # https://habr.com/ru/post/578744/
+  db:
+    image: postgres:14.4-alpine
+    container_name: fatburger_db
+    restart: unless-stopped
+    ports:
+      - ${DB_PORT}:5432
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - /var/lib/postgresql/data
