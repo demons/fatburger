@@ -1,8 +1,8 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../data');
+const { DataTypes } = require("sequelize");
+const sequelize = require("../data");
 
 const Product = sequelize.define(
-  'product',
+  "product",
   {
     title: {
       type: DataTypes.STRING(100),

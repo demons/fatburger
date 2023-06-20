@@ -1,5 +1,5 @@
-'use strict';
-const { Model } = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Token extends Model {
     /**
@@ -11,8 +11,8 @@ module.exports = (sequelize, DataTypes) => {
       const { User, Token } = models;
       Token.belongsTo(User, {
         foreignKey: { allowNull: false },
-        onDelete: 'RESTRICT',
-        onUpdate: 'CASCADE',
+        onDelete: "RESTRICT",
+        onUpdate: "CASCADE",
       });
     }
   }
@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: 'token',
+      modelName: "token",
     }
   );
   return Token;

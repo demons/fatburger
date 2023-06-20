@@ -1,26 +1,25 @@
-
-const { sequelize } = require('./data');
+const { sequelize } = require("./data");
 // const { Group, Product, Ingredient } = require('./models');
-const Group = require('./models/group');
-const Product = require('./models/product');
-const Ingredient = require('./models/ingredient');
-const Subgroup = require('./models/subgroup');
+const Group = require("./models/group");
+const Product = require("./models/product");
+const Ingredient = require("./models/ingredient");
+const Subgroup = require("./models/subgroup");
 
 app.use(cors());
 app.use(bodyParser.json());
 
 app.use((error, req, res, next) => {
-  console.log('Error status: ', error.status);
-  console.log('Message: ', error.message);
+  console.log("Error status: ", error.status);
+  console.log("Message: ", error.message);
   res.status(error.status);
-  res.json({ type: 'error', message: error.message });
+  res.json({ type: "error", message: error.message });
 });
 
-app.get('/', function (req, res) {
-  res.send('hello!');
+app.get("/", function (req, res) {
+  res.send("hello!");
 });
 
-app.get('/groups', async function (req, res) {
+app.get("/groups", async function (req, res) {
   const groups = await Group.findAll({
     include: [
       Ingredient,
@@ -31,10 +30,10 @@ app.get('/groups', async function (req, res) {
     ],
   });
 
-  return res.send({ type: 'success', response: groups });
+  return res.send({ type: "success", response: groups });
 });
 
-app.post('/group', async function (req, res) {
+app.post("/group", async function (req, res) {
   const { title } = req.body;
 
   const group = await Group.create({ title });
@@ -45,10 +44,10 @@ app.post('/group', async function (req, res) {
     subgroups: [],
   };
 
-  return res.send({ type: 'success', response });
+  return res.send({ type: "success", response });
 });
 
-app.put('/group', async function (req, res) {
+app.put("/group", async function (req, res) {
   const { id, changes } = req.body;
 
   const result = await Group.update(
@@ -63,10 +62,10 @@ app.put('/group', async function (req, res) {
     response = { ...response, id };
   }
 
-  return res.send({ type: 'success', response });
+  return res.send({ type: "success", response });
 });
 
-app.delete('/group', async function (req, res) {
+app.delete("/group", async function (req, res) {
   const { id } = req.body;
 
   const result = await Group.destroy({
@@ -78,21 +77,28 @@ app.delete('/group', async function (req, res) {
     response = { ...response, id };
   }
 
-  res.send({ type: 'success', response });
+  res.send({ type: "success", response });
 });
 
-app.get('/products', async function (req, res) {
+app.get("/products", async function (req, res) {
   const products = await Product.findAll();
-  return res.send({ type: 'success', response: products });
+  return res.send({ type: "success", response: products });
 });
 
-app.post('/product', async function (req, res) {
-  const { title, maker = '', energy, protein, fat, carb } = req.body;
-  const product = await Product.create({ title, maker, energy, protein, fat, carb });
-  return res.send({ type: 'success', response: product });
+app.post("/product", async function (req, res) {
+  const { title, maker = "", energy, protein, fat, carb } = req.body;
+  const product = await Product.create({
+    title,
+    maker,
+    energy,
+    protein,
+    fat,
+    carb,
+  });
+  return res.send({ type: "success", response: product });
 });
 
-app.put('/product', async function (req, res) {
+app.put("/product", async function (req, res) {
   const { id, changes } = req.body;
 
   const result = await Product.update(
@@ -107,10 +113,10 @@ app.put('/product', async function (req, res) {
     response = { ...response, id, changes };
   }
 
-  return res.send({ type: 'success', response });
+  return res.send({ type: "success", response });
 });
 
-app.delete('/product', async function (req, res) {
+app.delete("/product", async function (req, res) {
   const { id } = req.body;
 
   const result = await Product.destroy({
@@ -122,10 +128,10 @@ app.delete('/product', async function (req, res) {
     response = { ...response, id };
   }
 
-  return res.send({ type: 'success', response });
+  return res.send({ type: "success", response });
 });
 
-app.post('/patterns', async function (req, res) {
+app.post("/patterns", async function (req, res) {
   const { title, patternId } = req.body;
   res.send({ title, patternId });
 });
@@ -143,25 +149,28 @@ app.post('/patterns', async function (req, res) {
   await sequelize.sync({ force: true });
 
   const product = await Product.create({
-    title: 'Лук',
-    maker: 'Магнит',
+    title: "Лук",
+    maker: "Магнит",
     energy: 50,
     protein: 5.5,
     fat: 2.1,
     carb: 7.0,
   });
 
-  const group = await Group.create({ title: 'Завтрк' });
+  const group = await Group.create({ title: "Завтрк" });
   const subgroup = await Subgroup.create({
-    title: 'Картофель с курицей',
+    title: "Картофель с курицей",
     groupId: group.id,
   });
   // group.addSubgroup(subgroup);
-  const ingredient1 = await Ingredient.create({ count: 50, productId: product.id });
+  const ingredient1 = await Ingredient.create({
+    count: 50,
+    productId: product.id,
+  });
   group.addIngredient(ingredient1);
 
-  const group1 = await Group.create({ title: 'Обед' });
-  const group2 = await Group.create({ title: 'Ужин' });
+  const group1 = await Group.create({ title: "Обед" });
+  const group2 = await Group.create({ title: "Ужин" });
 
   app.listen(8080);
 })();

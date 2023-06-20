@@ -1,14 +1,14 @@
-const ApiError = require('../error/apiError');
-const Group = require('../models/group');
-const Ingredient = require('../models/ingredient');
-const Subgroup = require('../models/subgroup');
+const ApiError = require("../error/apiError");
+const Group = require("../models/group");
+const Ingredient = require("../models/ingredient");
+const Subgroup = require("../models/subgroup");
 
 const include = {
   include: [
-    { model: Ingredient, attributes: ['id', 'productId', 'count'] },
+    { model: Ingredient, attributes: ["id", "productId", "count"] },
     {
       model: Subgroup,
-      include: { model: Ingredient, attributes: ['id', 'productId', 'count'] },
+      include: { model: Ingredient, attributes: ["id", "productId", "count"] },
     },
   ],
 };
@@ -23,7 +23,7 @@ class GroupController {
     const { id } = req.params;
     const group = await Group.findByPk(id, { ...include });
     if (!group) {
-      return next(new ApiError(404, 'group is not found'));
+      return next(new ApiError(404, "group is not found"));
     }
     return res.json(group);
   }
@@ -31,7 +31,7 @@ class GroupController {
   async create(req, res, next) {
     const { title } = req.body;
     if (!title) {
-      return next(new ApiError(400, 'title is required'));
+      return next(new ApiError(400, "title is required"));
     }
     const group = await Group.create({ title });
     return res.json(group);
@@ -55,7 +55,7 @@ class GroupController {
     const { productId, count } = req.body;
     const group = await Group.findByPk(id);
     if (!group) {
-      return next(new ApiError(404, 'group is not found'));
+      return next(new ApiError(404, "group is not found"));
     }
     const ingredient = await Ingredient.create({ productId, count });
     group.addIngredient(ingredient);

@@ -1,10 +1,10 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../data');
+const { DataTypes } = require("sequelize");
+const sequelize = require("../data");
 
-const Ingredient = require('./ingredient');
+const Ingredient = require("./ingredient");
 
 const Subgroup = sequelize.define(
-  'subgroup',
+  "subgroup",
   {
     title: {
       type: DataTypes.STRING(100),
@@ -15,8 +15,8 @@ const Subgroup = sequelize.define(
 );
 
 Subgroup.hasMany(Ingredient, {
-  onDelete: 'CASCADE',
-  onUpdate: 'CASCADE',
+  onDelete: "CASCADE",
+  onUpdate: "CASCADE",
 });
 Ingredient.belongsTo(Subgroup);
 

@@ -1,9 +1,9 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../data');
-const Product = require('./product');
+const { DataTypes } = require("sequelize");
+const sequelize = require("../data");
+const Product = require("./product");
 
 const Set = sequelize.define(
-  'set',
+  "set",
   {
     title: {
       type: DataTypes.STRING(100),
@@ -14,24 +14,24 @@ const Set = sequelize.define(
 );
 
 const SetProducts = sequelize.define(
-  'setProducts',
+  "setProducts",
   {
     setId: {
       type: DataTypes.INTEGER,
-      onDelete: 'RESTRICT',
-      onUpdate: 'RESTRICT',
+      onDelete: "RESTRICT",
+      onUpdate: "RESTRICT",
       references: {
         model: Set,
-        key: 'id',
+        key: "id",
       },
     },
     productId: {
       type: DataTypes.INTEGER,
-      onDelete: 'RESTRICT',
-      onUpdate: 'RESTRICT',
+      onDelete: "RESTRICT",
+      onUpdate: "RESTRICT",
       references: {
         model: Product,
-        key: 'id',
+        key: "id",
       },
     },
   },

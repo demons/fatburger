@@ -1,6 +1,6 @@
-const jwt = require('jsonwebtoken');
-const { OAuth2Client } = require('google-auth-library');
-const { Token } = require('../db/models');
+const jwt = require("jsonwebtoken");
+const { OAuth2Client } = require("google-auth-library");
+const { Token } = require("../db/models");
 
 class TokenService {
   generateTokens(payload) {

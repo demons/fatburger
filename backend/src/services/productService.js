@@ -1,5 +1,5 @@
-const { Product } = require('../db/models');
-const ApiError = require('../error/apiError');
+const { Product } = require("../db/models");
+const ApiError = require("../error/apiError");
 
 class ProductService {
   async create(title, maker, energy, protein, fat, carb) {
@@ -20,7 +20,7 @@ class ProductService {
   async getOne(id) {
     const product = await Product.findByPk(id);
     if (!product) {
-      throw new ApiError(404, 'Продукт с указанным id не найден');
+      throw new ApiError(404, "Продукт с указанным id не найден");
     }
     return product;
   }

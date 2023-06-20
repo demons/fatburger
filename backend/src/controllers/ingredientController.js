@@ -1,5 +1,5 @@
-const ApiError = require('../error/apiError');
-const Ingredient = require('../models/ingredient');
+const ApiError = require("../error/apiError");
+const Ingredient = require("../models/ingredient");
 
 class IngredientController {
   async delete(req, res, next) {

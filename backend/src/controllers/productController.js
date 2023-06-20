@@ -1,6 +1,6 @@
-const ApiError = require('../error/apiError');
-const { validationResult } = require('express-validator');
-const productService = require('../services/productService');
+const ApiError = require("../error/apiError");
+const { validationResult } = require("express-validator");
+const productService = require("../services/productService");
 
 class ProductController {
   async getAll(req, res, next) {
@@ -17,9 +17,11 @@ class ProductController {
   async create(req, res, next) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return next(ApiError.badRequest('Указаны не все параметры', errors.array()));
+      return next(
+        ApiError.badRequest("Указаны не все параметры", errors.array())
+      );
     }
-    const { title, maker = '', energy, protein, fat, carb } = req.body;
+    const { title, maker = "", energy, protein, fat, carb } = req.body;
     const product = await productService.create(
       title,
       maker,

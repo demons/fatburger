@@ -1,16 +1,16 @@
-const userService = require('../services/userService');
-const { validationResult } = require('express-validator');
-const ApiError = require('../error/apiError');
+const userService = require("../services/userService");
+const { validationResult } = require("express-validator");
+const ApiError = require("../error/apiError");
 
 class UserController {
   async registration(req, res, next) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return next(ApiError.badRequest('Ошибка валидации', errors.array()));
+      return next(ApiError.badRequest("Ошибка валидации", errors.array()));
     }
     const { email, password } = req.body;
     const userData = await userService.registration(email, password);
-    res.cookie('refreshToken', userData.refreshToken, {
+    res.cookie("refreshToken", userData.refreshToken, {
       maxAge: 30 * 24 * 60 * 60 * 1000,
       httpOnly: true,
     });
@@ -20,11 +20,11 @@ class UserController {
   async login(req, res, next) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return next(ApiError.badRequest('Ошибка валидации', errors.array()));
+      return next(ApiError.badRequest("Ошибка валидации", errors.array()));
     }
     const { email, password } = req.body;
     const userData = await userService.login(email, password);
-    res.cookie('refreshToken', userData.refreshToken, {
+    res.cookie("refreshToken", userData.refreshToken, {
       maxAge: 30 * 24 * 60 * 60 * 1000,
       httpOnly: true,
     });
@@ -34,11 +34,11 @@ class UserController {
   async logout(req, res, next) {
     const { refreshToken } = req.cookies;
     if (!refreshToken) {
-      return next(ApiError.badRequest('Refresh token не найден'));
+      return next(ApiError.badRequest("Refresh token не найден"));
     }
     await userService.logout(refreshToken);
-    res.clearCookie('refreshToken');
-    return res.json('loged out');
+    res.clearCookie("refreshToken");
+    return res.json("loged out");
   }
 
   async activate(req, res, next) {
@@ -50,13 +50,15 @@ class UserController {
   async loginWithGoogle(req, res, next) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return next(ApiError.badRequest('Указаны не все параметры', errors.array()));
+      return next(
+        ApiError.badRequest("Указаны не все параметры", errors.array())
+      );
     }
     const { credential } = req.body;
     const { refreshToken, ...otherInfo } = await userService.loginWithGoogle(
       credential
     );
-    res.cookie('refreshToken', refreshToken, {
+    res.cookie("refreshToken", refreshToken, {
       maxAge: 30 * 24 * 60 * 60 * 1000,
       httpOnly: true,
     });
@@ -67,7 +69,7 @@ class UserController {
     const { refreshToken, ...otherInfo } = await userService.refresh(
       req.cookies.refreshToken
     );
-    res.cookie('refreshToken', refreshToken, {
+    res.cookie("refreshToken", refreshToken, {
       maxAge: 30 * 24 * 60 * 60 * 1000,
       httpOnly: true,
     });

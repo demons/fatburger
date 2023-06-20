@@ -1,17 +1,17 @@
-const express = require('express');
-const morgan = require('morgan');
-const cookieParser = require('cookie-parser');
-const cors = require('cors');
+const express = require("express");
+const morgan = require("morgan");
+const cookieParser = require("cookie-parser");
+const cors = require("cors");
 
-const db = require('./db/models');
-const router = require('./routes/index');
-const errorHandler = require('./middleware/errorHandler');
+const db = require("./db/models");
+const router = require("./routes/index");
+const errorHandler = require("./middleware/errorHandler");
 
 const PORT = 8000;
 
 const app = express();
 
-app.use(morgan('dev'));
+app.use(morgan("dev"));
 app.use(
   cors({
     credentials: true,
@@ -22,10 +22,10 @@ app.use(
 app.use(express.json());
 app.use(cookieParser());
 
-app.use('/', router);
+app.use("/", router);
 app.use(errorHandler);
 
-process.on('uncaughtException', (err) => {
+process.on("uncaughtException", (err) => {
   console.error(`Uncaught Exception: ${err.message}`);
   process.exit(1);
 });
