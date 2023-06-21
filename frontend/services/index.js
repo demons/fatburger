@@ -11,7 +11,7 @@ export async function fetchBase(url, options = {}) {
   return res.json();
 }
 
-export async function getGroups() {
+export async function fetchGroups() {
   return fetchBase(`/api/groups`);
 }
 
