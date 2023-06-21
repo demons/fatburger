@@ -39,3 +39,14 @@ export async function login(email, password) {
 
   return res.json();
 }
+
+export async function logout() {
+  const res = await fetch(`/api/logout`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  return res.json();
+}
