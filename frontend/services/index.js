@@ -2,6 +2,7 @@ export async function fetchBase(url, options = {}) {
   const res = await fetch(url, options);
 
   if (res.status === 401) {
+    localStorage.removeItem("user");
     location.href = "/login";
   }
 
