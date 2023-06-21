@@ -1,9 +1,16 @@
 import { useState } from "react";
-import { useGroups } from "@/store";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { createGroup } from "@/services";
 
 function AddGroupForm() {
   const [title, setTitle] = useState("");
-  const addGroup = useGroups((state) => state.addGroup);
+  const client = useQueryClient();
+  const { mutate } = useMutation({
+    mutationFn: createGroup,
+    onSuccess: () => {
+      client.invalidateQueries({ queryKey: ["groups"] });
+    },
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -11,7 +18,7 @@ function AddGroupForm() {
       return;
     }
 
-    addGroup(title);
+    mutate(title);
     setTitle("");
   };
 
