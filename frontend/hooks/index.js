@@ -1,5 +1,5 @@
-import { useQuery } from "@tanstack/react-query";
-import { fetchGroups } from "@/services";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { fetchGroups, removeGroup } from "@/services";
 
 export function useGroupsQuery() {
   return useQuery({
@@ -7,6 +7,19 @@ export function useGroupsQuery() {
     queryFn: fetchGroups,
     onError: (e) => {
       alert(e.message);
+    },
+  });
+}
+
+export function useRemoveGroupMutation() {
+  const client = useQueryClient();
+
+  return useMutation({
+    mutationFn: (groupId) => {
+      return removeGroup(groupId);
+    },
+    onSuccess: () => {
+      client.invalidateQueries({ queryKey: ["groups"] });
     },
   });
 }

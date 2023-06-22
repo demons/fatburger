@@ -1,27 +1,31 @@
 import { useRouter } from "next/navigation";
-import { useGroups } from "@/store";
 import AmountItem from "./AmountItem";
 import GroupItemList from "./GroupItemList";
+import { useRemoveGroupMutation } from "@/hooks";
 
-function Group({ group }) {
+export default function Group({ group }) {
   const router = useRouter();
-  const { getIngredientsByGroupId, removeGroup } = useGroups();
+  const { mutate: removeGroup } = useRemoveGroupMutation();
 
-  let ingredients = getIngredientsByGroupId(group.id);
+  const handleEdit = () => {
+    router.push(`/groups/${group.id}`);
+  };
+
+  const handleRemove = () => {
+    removeGroup(group.id);
+  };
 
   return (
     <div className="group">
       <div className="header">
         <div className="title">{group.title}</div>
-        <AmountItem items={ingredients} />
-        <button onClick={() => router.push(`/groups/${group.id}`)}>
-          Редактировать
-        </button>
-        <button onClick={() => removeGroup(group.id)}>Удалить</button>
+        <AmountItem items={group.groupItems} />
+        <div>
+          <button onClick={handleEdit}>Редактировать</button>
+          <button onClick={handleRemove}>Удалить</button>
+        </div>
       </div>
       <GroupItemList groupId={group.id} />
     </div>
   );
 }
-
-export default Group;
