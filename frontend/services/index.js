@@ -19,16 +19,13 @@ export async function fetchBase(path, options = {}) {
 }
 
 export async function fetchGroups() {
-  return fetchBase(`/api/groups`);
+  return fetchBase(`/groups`);
 }
 
 export async function createGroup(title) {
-  return fetch(`/api/groups`, {
+  return fetchBase(`/groups`, {
     method: "POST",
     body: JSON.stringify({ title }),
-    headers: {
-      "Content-Type": "application/json",
-    },
   });
 }
 
