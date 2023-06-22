@@ -55,3 +55,10 @@ export async function logout() {
 
   return res.json();
 }
+
+export async function removeGroup(groupId) {
+  return fetchBase(`/groups/${groupId}`, {
+    method: "DELETE",
+    body: JSON.stringify({ groupId }),
+  });
+}
