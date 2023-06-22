@@ -23,7 +23,8 @@ services:
       - ./backend:/code
       - /code/node_modules
     depends_on:
-      - db
+      db:
+        condition: service_healthy
 
   frontend:
     build:
@@ -41,6 +42,12 @@ services:
     restart: unless-stopped
     ports:
       - ${DB_PORT}:5432
+    healthcheck:
+      test: pg_isready
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
     environment:
       - POSTGRES_DB=${DB_NAME}
       - POSTGRES_USER=${DB_USER}
