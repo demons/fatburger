@@ -1,5 +1,12 @@
-export async function fetchBase(url, options = {}) {
-  const res = await fetch(url, options);
+export async function fetchBase(path, options = {}) {
+  const url = `/api${path}`;
+
+  const res = await fetch(url, {
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
 
   if (res.status === 401) {
     localStorage.removeItem("user");
