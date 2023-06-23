@@ -1,3 +1,5 @@
+const { toBoolean } = require("../utils");
+
 const common = {
   host: "db",
   dialect: "postgres",
@@ -5,7 +7,7 @@ const common = {
   database: process.env.DB_NAME,
   username: process.env.DB_USER,
   password: `${process.env.DB_PASSWORD}`,
-  logging: console.log, // false
+  logging: toBoolean(process.env.DB_LOG),
   use_env_variable: "",
   define: {
     timestamps: false,
