@@ -37,17 +37,43 @@ module.exports = (sequelize, DataTypes) => {
       const rawGroups = await Group.findAll({ raw: true });
 
       const groups = rawGroups.reduce((target, curr) => {
-        target[curr.id] = curr;
-        target[curr.id].groupItems = [];
+        target[curr.id] = {
+          ...curr,
+          groupItems: [],
+          energy: 0,
+          protein: 0,
+          fat: 0,
+          carb: 0,
+        };
         return target;
       }, {});
 
+      const amount = { energy: 0, protein: 0, fat: 0, carb: 0 };
+
       groupItems.forEach((groupItem) => {
         const group = groups[groupItem.groupId];
+
+        // To float
+        groupItem.energy = parseInt(groupItem.energy);
+        groupItem.protein = parseFloat(groupItem.protein);
+        groupItem.fat = parseFloat(groupItem.fat);
+        groupItem.carb = parseFloat(groupItem.carb);
         group.groupItems.push(groupItem);
+
+        // Amount for group
+        group.energy = +(group.energy + groupItem.energy).toFixed(2);
+        group.protein = +(group.protein + groupItem.protein).toFixed(2);
+        group.fat = +(group.fat + groupItem.carb).toFixed(2);
+        group.carb = +(group.carb + groupItem.carb).toFixed(2);
+
+        // Amount for all
+        amount.energy = +(amount.energy + groupItem.energy).toFixed(2);
+        amount.protein = +(amount.protein + groupItem.protein).toFixed(2);
+        amount.fat = +(amount.fat + groupItem.fat).toFixed(2);
+        amount.carb = +(amount.carb + groupItem.carb).toFixed(2);
       });
 
-      return Object.values(groups);
+      return { groups: Object.values(groups), amount };
     }
   }
 
