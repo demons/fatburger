@@ -13,7 +13,12 @@ module.exports = (sequelize, DataTypes) => {
   }
 
   Ingredient.init(
-    {},
+    {
+      count: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+    },
     {
       sequelize,
       modelName: "ingredient",
