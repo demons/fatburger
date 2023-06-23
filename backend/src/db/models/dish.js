@@ -12,7 +12,12 @@ module.exports = (sequelize, DataTypes) => {
   }
 
   Dish.init(
-    {},
+    {
+      title: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+    },
     {
       sequelize,
       modelName: "dish",
