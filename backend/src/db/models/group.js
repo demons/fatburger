@@ -5,8 +5,9 @@ const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Group extends Model {
     static associate(models) {
-      const { Group, Ingredient } = models;
+      const { Group, Ingredient, Dish } = models;
       Group.hasMany(Ingredient, { foreignKey: { allowNull: false } });
+      Group.hasMany(Dish);
     }
   }
 
