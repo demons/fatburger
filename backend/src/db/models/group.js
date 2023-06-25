@@ -108,7 +108,7 @@ module.exports = (sequelize, DataTypes) => {
   Group.init(
     {
       title: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(50),
         allowNull: false,
       },
     },
