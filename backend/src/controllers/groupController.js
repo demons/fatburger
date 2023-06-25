@@ -2,6 +2,7 @@ const ApiError = require("../error/apiError");
 const Group = require("../models/group");
 const Ingredient = require("../models/ingredient");
 const Subgroup = require("../models/subgroup");
+const groupService = require("../services/groupService");
 
 const include = {
   include: [
@@ -33,7 +34,7 @@ class GroupController {
     if (!title) {
       return next(new ApiError(400, "title is required"));
     }
-    const group = await Group.create({ title });
+    const group = await groupService.create(req.user.id, title);
     return res.json(group);
   }
 
