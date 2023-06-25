@@ -1,18 +1,7 @@
 const ApiError = require("../error/apiError");
 const { Group } = require("../db/models");
 const Ingredient = require("../models/ingredient");
-const Subgroup = require("../models/subgroup");
 const groupService = require("../services/groupService");
-
-const include = {
-  include: [
-    { model: Ingredient, attributes: ["id", "productId", "count"] },
-    {
-      model: Subgroup,
-      include: { model: Ingredient, attributes: ["id", "productId", "count"] },
-    },
-  ],
-};
 
 class GroupController {
   async getAll(req, res, next) {
@@ -22,10 +11,7 @@ class GroupController {
 
   async getOne(req, res, next) {
     const { id } = req.params;
-    const group = await Group.findByPk(id, { ...include });
-    if (!group) {
-      return next(new ApiError(404, "group is not found"));
-    }
+    const group = await groupService.getOne(req.user.id, id);
     return res.json(group);
   }
 

@@ -10,6 +10,14 @@ class GroupService {
     return await Group.getGroups(userId);
   }
 
+  async getOne(userId, groupId) {
+    const group = await Group.getGroup(userId, groupId);
+    if (!group) {
+      throw new ApiError(404, "Группа с указанным id не найденаы");
+    }
+    return group;
+  }
+
   async update(userId, groupId, title) {
     return await Group.update({ title }, { where: { id: groupId, userId } });
   }
