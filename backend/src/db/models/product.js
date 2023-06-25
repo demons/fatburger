@@ -4,20 +4,17 @@ const { Model } = require("sequelize");
 
 module.exports = (sequelize, DataTypes) => {
   class Product extends Model {
-    static associate(models) {
-      const { Ingredient, Product } = models;
-      Product.hasOne(Ingredient);
-    }
+    static associate(models) {}
   }
 
   Product.init(
     {
       title: {
-        type: DataTypes.STRING(100),
+        type: DataTypes.STRING(50),
         allowNull: false,
       },
       maker: {
-        type: DataTypes.STRING(100),
+        type: DataTypes.STRING(50),
         allowNull: false,
         defaultValue: "",
       },

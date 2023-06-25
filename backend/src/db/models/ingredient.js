@@ -5,8 +5,12 @@ const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Ingredient extends Model {
     static associate(models) {
-      const { Ingredient, Product, Group, Dish, DishTemplate } = models;
-      Ingredient.belongsTo(Product, { foreignKey: { allowNull: false } });
+      const { Product, Group, Dish, DishTemplate } = models;
+      Ingredient.belongsTo(Product, {
+        foreignKey: { allowNull: false },
+        onUpdate: "CASCADE",
+        onDelete: "RESTRICT",
+      });
       Ingredient.belongsTo(Group);
       Ingredient.belongsTo(Dish);
       Ingredient.belongsTo(DishTemplate);

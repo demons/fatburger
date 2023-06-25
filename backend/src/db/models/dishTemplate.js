@@ -5,16 +5,23 @@ const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class DishTemplate extends Model {
     static associate(models) {
-      const { DishTemplate, Ingredient, User } = models;
-      DishTemplate.hasMany(Ingredient);
-      DishTemplate.belongsTo(User, { foreignKey: { allowNull: false } });
+      const { Ingredient, User } = models;
+      DishTemplate.hasMany(Ingredient, {
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
+      });
+      DishTemplate.belongsTo(User, {
+        foreignKey: { allowNull: false },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
+      });
     }
   }
 
   DishTemplate.init(
     {
       title: {
-        type: DataTypes.STRING(50),
+        type: DataTypes.STRING(60),
         allowNull: false,
       },
     },
