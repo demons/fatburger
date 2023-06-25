@@ -3,29 +3,33 @@
 const { Model } = require("sequelize");
 
 module.exports = (sequelize, DataTypes) => {
-  class Token extends Model {
+  class Dish extends Model {
     static associate(models) {
-      const { User, Token } = models;
-      Token.belongsTo(User, {
+      const { Ingredient, Group } = models;
+      Dish.belongsTo(Group, {
         foreignKey: { allowNull: false },
-        onDelete: "CASCADE",
         onUpdate: "CASCADE",
+        onDelete: "CASCADE",
+      });
+      Dish.hasMany(Ingredient, {
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
       });
     }
   }
 
-  Token.init(
+  Dish.init(
     {
-      refreshToken: {
-        type: DataTypes.STRING,
+      title: {
+        type: DataTypes.STRING(60),
         allowNull: false,
       },
     },
     {
       sequelize,
-      modelName: "token",
+      modelName: "dish",
     }
   );
 
-  return Token;
+  return Dish;
 };
