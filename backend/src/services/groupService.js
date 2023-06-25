@@ -9,6 +9,11 @@ class GroupService {
   async update(userId, groupId, title) {
     return await Group.update({ title }, { where: { id: groupId, userId } });
   }
+
+  async delete(userId, groupId) {
+    const result = await Group.destroy({ where: { id: groupId, userId } });
+    return result;
+  }
 }
 
 module.exports = new GroupService();

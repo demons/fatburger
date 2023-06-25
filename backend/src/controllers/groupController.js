@@ -47,7 +47,7 @@ class GroupController {
 
   async delete(req, res, next) {
     const { id } = req.params;
-    const result = await Group.destroy({ where: { id } });
+    const result = await groupService.delete(req.user.id, id);
     return res.json(result);
   }
 
