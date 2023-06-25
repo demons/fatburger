@@ -11,26 +11,54 @@ module.exports = (sequelize, DataTypes) => {
     }
     static async getGroups() {
       const query = `
-        select d."groupId", d.title, energy, protein, fat, carb, null as ingredientId, d.id as dishId
-        from dishes d
-        join (
-          select "dishId", ROUND(sum(energy * count / 100), 2) as energy, ROUND(sum(protein * count / 100), 2) as protein, ROUND(sum(fat * count / 100), 2) as fat, ROUND(sum(carb * count / 100), 2) as carb from (
-            select i."dishId", i.count, p.energy, p.protein, p.fat, p.carb from ingredients i
-              join products p on p.id = i."productId"
-              where i."dishId" is not null) entries
-          group by "dishId"
-        ) test on test."dishId" = d.id
+        SELECT
+          d."groupId",
+          d.title,
+          energy,
+          protein,
+          fat,
+          carb,
+          NULL AS count,
+          NULL AS ingredientId,
+          d.id AS dishId
+        FROM dishes d
+        LEFT JOIN (
+          SELECT
+            "dishId",
+            ROUND(SUM(energy * count / 100), 2) AS energy,
+            ROUND(SUM(protein * count / 100), 2) AS protein,
+            ROUND(SUM(fat * count / 100), 2) AS fat,
+            ROUND(SUM(carb * count / 100), 2) AS carb
+          FROM (
+            SELECT
+              i."dishId",
+              i.count,
+              p.energy,
+              p.protein,
+              p.fat,
+              p.carb
+            FROM ingredients i
+            LEFT JOIN products p ON p.id = i."productId"
+            WHERE i."dishId" IS NOT NULL
+          ) transformed
+          GROUP BY "dishId"
+        ) amount ON amount."dishId" = d.id
+
         UNION
-        select i."groupId", p.title,
-        ROUND(p.energy * count / 100, 2) as energy,
-        ROUND(p.protein * count / 100, 2) as protein,
-        ROUND(p.fat * count / 100, 2) as fat,
-        ROUND(p.carb * count / 100, 2) as carb,
-        i.id,
-        null
-        from ingredients i
-        join products p on p.id = i."productId"
-        where i."dishId" is null
+          
+        SELECT
+          i."groupId",
+          p.title,
+          ROUND(p.energy * count / 100, 2) AS energy,
+          ROUND(p.protein * count / 100, 2) AS protein,
+          ROUND(p.fat * count / 100, 2) AS fat,
+          ROUND(p.carb * count / 100, 2) AS carb,
+          count,
+          i.id AS ingredientId,
+          NULL AS dishId
+        FROM ingredients i
+        LEFT JOIN products p ON p.id = i."productId"
+        WHERE i."dishId" IS NULL
       `;
       const [groupItems] = await sequelize.query(query);
 
