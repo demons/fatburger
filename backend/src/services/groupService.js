@@ -6,6 +6,10 @@ class GroupService {
     return await Group.create({ userId, title });
   }
 
+  async getAll(userId) {
+    return await Group.getGroups(userId);
+  }
+
   async update(userId, groupId, title) {
     return await Group.update({ title }, { where: { id: groupId, userId } });
   }

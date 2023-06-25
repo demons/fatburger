@@ -1,5 +1,5 @@
 const ApiError = require("../error/apiError");
-const Group = require("../models/group");
+const { Group } = require("../db/models");
 const Ingredient = require("../models/ingredient");
 const Subgroup = require("../models/subgroup");
 const groupService = require("../services/groupService");
@@ -16,7 +16,7 @@ const include = {
 
 class GroupController {
   async getAll(req, res, next) {
-    const groups = await Group.findAll({ ...include });
+    const groups = await groupService.getAll(req.user.id);
     return res.json(groups);
   }
 
