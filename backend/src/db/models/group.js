@@ -2,12 +2,8 @@
 
 const { Model } = require("sequelize");
 
-const getQuery = (userId, groupId) => {
+const getQuery = (userId) => {
   let condition = `"userId" = '${userId}'`;
-
-  if (groupId) {
-    condition += ` AND "groupId" = '${groupId}'`;
-  }
 
   return `
     SELECT
@@ -66,35 +62,48 @@ const getQuery = (userId, groupId) => {
 };
 
 const computeGroups = (rawGroups, groupItems) => {
-  const groups = rawGroups.reduce((target, curr) => {
-    target[curr.id] = {
-      ...curr,
-      groupItems: [],
-      energy: 0,
-      protein: 0,
-      fat: 0,
-      carb: 0,
+  let groups = {};
+  const templateGroup = {
+    groupItems: [],
+    energy: 0,
+    protein: 0,
+    fat: 0,
+    carb: 0,
+  };
+
+  if (Array.isArray(rawGroups)) {
+    groups = rawGroups.reduce((target, curr) => {
+      target[curr.id] = {
+        ...curr,
+        ...templateGroup,
+      };
+      return target;
+    }, {});
+  } else {
+    groups[rawGroups.id] = {
+      ...rawGroups,
+      ...templateGroup,
     };
-    return target;
-  }, {});
+  }
 
   const amount = { energy: 0, protein: 0, fat: 0, carb: 0 };
 
   groupItems.forEach((groupItem) => {
-    const group = groups[groupItem.groupId];
-
     // To float
     groupItem.energy = parseInt(groupItem.energy);
     groupItem.protein = parseFloat(groupItem.protein);
     groupItem.fat = parseFloat(groupItem.fat);
     groupItem.carb = parseFloat(groupItem.carb);
-    group.groupItems.push(groupItem);
 
     // Amount for group
-    group.energy = +(group.energy + groupItem.energy).toFixed(2);
-    group.protein = +(group.protein + groupItem.protein).toFixed(2);
-    group.fat = +(group.fat + groupItem.carb).toFixed(2);
-    group.carb = +(group.carb + groupItem.carb).toFixed(2);
+    if (groups[groupItem.groupId]) {
+      const group = groups[groupItem.groupId];
+      group.energy = +(group.energy + groupItem.energy).toFixed(2);
+      group.protein = +(group.protein + groupItem.protein).toFixed(2);
+      group.fat = +(group.fat + groupItem.carb).toFixed(2);
+      group.carb = +(group.carb + groupItem.carb).toFixed(2);
+      group.groupItems.push(groupItem);
+    }
 
     // Amount for all
     amount.energy = +(amount.energy + groupItem.energy).toFixed(2);
@@ -103,7 +112,7 @@ const computeGroups = (rawGroups, groupItems) => {
     amount.carb = +(amount.carb + groupItem.carb).toFixed(2);
   });
 
-  return { groups, amount };
+  return { result: groups, amount };
 };
 
 module.exports = (sequelize, DataTypes) => {
@@ -132,28 +141,35 @@ module.exports = (sequelize, DataTypes) => {
         raw: true,
       });
 
-      const { groups, amount } = computeGroups(rawGroups, groupItems);
+      if (!rawGroup) {
+        return null;
+      }
 
-      return { groups: Object.values(groups), amount };
+      const { result, amount } = computeGroups(rawGroups, groupItems);
+
+      return { groups: Object.values(result), amount };
     }
 
     static async getGroup(userId, groupId) {
       // Get GroupItems
-      const query = getQuery(userId, groupId);
+      const query = getQuery(userId);
       const [groupItems] = await sequelize.query(query);
 
-      // Get Groups
-      const rawGroups = await Group.findAll({
+      // Get Group
+      const rawGroup = await Group.findByPk(groupId, {
         where: {
           userId,
-          id: groupId,
         },
         raw: true,
       });
 
-      const { groups, amount } = computeGroups(rawGroups, groupItems);
+      if (!rawGroup) {
+        return null;
+      }
 
-      return { groups: Object.values(groups), amount };
+      const { result, amount } = computeGroups(rawGroup, groupItems);
+
+      return { group: Object.values(result)[0], amount };
     }
   }
 
