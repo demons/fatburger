@@ -41,7 +41,7 @@ class GroupController {
   async update(req, res, next) {
     const { id } = req.params;
     const { title } = req.body;
-    const group = await Group.update({ title }, { where: { id } });
+    const group = await groupService.update(req.user.id, id, title);
     return res.json(group);
   }
 
