@@ -1,6 +1,4 @@
 const ApiError = require("../error/apiError");
-const { Group } = require("../db/models");
-const Ingredient = require("../models/ingredient");
 const groupService = require("../services/groupService");
 
 class GroupController {
@@ -40,13 +38,8 @@ class GroupController {
   async addIngredient(req, res, next) {
     const { id } = req.params;
     const { productId, count } = req.body;
-    const group = await Group.findByPk(id);
-    if (!group) {
-      return next(new ApiError(404, "group is not found"));
-    }
-    const ingredient = await Ingredient.create({ productId, count });
-    group.addIngredient(ingredient);
-    return res.json();
+    const ingredient = groupService.addIngredient(id, productId, count);
+    return res.json(ingredient);
   }
 }
 

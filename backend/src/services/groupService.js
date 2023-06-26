@@ -1,4 +1,4 @@
-const { Group } = require("../db/models");
+const { Group, Ingredient } = require("../db/models");
 const ApiError = require("../error/apiError");
 
 class GroupService {
@@ -25,6 +25,11 @@ class GroupService {
   async delete(userId, groupId) {
     const result = await Group.destroy({ where: { id: groupId, userId } });
     return result;
+  }
+
+  async addIngredient(groupId, productId, count) {
+    const ingredient = await Ingredient.create({ groupId, productId, count });
+    return ingredient;
   }
 }
 
