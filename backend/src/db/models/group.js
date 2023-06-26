@@ -141,7 +141,7 @@ module.exports = (sequelize, DataTypes) => {
         raw: true,
       });
 
-      if (!rawGroup) {
+      if (!rawGroups) {
         return null;
       }
 
