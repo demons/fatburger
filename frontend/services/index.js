@@ -68,3 +68,9 @@ export async function deleteDish(groupId, dishId) {
     method: "DELETE",
   });
 }
+
+export async function deleteIngredientFromGroup(groupId, ingredientId) {
+  return fetchBase(`/groups/${groupId}/ingredients/${ingredientId}`, {
+    method: "DELETE",
+  });
+}

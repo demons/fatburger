@@ -1,8 +1,9 @@
-import { useDeleteDish } from "@/hooks";
+import { useDeleteDish, useDeleteIngredientFromGroup } from "@/hooks";
 import AmountItem from "./AmountItem";
 
 function GroupItem({ groupItem, index }) {
   const { mutate: deleteDish } = useDeleteDish();
+  const { mutate: deleteIngredient } = useDeleteIngredientFromGroup();
   const { energy, protein, fat, carb } = groupItem;
   const amount = { energy, protein, fat, carb };
 
@@ -11,7 +12,7 @@ function GroupItem({ groupItem, index }) {
     if (dishId) {
       deleteDish({ groupId, dishId });
     } else if (ingredientId) {
-      console.log("Удаляем ингредиент");
+      deleteIngredient({ groupId, ingredientId });
     }
   };
 

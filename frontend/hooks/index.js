@@ -1,5 +1,10 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteDish, fetchGroups, removeGroup } from "@/services";
+import {
+  deleteDish,
+  deleteIngredientFromGroup,
+  fetchGroups,
+  removeGroup,
+} from "@/services";
 
 export function useGroupsQuery() {
   return useQuery({
@@ -30,6 +35,19 @@ export function useDeleteDish() {
   return useMutation({
     mutationFn: ({ groupId, dishId }) => {
       return deleteDish(groupId, dishId);
+    },
+    onSuccess: () => {
+      client.invalidateQueries({ queryKey: ["groups"] });
+    },
+  });
+}
+
+export function useDeleteIngredientFromGroup() {
+  const client = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ groupId, ingredientId }) => {
+      return deleteIngredientFromGroup(groupId, ingredientId);
     },
     onSuccess: () => {
       client.invalidateQueries({ queryKey: ["groups"] });
