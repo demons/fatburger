@@ -36,9 +36,14 @@ class GroupController {
   }
 
   async addIngredient(req, res, next) {
-    const { id } = req.params;
+    const { groupId } = req.params;
     const { productId, count } = req.body;
-    const ingredient = groupService.addIngredient(id, productId, count);
+    const ingredient = await groupService.addIngredient(
+      req.user.id,
+      groupId,
+      productId,
+      count
+    );
     return res.json(ingredient);
   }
 

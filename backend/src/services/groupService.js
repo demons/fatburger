@@ -27,7 +27,11 @@ class GroupService {
     return result;
   }
 
-  async addIngredient(groupId, productId, count) {
+  async addIngredient(userId, groupId, productId, count) {
+    const group = await Group.findOne({ where: { id: groupId, userId } });
+    if (!group) {
+      throw new ApiError(404, "Группа с указанным id не найдена");
+    }
     const ingredient = await Ingredient.create({ groupId, productId, count });
     return ingredient;
   }
