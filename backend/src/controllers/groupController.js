@@ -53,6 +53,16 @@ class GroupController {
     );
     return res.json(result);
   }
+
+  async deleteIngredient(req, res, next) {
+    const { groupId, ingredientId } = req.params;
+    const result = groupService.deleteIngredient(
+      req.user.id,
+      groupId,
+      ingredientId
+    );
+    return res.json(result);
+  }
 }
 
 module.exports = new GroupController();
