@@ -2,6 +2,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   deleteDish,
   deleteIngredientFromGroup,
+  fetchGroup,
   fetchGroups,
   removeGroup,
 } from "@/services";
@@ -10,6 +11,16 @@ export function useGroupsQuery() {
   return useQuery({
     queryKey: ["groups"],
     queryFn: fetchGroups,
+    onError: (e) => {
+      alert(e.message);
+    },
+  });
+}
+
+export function useGroupQuery(groupId) {
+  return useQuery({
+    queryKey: ["group"],
+    queryFn: () => fetchGroup(groupId),
     onError: (e) => {
       alert(e.message);
     },

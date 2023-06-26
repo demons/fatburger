@@ -22,6 +22,10 @@ export async function fetchGroups() {
   return fetchBase(`/groups`);
 }
 
+export async function fetchGroup(groupId) {
+  return fetchBase(`/groups/${groupId}`);
+}
+
 export async function createGroup(title) {
   return fetchBase(`/groups`, {
     method: "POST",

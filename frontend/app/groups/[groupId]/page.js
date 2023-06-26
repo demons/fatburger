@@ -2,31 +2,42 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useGroups } from "@/store";
 import AmountItem from "@/components/AmountItem";
 import GroupItemList from "@/components/GroupItemList";
 import NotFoundPage from "@/components/NotFoundPage";
+import { useGroupQuery } from "@/hooks";
 
 export default function Page({ params }) {
-  const router = useRouter();
-  const { getGroupById, getIngredientsByGroupId, getIngredients } = useGroups();
-
   const { groupId } = params;
-  const group = getGroupById(groupId);
+  const { data, isLoading, isError } = useGroupQuery(groupId);
+  const router = useRouter();
 
-  if (!group) {
+  if (isLoading) {
+    return "Loading...";
+  }
+
+  if (isError) {
     return <NotFoundPage timeout={1500} />;
   }
+
+  const { amount, group } = data;
 
   return (
     <div className="edit-group">
       <button onClick={() => router.push(`/`)}>Готово</button>
-      <AmountItem items={getIngredients()} />
+      <AmountItem amount={amount} />
       <div className="header">
         <div className="title">{group.title}</div>
-        <AmountItem items={getIngredientsByGroupId(groupId)} />
+        <AmountItem
+          amount={{
+            energy: group.energy,
+            protein: group.protein,
+            fat: group.fat,
+            carb: group.carb,
+          }}
+        />
       </div>
-      <GroupItemList groupId={groupId} isEditable={true} />
+      <GroupItemList groupItems={group.groupItems} isEditable={true} />
       <div className="buttons">
         <Link href={`/groups/${groupId}/products`}>Добавить ингредиент</Link>
         <Link href={`/groups/${groupId}/dishTemplates`}>Добавить бюдо</Link>
