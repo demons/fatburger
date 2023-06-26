@@ -27,4 +27,11 @@ router.delete(
   asyncWrapper(groupController.deleteIngredient)
 );
 
+// Dishes
+router.post(
+  "/:groupId/dishes",
+  authMiddleware,
+  asyncWrapper(groupController.addDish)
+);
+
 module.exports = router;

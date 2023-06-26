@@ -69,6 +69,17 @@ class GroupController {
     );
     return res.json(result);
   }
+
+  async addDish(req, res, next) {
+    const { groupId } = req.params;
+    const { dishTemplateId } = req.body;
+    const result = await groupService.addDish(
+      req.user.id,
+      groupId,
+      dishTemplateId
+    );
+    return res.json(result);
+  }
 }
 
 module.exports = new GroupController();

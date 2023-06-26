@@ -1,4 +1,4 @@
-const { Group, Ingredient } = require("../db/models");
+const { Group, Ingredient, DishTemplate, Dish } = require("../db/models");
 const ApiError = require("../error/apiError");
 
 class GroupService {
@@ -55,6 +55,39 @@ class GroupService {
     }
     const result = await Ingredient.destroy({ where: { id: ingredientId } });
     return result;
+  }
+
+  async addDish(userId, groupId, dishTemplateId) {
+    const group = await Group.findOne({ where: { id: groupId, userId } });
+    if (!group) {
+      throw new ApiError(404, "Группа с указанным id не найдена");
+    }
+
+    const dishTemplate = await DishTemplate.findOne({
+      where: { id: dishTemplateId, userId },
+      include: Ingredient,
+    });
+    if (!dishTemplate) {
+      throw new ApiError(404, "Шаблон блюда не найден");
+    }
+
+    const ingredients = dishTemplate
+      .toJSON()
+      .ingredients.map(({ productId, count }) => ({
+        productId,
+        count,
+      }));
+
+    const dish = await Dish.create(
+      {
+        title: dishTemplate.title,
+        groupId,
+        ingredients: ingredients,
+      },
+      { include: [Ingredient] }
+    );
+
+    return dish;
   }
 }
 
