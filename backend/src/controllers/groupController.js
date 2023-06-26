@@ -62,7 +62,7 @@ class GroupController {
 
   async deleteIngredient(req, res, next) {
     const { groupId, ingredientId } = req.params;
-    const result = groupService.deleteIngredient(
+    const result = await groupService.deleteIngredient(
       req.user.id,
       groupId,
       ingredientId

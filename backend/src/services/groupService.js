@@ -1,4 +1,4 @@
-const { Group, Ingredient, sequelize } = require("../db/models");
+const { Group, Ingredient } = require("../db/models");
 const ApiError = require("../error/apiError");
 
 class GroupService {
@@ -49,14 +49,11 @@ class GroupService {
   }
 
   async deleteIngredient(userId, groupId, ingredientId) {
-    const result = await sequelize.query(`
-      DELETE FROM ingredients i
-      WHERE id = (
-        SELECT i.id FROM ingredients i
-        LEFT JOIN groups g ON g.id = ${groupId}
-        WHERE g."userId" = ${userId} AND i.id = ${ingredientId}
-      )
-    `);
+    const group = await Group.findOne({ where: { id: groupId, userId } });
+    if (!group) {
+      throw new ApiError(404, "Группа с указанным id не найдена");
+    }
+    const result = await Ingredient.destroy({ where: { id: ingredientId } });
     return result;
   }
 }
