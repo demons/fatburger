@@ -1,9 +1,11 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
+  addIngredient,
   deleteDish,
   deleteIngredientFromGroup,
   fetchGroup,
   fetchGroups,
+  fetchProducts,
   removeGroup,
 } from "@/services";
 
@@ -21,6 +23,16 @@ export function useGroupQuery(groupId) {
   return useQuery({
     queryKey: ["group"],
     queryFn: () => fetchGroup(groupId),
+    onError: (e) => {
+      alert(e.message);
+    },
+  });
+}
+
+export function useProductsQuery() {
+  return useQuery({
+    queryKey: ["products"],
+    queryFn: fetchProducts,
     onError: (e) => {
       alert(e.message);
     },
@@ -62,6 +74,19 @@ export function useDeleteIngredientFromGroup() {
     },
     onSuccess: () => {
       client.invalidateQueries({ queryKey: ["groups"] });
+    },
+  });
+}
+
+export function useAddIngredient() {
+  const client = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ groupId, productId, count }) => {
+      return addIngredient(groupId, productId, count);
+    },
+    onSuccess: () => {
+      client.invalidateQueries({ queryKey: ["groupps"] });
     },
   });
 }

@@ -78,3 +78,14 @@ export async function deleteIngredientFromGroup(groupId, ingredientId) {
     method: "DELETE",
   });
 }
+
+export async function fetchProducts() {
+  return fetchBase(`/products`);
+}
+
+export async function addIngredient(groupId, productId, count = 0) {
+  return fetchBase(`/groups/${groupId}/ingredients`, {
+    method: "POST",
+    body: JSON.stringify({ productId, count }),
+  });
+}
