@@ -1,22 +1,22 @@
-import { useGroups } from "@/store";
 import AmountItem from "./AmountItem";
 
-function GroupItem({ groupItem, index, isEditable }) {
-  const { removeGroupItem } = useGroups();
+function GroupItem({ groupItem, index }) {
+  const { energy, protein, fat, carb } = groupItem;
+  const amount = { energy, protein, fat, carb };
 
-  const ingredients = groupItem.items ? groupItem.items : [groupItem];
-
-  const buttons = (
-    <>
-      <button onClick={() => removeGroupItem(groupItem.id)}>Удалить</button>
-    </>
-  );
+  const removeGroupItem = () => {
+    if (groupItem.dishId) {
+      console.log("Удаляем блюдо");
+    } else if (groupItem.ingredientId) {
+      console.log("Удаляем ингредиент");
+    }
+  };
 
   return (
     <div className="group-item">
       <div className="header">
-        {index}. {groupItem.title} <AmountItem items={ingredients} />
-        {isEditable && buttons}
+        {index}. {groupItem.title} <AmountItem amount={amount} />
+        <button onClick={removeGroupItem}>Удалить</button>
       </div>
     </div>
   );

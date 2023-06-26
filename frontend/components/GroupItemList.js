@@ -1,19 +1,13 @@
 "use client";
 
-import { useGroups } from "@/store";
 import GroupItem from "./GroupItem";
 
-function GroupItemList({ groupId, isEditable }) {
-  const { getGroupItemsByGroupId } = useGroups();
-
-  const groupItems = getGroupItemsByGroupId(groupId);
-
+function GroupItemList({ groupItems }) {
   const renderedGroupItems = groupItems.map((groupItem, index) => (
     <GroupItem
-      key={groupItem.id}
+      key={groupItem.createdAt}
       groupItem={groupItem}
       index={index + 1}
-      isEditable={isEditable}
     />
   ));
 

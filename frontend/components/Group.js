@@ -7,6 +7,9 @@ export default function Group({ group }) {
   const router = useRouter();
   const { mutate: removeGroup } = useRemoveGroupMutation();
 
+  const { energy, protein, fat, carb, groupItems } = group;
+  const amount = { energy, protein, fat, carb };
+
   const handleEdit = () => {
     router.push(`/groups/${group.id}`);
   };
@@ -19,13 +22,13 @@ export default function Group({ group }) {
     <div className="group">
       <div className="header">
         <div className="title">{group.title}</div>
-        <AmountItem items={group.groupItems} />
+        <AmountItem amount={amount} />
         <div>
           <button onClick={handleEdit}>Редактировать</button>
           <button onClick={handleRemove}>Удалить</button>
         </div>
       </div>
-      <GroupItemList groupId={group.id} />
+      <GroupItemList groupItems={groupItems} />
     </div>
   );
 }
