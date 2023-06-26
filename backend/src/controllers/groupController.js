@@ -1,30 +1,15 @@
 const ApiError = require("../error/apiError");
-const Group = require("../models/group");
-const Ingredient = require("../models/ingredient");
-const Subgroup = require("../models/subgroup");
-
-const include = {
-  include: [
-    { model: Ingredient, attributes: ["id", "productId", "count"] },
-    {
-      model: Subgroup,
-      include: { model: Ingredient, attributes: ["id", "productId", "count"] },
-    },
-  ],
-};
+const groupService = require("../services/groupService");
 
 class GroupController {
   async getAll(req, res, next) {
-    const groups = await Group.findAll({ ...include });
+    const groups = await groupService.getAll(req.user.id);
     return res.json(groups);
   }
 
   async getOne(req, res, next) {
     const { id } = req.params;
-    const group = await Group.findByPk(id, { ...include });
-    if (!group) {
-      return next(new ApiError(404, "group is not found"));
-    }
+    const group = await groupService.getOne(req.user.id, id);
     return res.json(group);
   }
 
@@ -33,33 +18,73 @@ class GroupController {
     if (!title) {
       return next(new ApiError(400, "title is required"));
     }
-    const group = await Group.create({ title });
+    const group = await groupService.create(req.user.id, title);
     return res.json(group);
   }
 
   async update(req, res, next) {
     const { id } = req.params;
     const { title } = req.body;
-    const group = await Group.update({ title }, { where: { id } });
+    const group = await groupService.update(req.user.id, id, title);
     return res.json(group);
   }
 
   async delete(req, res, next) {
     const { id } = req.params;
-    const result = await Group.destroy({ where: { id } });
+    const result = await groupService.delete(req.user.id, id);
     return res.json(result);
   }
 
   async addIngredient(req, res, next) {
-    const { id } = req.params;
+    const { groupId } = req.params;
     const { productId, count } = req.body;
-    const group = await Group.findByPk(id);
-    if (!group) {
-      return next(new ApiError(404, "group is not found"));
-    }
-    const ingredient = await Ingredient.create({ productId, count });
-    group.addIngredient(ingredient);
-    return res.json();
+    const ingredient = await groupService.addIngredient(
+      req.user.id,
+      groupId,
+      productId,
+      count
+    );
+    return res.json(ingredient);
+  }
+
+  async updateIngredient(req, res, next) {
+    const { groupId, ingredientId } = req.params;
+    const { productId, count } = req.body;
+    const result = await groupService.updateIngredient(
+      req.user.id,
+      groupId,
+      ingredientId,
+      productId,
+      count
+    );
+    return res.json(result);
+  }
+
+  async deleteIngredient(req, res, next) {
+    const { groupId, ingredientId } = req.params;
+    const result = await groupService.deleteIngredient(
+      req.user.id,
+      groupId,
+      ingredientId
+    );
+    return res.json(result);
+  }
+
+  async addDish(req, res, next) {
+    const { groupId } = req.params;
+    const { dishTemplateId } = req.body;
+    const result = await groupService.addDish(
+      req.user.id,
+      groupId,
+      dishTemplateId
+    );
+    return res.json(result);
+  }
+
+  async deleteDish(req, res, next) {
+    const { groupId, dishId } = req.params;
+    const result = await groupService.deleteDish(req.user.id, groupId, dishId);
+    return res.json(result);
   }
 }
 

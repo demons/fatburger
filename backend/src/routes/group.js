@@ -9,10 +9,34 @@ router.get("/:id", authMiddleware, asyncWrapper(groupController.getOne));
 router.post("/", authMiddleware, asyncWrapper(groupController.create));
 router.put("/:id", authMiddleware, asyncWrapper(groupController.update));
 router.delete("/:id", authMiddleware, asyncWrapper(groupController.delete));
+
+// Ingredients
 router.post(
-  "/:id/addIngredient",
+  "/:groupId/ingredients",
   authMiddleware,
   asyncWrapper(groupController.addIngredient)
+);
+router.put(
+  "/:groupId/ingredients/:ingredientId",
+  authMiddleware,
+  asyncWrapper(groupController.updateIngredient)
+);
+router.delete(
+  "/:groupId/ingredients/:ingredientId",
+  authMiddleware,
+  asyncWrapper(groupController.deleteIngredient)
+);
+
+// Dishes
+router.post(
+  "/:groupId/dishes",
+  authMiddleware,
+  asyncWrapper(groupController.addDish)
+);
+router.delete(
+  "/:groupId/dishes/:dishId",
+  authMiddleware,
+  asyncWrapper(groupController.deleteDish)
 );
 
 module.exports = router;
