@@ -89,6 +89,15 @@ class GroupService {
 
     return dish;
   }
+
+  async deleteDish(userId, groupId, dishId) {
+    const group = await Group.findOne({ where: { id: groupId, userId } });
+    if (!group) {
+      throw new ApiError(404, "Группа с указанным id не найдена");
+    }
+    const result = await Dish.destroy({ where: { id: dishId } });
+    return result;
+  }
 }
 
 module.exports = new GroupService();

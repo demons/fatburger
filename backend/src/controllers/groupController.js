@@ -80,6 +80,12 @@ class GroupController {
     );
     return res.json(result);
   }
+
+  async deleteDish(req, res, next) {
+    const { groupId, dishId } = req.params;
+    const result = await groupService.deleteDish(req.user.id, groupId, dishId);
+    return res.json(result);
+  }
 }
 
 module.exports = new GroupController();

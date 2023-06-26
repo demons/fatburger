@@ -33,5 +33,10 @@ router.post(
   authMiddleware,
   asyncWrapper(groupController.addDish)
 );
+router.delete(
+  "/:groupId/dishes/:dishId",
+  authMiddleware,
+  asyncWrapper(groupController.deleteDish)
+);
 
 module.exports = router;
