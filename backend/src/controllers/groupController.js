@@ -50,7 +50,7 @@ class GroupController {
   async updateIngredient(req, res, next) {
     const { groupId, ingredientId } = req.params;
     const { productId, count } = req.body;
-    const result = groupService.updateIngredient(
+    const result = await groupService.updateIngredient(
       req.user.id,
       groupId,
       ingredientId,
