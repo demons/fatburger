@@ -62,3 +62,9 @@ export async function removeGroup(groupId) {
     body: JSON.stringify({ groupId }),
   });
 }
+
+export async function deleteDish(groupId, dishId) {
+  return fetchBase(`/groups/${groupId}/dishes/${dishId}`, {
+    method: "DELETE",
+  });
+}
