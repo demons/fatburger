@@ -10,9 +10,14 @@ router.post("/", authMiddleware, asyncWrapper(groupController.create));
 router.put("/:id", authMiddleware, asyncWrapper(groupController.update));
 router.delete("/:id", authMiddleware, asyncWrapper(groupController.delete));
 router.post(
-  "/:id/ingredient",
+  "/:id/ingredients",
   authMiddleware,
   asyncWrapper(groupController.addIngredient)
+);
+router.put(
+  "/:groupId/ingredients/:ingredientId",
+  authMiddleware,
+  asyncWrapper(groupController.updateIngredient)
 );
 
 module.exports = router;

@@ -41,6 +41,18 @@ class GroupController {
     const ingredient = groupService.addIngredient(id, productId, count);
     return res.json(ingredient);
   }
+
+  async updateIngredient(req, res, next) {
+    const { groupId, ingredientId } = req.params;
+    const { productId, count } = req.body;
+    const result = groupService.updateIngredient(
+      groupId,
+      ingredientId,
+      productId,
+      count
+    );
+    return res.json(result);
+  }
 }
 
 module.exports = new GroupController();

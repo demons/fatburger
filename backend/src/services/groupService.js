@@ -31,6 +31,14 @@ class GroupService {
     const ingredient = await Ingredient.create({ groupId, productId, count });
     return ingredient;
   }
+
+  async updateIngredient(groupId, ingredientId, productId, count) {
+    const result = await Ingredient.update(
+      { productId, count },
+      { where: { groupId, id: ingredientId } }
+    );
+    return result;
+  }
 }
 
 module.exports = new GroupService();
