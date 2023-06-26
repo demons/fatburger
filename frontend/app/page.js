@@ -3,18 +3,23 @@
 import AddGroupForm from "@/components/AddGroupForm";
 import AmountItem from "@/components/AmountItem";
 import GroupList from "@/components/GroupList";
-import { useGroups } from "@/store";
+import { useGroupsQuery } from "@/hooks";
 
 export default function GroupListPage() {
-  const { getIngredients } = useGroups();
+  const { data, isLoading, isError } = useGroupsQuery();
 
-  const ingredients = getIngredients();
+  if (isLoading) {
+    return "Loading...";
+  }
+
+  if (isError) {
+    return "Произошла ошибка...";
+  }
 
   return (
     <main>
-      <h1>Список групп</h1>
-      <AmountItem items={ingredients} />
-      <GroupList />
+      <AmountItem amount={data.amount} />
+      <GroupList groups={data.groups} />
       <AddGroupForm />
     </main>
   );
