@@ -46,6 +46,7 @@ class GroupController {
     const { groupId, ingredientId } = req.params;
     const { productId, count } = req.body;
     const result = groupService.updateIngredient(
+      req.user.id,
       groupId,
       ingredientId,
       productId,

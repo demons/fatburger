@@ -32,12 +32,16 @@ class GroupService {
     return ingredient;
   }
 
-  async updateIngredient(groupId, ingredientId, productId, count) {
-    const result = await Ingredient.update(
-      { productId, count },
-      { where: { groupId, id: ingredientId } }
-    );
-    return result;
+  async updateIngredient(userId, groupId, ingredientId, productId, count) {
+    return await sequelize.query(`
+      UPDATE ingredients
+      SET "productId"=${productId}, count=${count}
+      WHERE id = (
+        SELECT i.id FROM ingredients i
+        LEFT JOIN groups g ON g.id = ${groupId}
+        WHERE g."userId" = ${userId} AND i.id = ${ingredientId}
+      )
+    `);
   }
 
   async deleteIngredient(userId, groupId, ingredientId) {
