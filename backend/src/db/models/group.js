@@ -15,7 +15,8 @@ const getQuery = (userId) => {
       carb,
       NULL count,
       NULL "ingredientId",
-      d.id "dishId"
+      d.id "dishId",
+      "createdAt"
     FROM dishes d
     LEFT JOIN (
       SELECT
@@ -52,7 +53,8 @@ const getQuery = (userId) => {
       ROUND(p.carb * count / 100, 2) carb,
       count,
       i.id "ingredientId",
-      NULL "dishId"
+      NULL "dishId",
+      "createdAt"
     FROM ingredients i
     LEFT JOIN products p ON p.id = i."productId"
     WHERE "groupId" IN (
