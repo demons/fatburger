@@ -10,7 +10,7 @@ router.post("/", authMiddleware, asyncWrapper(groupController.create));
 router.put("/:id", authMiddleware, asyncWrapper(groupController.update));
 router.delete("/:id", authMiddleware, asyncWrapper(groupController.delete));
 router.post(
-  "/:id/addIngredient",
+  "/:id/ingredient",
   authMiddleware,
   asyncWrapper(groupController.addIngredient)
 );
