@@ -60,7 +60,7 @@ export function useDeleteDish() {
       return deleteDish(groupId, dishId);
     },
     onSuccess: () => {
-      client.invalidateQueries({ queryKey: ["groups"] });
+      client.invalidateQueries({ queryKey: ["group"] });
     },
   });
 }
@@ -73,7 +73,7 @@ export function useDeleteIngredientFromGroup() {
       return deleteIngredientFromGroup(groupId, ingredientId);
     },
     onSuccess: () => {
-      client.invalidateQueries({ queryKey: ["groups"] });
+      client.invalidateQueries({ queryKey: ["group"] });
     },
   });
 }
