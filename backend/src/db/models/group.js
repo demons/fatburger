@@ -60,6 +60,8 @@ const getQuery = (userId) => {
     WHERE "groupId" IN (
       SELECT id FROM groups WHERE ${condition}
     )
+
+    ORDER BY "createdAt";
   `;
 };
 
