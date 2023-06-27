@@ -10,5 +10,10 @@ router.get(
   authMiddleware,
   asyncWrapper(dishTemplateController.getOne)
 );
+router.delete(
+  "/:dishTemplateId/ingredients/:ingredientId",
+  authMiddleware,
+  asyncWrapper(dishTemplateController.deleteIngredient)
+);
 
 module.exports = router;

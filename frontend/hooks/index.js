@@ -3,6 +3,7 @@ import {
   addIngredient,
   addProduct,
   deleteDish,
+  deleteIngredientFromDishTemplate,
   deleteIngredientFromGroup,
   deleteProduct,
   editIngredient,
@@ -176,6 +177,19 @@ export function useDishTemplateQuery(dishTemplateId) {
     queryFn: () => fetchDishTemplate(dishTemplateId),
     onError: (e) => {
       alert(e.message);
+    },
+  });
+}
+
+export function useDeleteIngredientFromDishTemplate() {
+  const client = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ dishTemplateId, ingredientId }) => {
+      return deleteIngredientFromDishTemplate(dishTemplateId, ingredientId);
+    },
+    onSuccess: () => {
+      client.invalidateQueries({ queryKey: ["dishTemplate"] });
     },
   });
 }

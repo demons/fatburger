@@ -1,7 +1,10 @@
 "use client";
 
 import IngredientList from "@/components/IngredientList";
-import { useDishTemplateQuery } from "@/hooks";
+import {
+  useDeleteIngredientFromDishTemplate,
+  useDishTemplateQuery,
+} from "@/hooks";
 import { useEffect, useState } from "react";
 
 export default function Page({ params }) {
@@ -12,6 +15,7 @@ export default function Page({ params }) {
     isLoading,
     isError,
   } = useDishTemplateQuery(dishTemplateId);
+  const { mutate: deleteIngredient } = useDeleteIngredientFromDishTemplate();
 
   useEffect(() => {
     if (dishTemplate) {
@@ -27,6 +31,10 @@ export default function Page({ params }) {
     return "Произошла ошибка";
   }
 
+  const handleDeleteIngredient = (ingredientId) => {
+    deleteIngredient({ dishTemplateId, ingredientId });
+  };
+
   return (
     <div>
       <input
@@ -34,7 +42,10 @@ export default function Page({ params }) {
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
-      <IngredientList ingredients={dishTemplate.ingredients} />
+      <IngredientList
+        ingredients={dishTemplate.ingredients}
+        onDelete={handleDeleteIngredient}
+      />
     </div>
   );
 }

@@ -15,6 +15,17 @@ class DishTemplateController {
     );
     return res.json(dishTemplate);
   }
+
+  async deleteIngredient(req, res, next) {
+    const { dishTemplateId, ingredientId } = req.params;
+    const result = await dishTemplateService.deleteIngredient(
+      req.user.id,
+      dishTemplateId,
+      ingredientId
+    );
+
+    return res.json(result);
+  }
 }
 
 module.exports = new DishTemplateController();

@@ -136,3 +136,15 @@ export async function fetchDishTemplates() {
 export async function fetchDishTemplate(dishTemplateId) {
   return fetchBase(`/dishTemplates/${dishTemplateId}`);
 }
+
+export async function deleteIngredientFromDishTemplate(
+  dishTemplateId,
+  ingredientId
+) {
+  return fetchBase(
+    `/dishTemplates/${dishTemplateId}/ingredients/${ingredientId}`,
+    {
+      method: "DELETE",
+    }
+  );
+}

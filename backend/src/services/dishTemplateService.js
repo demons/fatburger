@@ -23,6 +23,17 @@ class DishTemplateService {
 
     return result;
   }
+
+  async deleteIngredient(userId, dishTemplateId, ingredientId) {
+    const dishTemplate = await DishTemplate.findOne({
+      where: { userId, id: dishTemplateId },
+    });
+    if (!dishTemplate) {
+      throw new ApiError(404, "Шаблон блюда с указанным id не найден");
+    }
+    const result = await Ingredient.destroy({ where: { id: ingredientId } });
+    return result;
+  }
 }
 
 module.exports = new DishTemplateService();
