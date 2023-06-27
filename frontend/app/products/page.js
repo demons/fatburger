@@ -21,7 +21,12 @@ export default function Page() {
 
   const renderedProducts = products.map((product) => (
     <div key={product.id}>
-      {product.title}
+      <span>{product.title} | </span>
+      {product.maker && <span>{product.maker} | </span>}
+      <span>Калории: {product.energy} | </span>
+      <span>Белки: {product.protein} | </span>
+      <span>Жиры: {product.fat} | </span>
+      <span>Углеводы: {product.carb}</span>
       <button onClick={() => handleDeleteClick(product.id)}>Удалить</button>
     </div>
   ));
