@@ -89,3 +89,10 @@ export async function addIngredient(groupId, productId, count = 0) {
     body: JSON.stringify({ productId, count }),
   });
 }
+
+export async function editIngredient(groupId, ingredientId, productId, count) {
+  return fetchBase(`/groups/${groupId}/ingredients/${ingredientId}`, {
+    method: "PUT",
+    body: JSON.stringify({ productId, count }),
+  });
+}

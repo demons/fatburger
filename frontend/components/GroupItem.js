@@ -1,5 +1,6 @@
 import { useDeleteDish, useDeleteIngredientFromGroup } from "@/hooks";
 import AmountItem from "./AmountItem";
+import EditIngredientForm from "./EditIngredientForm";
 import { useState } from "react";
 
 function GroupItem({ groupItem, index }) {
@@ -10,17 +11,12 @@ function GroupItem({ groupItem, index }) {
   const amount = { energy, protein, fat, carb };
   const { groupId, dishId, ingredientId } = groupItem;
 
-  const handleEditApply = () => {
-    console.log("apply");
-    setState("");
-  };
-
-  const handleEditCancel = () => {
-    setState("");
-  };
-
   const handleEditClick = () => {
     setState("editIngredient");
+  };
+
+  const handleEditApply = () => {
+    setState("");
   };
 
   const deleteGroupItem = () => {
@@ -37,12 +33,11 @@ function GroupItem({ groupItem, index }) {
     case "editIngredient":
       {
         content = (
-          <div>
-            {index}. {groupItem.title}
-            <input type="text" />
-            <button onClick={handleEditApply}>Изменить</button>
-            <button onClick={handleEditCancel}>Отмена</button>
-          </div>
+          <EditIngredientForm
+            groupItem={groupItem}
+            index={index}
+            onApply={handleEditApply}
+          />
         );
       }
       break;

@@ -3,6 +3,7 @@ import {
   addIngredient,
   deleteDish,
   deleteIngredientFromGroup,
+  editIngredient,
   fetchGroup,
   fetchGroups,
   fetchProducts,
@@ -86,7 +87,20 @@ export function useAddIngredient() {
       return addIngredient(groupId, productId, count);
     },
     onSuccess: () => {
-      client.invalidateQueries({ queryKey: ["groupps"] });
+      client.invalidateQueries({ queryKey: ["group"] });
+    },
+  });
+}
+
+export function useEditIngredient() {
+  const client = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ groupId, ingredientId, productId, count }) => {
+      return editIngredient(groupId, ingredientId, productId, count);
+    },
+    onSuccess: () => {
+      client.invalidateQueries({ queryKey: ["group"] });
     },
   });
 }
