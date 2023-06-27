@@ -7,6 +7,7 @@ import {
   deleteProduct,
   editIngredient,
   editProduct,
+  fetchDishTemplates,
   fetchGroup,
   fetchGroups,
   fetchProduct,
@@ -154,6 +155,16 @@ export function useEditProduct() {
     },
     onSuccess: () => {
       client.invalidateQueries({ queryKey: ["product"] });
+    },
+  });
+}
+
+export function useDishTemplatesQuery() {
+  return useQuery({
+    queryKey: ["dishTemplates"],
+    queryFn: fetchDishTemplates,
+    onError: (e) => {
+      alert(e.message);
     },
   });
 }

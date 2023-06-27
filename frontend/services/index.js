@@ -128,3 +128,7 @@ export async function editProduct(
     body: JSON.stringify({ title, maker, energy, protein, fat, carb }),
   });
 }
+
+export async function fetchDishTemplates() {
+  return fetchBase(`/dishTemplates`);
+}
