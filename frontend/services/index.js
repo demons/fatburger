@@ -102,3 +102,10 @@ export async function deleteProduct(productId) {
     method: "DELETE",
   });
 }
+
+export async function addProduct(title, maker, energy, protein, fat, carb) {
+  return fetchBase(`/products`, {
+    method: "POST",
+    body: JSON.stringify({ title, maker, energy, protein, fat, carb }),
+  });
+}

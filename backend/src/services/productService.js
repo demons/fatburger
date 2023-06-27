@@ -2,8 +2,9 @@ const { Product, Ingredient } = require("../db/models");
 const ApiError = require("../error/apiError");
 
 class ProductService {
-  async create(title, maker, energy, protein, fat, carb) {
+  async create(userId, title, maker, energy, protein, fat, carb) {
     return await Product.create({
+      userId,
       title,
       maker,
       energy,

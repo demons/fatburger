@@ -23,6 +23,7 @@ class ProductController {
     }
     const { title, maker = "", energy, protein, fat, carb } = req.body;
     const product = await productService.create(
+      req.user.id,
       title,
       maker,
       energy,

@@ -1,6 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   addIngredient,
+  addProduct,
   deleteDish,
   deleteIngredientFromGroup,
   deleteProduct,
@@ -112,6 +113,19 @@ export function useDeleteProduct() {
   return useMutation({
     mutationFn: ({ productId }) => {
       return deleteProduct(productId);
+    },
+    onSuccess: () => {
+      client.invalidateQueries({ queryKey: ["products"] });
+    },
+  });
+}
+
+export function useAddProduct() {
+  const client = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ title, maker, energy, protein, fat, carb }) => {
+      return addProduct(title, maker, energy, protein, fat, carb);
     },
     onSuccess: () => {
       client.invalidateQueries({ queryKey: ["products"] });

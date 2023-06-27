@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useAddProduct } from "@/hooks";
 
 export default function Page() {
   const [title, setTitle] = useState("");
@@ -11,6 +12,7 @@ export default function Page() {
   const [fat, setFat] = useState("");
   const [carb, setCarb] = useState("");
   const router = useRouter();
+  const { mutate: addProduct } = useAddProduct();
 
   const handleChange = (e) => {
     let { value, type } = e.target;
@@ -59,6 +61,16 @@ export default function Page() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const product = {
+      title,
+      maker: maker || "",
+      energy: energy || 0,
+      protein: protein || 0,
+      fat: fat || 0,
+      carb: carb || 0,
+    };
+    addProduct(product);
+    router.push(`/products`);
   };
 
   return (
@@ -92,7 +104,6 @@ export default function Page() {
           id="energy"
           value={energy}
           onChange={handleChange}
-          required
         />
       </div>
       <div>
@@ -103,7 +114,6 @@ export default function Page() {
           id="protein"
           value={protein}
           onChange={handleChange}
-          required
         />
       </div>
       <div>
@@ -114,7 +124,6 @@ export default function Page() {
           id="fat"
           value={fat}
           onChange={handleChange}
-          required
         />
       </div>
       <div>
@@ -125,7 +134,6 @@ export default function Page() {
           id="carb"
           value={carb}
           onChange={handleChange}
-          required
         />
       </div>
 
