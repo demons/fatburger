@@ -5,12 +5,13 @@ const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Product extends Model {
     static associate(models) {
-      const { User } = models;
+      const { User, Ingredient } = models;
       Product.belongsTo(User, {
         foreignKey: { allowNull: false },
         onUpdate: "CASCADE",
         onDelete: "CASCADE",
       });
+      Product.hasMany(Ingredient);
     }
   }
 

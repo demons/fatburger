@@ -4,13 +4,13 @@ const productService = require("../services/productService");
 
 class ProductController {
   async getAll(req, res, next) {
-    const products = await productService.getAll();
+    const products = await productService.getAll(req.user.id);
     return res.json(products);
   }
 
   async getOne(req, res, next) {
     const { id } = req.params;
-    const product = await productService.getOne(id);
+    const product = await productService.getOne(req.user.id, id);
     return res.json(product);
   }
 
@@ -39,6 +39,7 @@ class ProductController {
     const { title, maker, energy, protein, fat, carb } = req.body;
 
     const product = await productService.update(
+      req.user.id,
       id,
       title,
       maker,
@@ -52,7 +53,7 @@ class ProductController {
 
   async delete(req, res, next) {
     const { id } = req.params;
-    const result = await productService.delete(id);
+    const result = await productService.delete(req.user.id, id);
     return res.json(result);
   }
 }
