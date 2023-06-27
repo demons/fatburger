@@ -16,6 +16,18 @@ class DishTemplateController {
     return res.json(dishTemplate);
   }
 
+  async addIngredient(req, res, next) {
+    const { dishTemplateId } = req.params;
+    const { productId, count } = req.body;
+    const ingredient = await dishTemplateService.addIngredient(
+      req.user.id,
+      dishTemplateId,
+      productId,
+      count
+    );
+    return res.json(ingredient);
+  }
+
   async deleteIngredient(req, res, next) {
     const { dishTemplateId, ingredientId } = req.params;
     const result = await dishTemplateService.deleteIngredient(

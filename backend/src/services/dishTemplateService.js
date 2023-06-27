@@ -24,6 +24,21 @@ class DishTemplateService {
     return result;
   }
 
+  async addIngredient(userId, dishTemplateId, productId, count) {
+    const dishTemplate = await DishTemplate.findOne({
+      where: { id: dishTemplateId, userId },
+    });
+    if (!dishTemplate) {
+      throw new ApiError(404, "Шаблон блюда с указанным id не найден");
+    }
+    const ingredient = await Ingredient.create({
+      dishTemplateId,
+      productId,
+      count,
+    });
+    return ingredient;
+  }
+
   async deleteIngredient(userId, dishTemplateId, ingredientId) {
     const dishTemplate = await DishTemplate.findOne({
       where: { userId, id: dishTemplateId },

@@ -48,6 +48,9 @@ export default function Page({ params }) {
         ingredients={dishTemplate.ingredients}
         onDelete={handleDeleteIngredient}
       />
+      <Link href={`/dishTemplates/${dishTemplateId}/ingredients`}>
+        Добавить ингредиент
+      </Link>
     </div>
   );
 }
