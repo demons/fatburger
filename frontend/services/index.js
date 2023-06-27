@@ -96,3 +96,9 @@ export async function editIngredient(groupId, ingredientId, productId, count) {
     body: JSON.stringify({ productId, count }),
   });
 }
+
+export async function deleteProduct(productId) {
+  return fetchBase(`/products/${productId}`, {
+    method: "DELETE",
+  });
+}

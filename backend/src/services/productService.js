@@ -1,4 +1,4 @@
-const { Product } = require("../db/models");
+const { Product, Ingredient } = require("../db/models");
 const ApiError = require("../error/apiError");
 
 class ProductService {
@@ -33,8 +33,18 @@ class ProductService {
   }
 
   async delete(id) {
-    const result = await Product.destroy({ where: { id } });
-    return result;
+    const countIngredients = await Ingredient.count({
+      where: { productId: id },
+    });
+    if (countIngredients === 0) {
+      return await Product.destroy({ where: { id } });
+    }
+    return await Product.update(
+      { isDeleted: true },
+      {
+        where: { id },
+      }
+    );
   }
 }
 

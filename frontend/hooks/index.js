@@ -3,6 +3,7 @@ import {
   addIngredient,
   deleteDish,
   deleteIngredientFromGroup,
+  deleteProduct,
   editIngredient,
   fetchGroup,
   fetchGroups,
@@ -101,6 +102,19 @@ export function useEditIngredient() {
     },
     onSuccess: () => {
       client.invalidateQueries({ queryKey: ["group"] });
+    },
+  });
+}
+
+export function useDeleteProduct() {
+  const client = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ productId }) => {
+      return deleteProduct(productId);
+    },
+    onSuccess: () => {
+      client.invalidateQueries({ queryKey: ["products"] });
     },
   });
 }

@@ -1,9 +1,10 @@
 "use client";
 
-import { useProductsQuery } from "@/hooks";
+import { useDeleteProduct, useProductsQuery } from "@/hooks";
 
 export default function Page() {
   const { data: products, isLoading, isError } = useProductsQuery();
+  const { mutate: deleteProduct } = useDeleteProduct();
 
   if (isLoading) {
     return "Loading...";
@@ -13,8 +14,15 @@ export default function Page() {
     return "Произошла ошибка";
   }
 
+  const handleDeleteClick = (productId) => {
+    deleteProduct({ productId });
+  };
+
   const renderedProducts = products.map((product) => (
-    <div key={product.id}>{product.title}</div>
+    <div key={product.id}>
+      {product.title}
+      <button onClick={() => handleDeleteClick(product.id)}>Удалить</button>
+    </div>
   ));
 
   return <div>{renderedProducts}</div>;
