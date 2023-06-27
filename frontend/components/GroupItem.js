@@ -46,7 +46,7 @@ function GroupItem({ groupItem, index }) {
         <>
           <div className="header">
             {index}. {groupItem.title} <AmountItem amount={amount} />
-            <button onClick={handleEditClick}>Редактировать</button>
+            <span onClick={handleEditClick}>{groupItem.count}</span>
             <button onClick={deleteGroupItem}>Удалить</button>
           </div>
         </>
