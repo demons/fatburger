@@ -132,3 +132,7 @@ export async function editProduct(
 export async function fetchDishTemplates() {
   return fetchBase(`/dishTemplates`);
 }
+
+export async function fetchDishTemplate(dishTemplateId) {
+  return fetchBase(`/dishTemplates/${dishTemplateId}`);
+}
