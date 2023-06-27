@@ -109,3 +109,22 @@ export async function addProduct(title, maker, energy, protein, fat, carb) {
     body: JSON.stringify({ title, maker, energy, protein, fat, carb }),
   });
 }
+
+export async function fetchProduct(productId) {
+  return fetchBase(`/products/${productId}`);
+}
+
+export async function editProduct(
+  productId,
+  title,
+  maker,
+  energy,
+  protein,
+  fat,
+  carb
+) {
+  return fetchBase(`/products/${productId}`, {
+    method: "PUT",
+    body: JSON.stringify({ title, maker, energy, protein, fat, carb }),
+  });
+}

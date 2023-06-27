@@ -27,6 +27,7 @@ export default function Page() {
       <span>Белки: {product.protein} | </span>
       <span>Жиры: {product.fat} | </span>
       <span>Углеводы: {product.carb}</span>
+      <Link href={`/products/${product.id}`}>Редактировать</Link>
       <button onClick={() => handleDeleteClick(product.id)}>Удалить</button>
     </div>
   ));

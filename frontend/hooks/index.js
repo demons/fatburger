@@ -6,8 +6,10 @@ import {
   deleteIngredientFromGroup,
   deleteProduct,
   editIngredient,
+  editProduct,
   fetchGroup,
   fetchGroups,
+  fetchProduct,
   fetchProducts,
   removeGroup,
 } from "@/services";
@@ -129,6 +131,29 @@ export function useAddProduct() {
     },
     onSuccess: () => {
       client.invalidateQueries({ queryKey: ["products"] });
+    },
+  });
+}
+
+export function useProductQuery(productId) {
+  return useQuery({
+    queryKey: ["product"],
+    queryFn: () => fetchProduct(productId),
+    onError: (e) => {
+      alert(e.message);
+    },
+  });
+}
+
+export function useEditProduct() {
+  const client = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ productId, title, maker, energy, protein, fat, carb }) => {
+      return editProduct(productId, title, maker, energy, protein, fat, carb);
+    },
+    onSuccess: () => {
+      client.invalidateQueries({ queryKey: ["product"] });
     },
   });
 }

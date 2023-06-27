@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useAddProduct } from "@/hooks";
+import { useAddProduct, useEditProduct } from "@/hooks";
 
 export default function AddProduct({ product }) {
   const [title, setTitle] = useState("");
@@ -13,6 +13,19 @@ export default function AddProduct({ product }) {
   const [carb, setCarb] = useState("");
   const router = useRouter();
   const { mutate: addProduct } = useAddProduct();
+  const { mutate: editProduct } = useEditProduct();
+
+  useEffect(() => {
+    if (product) {
+      const { title, maker, energy, protein, fat, carb } = product;
+      setTitle(title);
+      setMaker(maker);
+      setEnergy(energy);
+      setProtein(protein);
+      setFat(fat);
+      setCarb(carb);
+    }
+  }, [product]);
 
   const handleChange = (e) => {
     let { value, type } = e.target;
@@ -61,7 +74,7 @@ export default function AddProduct({ product }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const product = {
+    const temp = {
       title,
       maker: maker || "",
       energy: energy || 0,
@@ -69,7 +82,12 @@ export default function AddProduct({ product }) {
       fat: fat || 0,
       carb: carb || 0,
     };
-    addProduct(product);
+
+    if (product) {
+      editProduct({ productId: product.id, ...temp });
+    } else {
+      addProduct(temp);
+    }
     router.push(`/products`);
   };
 
@@ -137,7 +155,7 @@ export default function AddProduct({ product }) {
         />
       </div>
 
-      <button type="submit">Добавить</button>
+      <button type="submit">{product ? "Редактировать" : "Добавить"}</button>
       <button type="button" onClick={handleCancel}>
         Отмена
       </button>
