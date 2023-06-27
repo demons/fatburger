@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useDeleteProduct, useProductsQuery } from "@/hooks";
 
 export default function Page() {
@@ -25,5 +26,10 @@ export default function Page() {
     </div>
   ));
 
-  return <div>{renderedProducts}</div>;
+  return (
+    <div>
+      {renderedProducts}
+      <Link href={`/products/add`}>Добавить</Link>
+    </div>
+  );
 }
