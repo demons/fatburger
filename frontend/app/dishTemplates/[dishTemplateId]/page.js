@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import IngredientList from "@/components/IngredientList";
 import {
   useDeleteIngredientFromDishTemplate,
@@ -37,6 +38,7 @@ export default function Page({ params }) {
 
   return (
     <div>
+      <Link href={`/dishTemplates`}>Готово</Link>
       <input
         type="text"
         value={title}
