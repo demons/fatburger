@@ -15,3 +15,11 @@ export const useGroups = create((set, get) => ({
   ...dish(set, get),
   ...dishTemplate(set, get),
 }));
+
+export const useStore = create((set, get) => ({
+  editionIngredientId: null,
+
+  setEditionIngredientId(ingredientId) {
+    set({ editionIngredientId: ingredientId });
+  },
+}));

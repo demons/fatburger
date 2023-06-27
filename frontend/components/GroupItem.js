@@ -2,13 +2,16 @@ import { useRouter } from "next/navigation";
 import { useDeleteDish, useDeleteIngredientFromGroup } from "@/hooks";
 import AmountItem from "./AmountItem";
 import EditIngredientForm from "./EditIngredientForm";
-import { useState } from "react";
+import { useStore } from "@/store";
 
 function GroupItem({ groupItem, index }) {
-  const [state, setState] = useState("");
   const router = useRouter();
   const { mutate: deleteDish } = useDeleteDish();
   const { mutate: deleteIngredient } = useDeleteIngredientFromGroup();
+  const editionIngredientId = useStore((state) => state.editionIngredientId);
+  const setEditionIngredientId = useStore(
+    (state) => state.setEditionIngredientId
+  );
   const { energy, protein, fat, carb } = groupItem;
   const amount = { energy, protein, fat, carb };
   const { groupId, dishId, ingredientId } = groupItem;
@@ -17,11 +20,11 @@ function GroupItem({ groupItem, index }) {
     router.push(`/groups/${groupId}/ingredients/${ingredientId}`);
   };
   const handleEditClick = () => {
-    setState("editIngredient");
+    setEditionIngredientId(ingredientId);
   };
 
   const handleEditApply = () => {
-    setState("");
+    setEditionIngredientId(null);
   };
 
   const deleteGroupItem = () => {
@@ -34,32 +37,27 @@ function GroupItem({ groupItem, index }) {
 
   let content;
 
-  switch (state) {
-    case "editIngredient":
-      {
-        content = (
-          <EditIngredientForm
-            groupItem={groupItem}
-            index={index}
-            onApply={handleEditApply}
-          />
-        );
-      }
-      break;
-    default: {
-      content = (
-        <>
-          <div className="header">
-            <span onClick={handleChangeProductClick}>
-              {index}. {groupItem.title}
-            </span>{" "}
-            <AmountItem amount={amount} />
-            <span onClick={handleEditClick}>{groupItem.count}</span>
-            <button onClick={deleteGroupItem}>Удалить</button>
-          </div>
-        </>
-      );
-    }
+  if (editionIngredientId && editionIngredientId === ingredientId) {
+    content = (
+      <EditIngredientForm
+        groupItem={groupItem}
+        index={index}
+        onApply={handleEditApply}
+      />
+    );
+  } else {
+    content = (
+      <>
+        <div className="header">
+          <span onClick={handleChangeProductClick}>
+            {index}. {groupItem.title}
+          </span>{" "}
+          <AmountItem amount={amount} />
+          <span onClick={handleEditClick}>{groupItem.count}</span>
+          <button onClick={deleteGroupItem}>Удалить</button>
+        </div>
+      </>
+    );
   }
 
   return <div className="group-item">{content}</div>;

@@ -2,11 +2,15 @@
 
 import { useRouter } from "next/navigation";
 import { useAddIngredient, useEditIngredient, useProductsQuery } from "@/hooks";
+import { useStore } from "@/store";
 
 export default function SelectProduct({ groupId, ingredientId }) {
   const { data, isLoading, isError } = useProductsQuery();
-  const { mutate: addIngredient } = useAddIngredient();
+  const { mutateAsync: addIngredient } = useAddIngredient();
   const { mutate: editIngredient } = useEditIngredient();
+  const setEditionIngredientId = useStore(
+    (state) => state.setEditionIngredientId
+  );
   const router = useRouter();
 
   if (isLoading) {
@@ -17,11 +21,12 @@ export default function SelectProduct({ groupId, ingredientId }) {
     return "Произошла ошибка";
   }
 
-  const handleClick = (productId) => {
+  const handleClick = async (productId) => {
     if (ingredientId) {
       editIngredient({ groupId, ingredientId, productId });
     } else {
-      addIngredient({ groupId, productId, count: 0 });
+      const { id } = await addIngredient({ groupId, productId, count: 0 });
+      setEditionIngredientId(id);
     }
     router.push(`/groups/${groupId}`);
   };
