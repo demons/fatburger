@@ -19,18 +19,20 @@ export default function Page() {
     deleteProduct({ productId });
   };
 
-  const renderedProducts = products.map((product) => (
-    <div key={product.id}>
-      <span>{product.title} | </span>
-      {product.maker && <span>{product.maker} | </span>}
-      <span>Калории: {product.energy} | </span>
-      <span>Белки: {product.protein} | </span>
-      <span>Жиры: {product.fat} | </span>
-      <span>Углеводы: {product.carb}</span>
-      <Link href={`/products/${product.id}`}>Редактировать</Link>
-      <button onClick={() => handleDeleteClick(product.id)}>Удалить</button>
-    </div>
-  ));
+  const renderedProducts = products
+    .filter((product) => product.isDeleted === false)
+    .map((product) => (
+      <div key={product.id}>
+        <span>{product.title} | </span>
+        {product.maker && <span>{product.maker} | </span>}
+        <span>Калории: {product.energy} | </span>
+        <span>Белки: {product.protein} | </span>
+        <span>Жиры: {product.fat} | </span>
+        <span>Углеводы: {product.carb}</span>
+        <Link href={`/products/${product.id}`}>Редактировать</Link>
+        <button onClick={() => handleDeleteClick(product.id)}>Удалить</button>
+      </div>
+    ));
 
   return (
     <div>
