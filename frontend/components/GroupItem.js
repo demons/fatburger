@@ -1,3 +1,4 @@
+import { useRouter } from "next/navigation";
 import { useDeleteDish, useDeleteIngredientFromGroup } from "@/hooks";
 import AmountItem from "./AmountItem";
 import EditIngredientForm from "./EditIngredientForm";
@@ -5,12 +6,16 @@ import { useState } from "react";
 
 function GroupItem({ groupItem, index }) {
   const [state, setState] = useState("");
+  const router = useRouter();
   const { mutate: deleteDish } = useDeleteDish();
   const { mutate: deleteIngredient } = useDeleteIngredientFromGroup();
   const { energy, protein, fat, carb } = groupItem;
   const amount = { energy, protein, fat, carb };
   const { groupId, dishId, ingredientId } = groupItem;
 
+  const handleChangeProductClick = () => {
+    router.push(`/groups/${groupId}/ingredients/${ingredientId}`);
+  };
   const handleEditClick = () => {
     setState("editIngredient");
   };
@@ -45,7 +50,10 @@ function GroupItem({ groupItem, index }) {
       content = (
         <>
           <div className="header">
-            {index}. {groupItem.title} <AmountItem amount={amount} />
+            <span onClick={handleChangeProductClick}>
+              {index}. {groupItem.title}
+            </span>{" "}
+            <AmountItem amount={amount} />
             <span onClick={handleEditClick}>{groupItem.count}</span>
             <button onClick={deleteGroupItem}>Удалить</button>
           </div>
