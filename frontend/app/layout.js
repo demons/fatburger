@@ -17,12 +17,15 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <CustomQueryProvider>
           <UserProfile />
-          <div>
+          <span>
             <Link href={`/products`}>Продукты</Link>
-          </div>
-          <div>
+          </span>
+          <span>
             <Link href={`/`}>Группы</Link>
-          </div>
+          </span>
+          <span>
+            <Link href={`/dishTemplates`}>Шаблоны блюд</Link>
+          </span>
           {children}
         </CustomQueryProvider>
       </body>
