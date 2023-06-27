@@ -1,4 +1,4 @@
-const { DishTemplate } = require("../db/models");
+const { DishTemplate, Ingredient } = require("../db/models");
 const ApiError = require("../error/apiError");
 
 class DishTemplateService {
@@ -7,9 +7,21 @@ class DishTemplateService {
   }
 
   async getOne(userId, dishTemplateId) {
-    return await DishTemplate.findOne({
+    const dishTemplate = await DishTemplate.findOne({
       where: { userId, id: dishTemplateId },
     });
+
+    const ingredients = await DishTemplate.getIngredients(
+      userId,
+      dishTemplateId
+    );
+
+    const result = {
+      ...dishTemplate.toJSON(),
+      ingredients,
+    };
+
+    return result;
   }
 }
 

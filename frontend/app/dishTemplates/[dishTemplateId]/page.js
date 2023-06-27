@@ -1,18 +1,23 @@
 "use client";
 
+import IngredientList from "@/components/IngredientList";
 import { useDishTemplateQuery } from "@/hooks";
 import { useEffect, useState } from "react";
 
 export default function Page({ params }) {
   const [title, setTitle] = useState("");
   const { dishTemplateId } = params;
-  const { data, isLoading, isError } = useDishTemplateQuery(dishTemplateId);
+  const {
+    data: dishTemplate,
+    isLoading,
+    isError,
+  } = useDishTemplateQuery(dishTemplateId);
 
   useEffect(() => {
-    if (data) {
-      setTitle(data.title);
+    if (dishTemplate) {
+      setTitle(dishTemplate.title);
     }
-  }, [data]);
+  }, [dishTemplate]);
 
   if (isLoading) {
     return "Loading...";
@@ -29,6 +34,7 @@ export default function Page({ params }) {
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
+      <IngredientList ingredients={dishTemplate.ingredients} />
     </div>
   );
 }
