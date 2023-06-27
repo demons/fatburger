@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useDishTemplatesQuery } from "@/hooks";
 
 export default function Page() {
@@ -14,7 +15,12 @@ export default function Page() {
   }
 
   const renderedDishTemplates = data.map((dishTemplate) => {
-    return <div key={dishTemplate.id}>{dishTemplate.title}</div>;
+    return (
+      <div key={dishTemplate.id}>
+        {dishTemplate.title}
+        <Link href={`/dishTemplates/${dishTemplate.id}`}>Редактировать</Link>
+      </div>
+    );
   });
 
   return <div>{renderedDishTemplates}</div>;
