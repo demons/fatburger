@@ -1,3 +1,4 @@
+import Link from "next/link";
 import UserProfile from "@/components/UserProfile";
 import CustomQueryProvider from "./CustomQueryProvider";
 import "./globals.css";
@@ -16,6 +17,12 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <CustomQueryProvider>
           <UserProfile />
+          <div>
+            <Link href={`/products`}>Продукты</Link>
+          </div>
+          <div>
+            <Link href={`/`}>Группы</Link>
+          </div>
           {children}
         </CustomQueryProvider>
       </body>
