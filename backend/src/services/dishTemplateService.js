@@ -28,6 +28,13 @@ class DishTemplateService {
     return await DishTemplate.create({ userId, title });
   }
 
+  async update(userId, dishTemplateId, title) {
+    return await DishTemplate.update(
+      { title },
+      { where: { id: dishTemplateId, userId } }
+    );
+  }
+
   async addIngredient(userId, dishTemplateId, productId, count) {
     const dishTemplate = await DishTemplate.findOne({
       where: { id: dishTemplateId, userId },

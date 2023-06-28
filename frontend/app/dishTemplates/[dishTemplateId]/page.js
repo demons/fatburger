@@ -6,11 +6,12 @@ import {
   useDeleteIngredientFromDishTemplate,
   useDishTemplateQuery,
 } from "@/hooks";
-import { useEffect, useState } from "react";
-import { useEditIngredient } from "@/hooks/dishTemplate";
+import { useState } from "react";
+import { useEditIngredient, useUpdateDishTemplate } from "@/hooks/dishTemplate";
+import EditTitleForm from "@/components/EditTitleForm";
 
 export default function Page({ params }) {
-  const [title, setTitle] = useState("");
+  const [state, setState] = useState("");
   const { dishTemplateId } = params;
   const {
     data: dishTemplate,
@@ -19,12 +20,7 @@ export default function Page({ params }) {
   } = useDishTemplateQuery(dishTemplateId);
   const { mutate: editIngredient } = useEditIngredient();
   const { mutate: deleteIngredient } = useDeleteIngredientFromDishTemplate();
-
-  useEffect(() => {
-    if (dishTemplate) {
-      setTitle(dishTemplate.title);
-    }
-  }, [dishTemplate]);
+  const { mutate: updateDishTemplate } = useUpdateDishTemplate();
 
   if (isLoading) {
     return "Loading...";
@@ -33,6 +29,13 @@ export default function Page({ params }) {
   if (isError) {
     return "Произошла ошибка";
   }
+
+  const { title } = dishTemplate;
+
+  const handleApply = (title) => {
+    updateDishTemplate({ dishTemplateId, title });
+    setState("");
+  };
 
   const handleEditIngredient = (data) => {
     if (!data) {
@@ -46,14 +49,17 @@ export default function Page({ params }) {
     deleteIngredient({ dishTemplateId, ingredientId });
   };
 
+  const titleContent =
+    state === "edit" ? (
+      <EditTitleForm title={title} onApply={handleApply} />
+    ) : (
+      <span onClick={() => setState("edit")}>{title}</span>
+    );
+
   return (
     <div>
       <Link href={`/dishTemplates`}>Готово</Link>
-      <input
-        type="text"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-      />
+      {titleContent}
       <IngredientList
         ingredients={dishTemplate.ingredients}
         parentUrl={`/dishTemplates/${dishTemplateId}`}

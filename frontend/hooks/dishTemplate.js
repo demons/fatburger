@@ -2,6 +2,7 @@ import {
   addDishTemplate,
   addIngredient,
   editIngredient,
+  updateDishTemplate,
 } from "@/services/dishTemplate";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
@@ -14,6 +15,19 @@ export function useAddDishTemplate() {
     },
     onSuccess: () => {
       client.invalidateQueries({ queryKey: ["dishTemplates"] });
+    },
+  });
+}
+
+export function useUpdateDishTemplate() {
+  const client = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ dishTemplateId, title }) => {
+      return updateDishTemplate(dishTemplateId, title);
+    },
+    onSuccess: () => {
+      client.invalidateQueries({ queryKey: ["dishTemplate"] });
     },
   });
 }

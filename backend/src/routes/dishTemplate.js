@@ -11,6 +11,11 @@ router.get(
   asyncWrapper(dishTemplateController.getOne)
 );
 router.post("/", authMiddleware, asyncWrapper(dishTemplateController.create));
+router.put(
+  "/:dishTemplateId",
+  authMiddleware,
+  asyncWrapper(dishTemplateController.update)
+);
 
 // Ingredients
 router.post(

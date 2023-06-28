@@ -7,6 +7,13 @@ export async function addDishTemplate(title) {
   });
 }
 
+export async function updateDishTemplate(dishTemplateId, title) {
+  return fetchBase(`/dishTemplates/${dishTemplateId}`, {
+    method: "PUT",
+    body: JSON.stringify({ title }),
+  });
+}
+
 export async function addIngredient(dishTemplateId, productId, count = 0) {
   return fetchBase(`/dishTemplates/${dishTemplateId}/ingredients`, {
     method: "POST",

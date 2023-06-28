@@ -25,6 +25,17 @@ class DishTemplateController {
     return res.json(dishTemplate);
   }
 
+  async update(req, res, next) {
+    const { dishTemplateId } = req.params;
+    const { title } = req.body;
+    const dishTemplate = await dishTemplateService.update(
+      req.user.id,
+      dishTemplateId,
+      title
+    );
+    return res.json(dishTemplate);
+  }
+
   async addIngredient(req, res, next) {
     const { dishTemplateId } = req.params;
     const { productId, count } = req.body;
