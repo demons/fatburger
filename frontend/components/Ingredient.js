@@ -1,7 +1,13 @@
+import Link from "next/link";
 import EditIngredientForm from "./EditIngredientForm";
 import { useStore } from "@/store";
 
-export default function Ingredient({ ingredient, onEdit, onDelete }) {
+export default function Ingredient({
+  ingredient,
+  parentUrl,
+  onChanged,
+  onDelete,
+}) {
   const { editionIngredientId, setEditionIngredientId } = useStore();
   const { ingredientId, title } = ingredient;
 
@@ -10,7 +16,7 @@ export default function Ingredient({ ingredient, onEdit, onDelete }) {
   };
 
   const handleApply = (count) => {
-    onEdit(count);
+    onChanged(count);
     setEditionIngredientId(null);
   };
 
@@ -24,7 +30,7 @@ export default function Ingredient({ ingredient, onEdit, onDelete }) {
 
   return (
     <div>
-      {title}
+      <Link href={`${parentUrl}/ingredients/${ingredientId}`}>{title}</Link>
       <button onClick={handleEdit}>Редактировать</button>
       <button onClick={handleDelete}>Удалить</button>
     </div>

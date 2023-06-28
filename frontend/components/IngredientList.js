@@ -1,11 +1,17 @@
 import Ingredient from "./Ingredient";
 
-export default function IngredientList({ ingredients, onEdit, onDelete }) {
+export default function IngredientList({
+  ingredients,
+  parentUrl,
+  onChanged,
+  onDelete,
+}) {
   const renderedIngredients = ingredients.map((ingredient) => (
     <Ingredient
       key={ingredient.ingredientId}
       ingredient={ingredient}
-      onEdit={onEdit}
+      parentUrl={parentUrl}
+      onChanged={onChanged}
       onDelete={onDelete}
     />
   ));
