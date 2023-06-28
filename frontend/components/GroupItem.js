@@ -30,8 +30,9 @@ function GroupItem({ groupItem, index }) {
     setEditionIngredientId(ingredientId);
   };
 
-  const handleApply = (count) => {
-    if (count) {
+  const handleApply = (data) => {
+    if (data) {
+      const { count } = data;
       editIngredient({ groupId, ingredientId, productId, count });
     }
     setEditionIngredientId(null);

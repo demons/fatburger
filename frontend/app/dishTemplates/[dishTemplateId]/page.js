@@ -7,6 +7,7 @@ import {
   useDishTemplateQuery,
 } from "@/hooks";
 import { useEffect, useState } from "react";
+import { useEditIngredient } from "@/hooks/dishTemplate";
 
 export default function Page({ params }) {
   const [title, setTitle] = useState("");
@@ -16,6 +17,7 @@ export default function Page({ params }) {
     isLoading,
     isError,
   } = useDishTemplateQuery(dishTemplateId);
+  const { mutate: editIngredient } = useEditIngredient();
   const { mutate: deleteIngredient } = useDeleteIngredientFromDishTemplate();
 
   useEffect(() => {
@@ -32,6 +34,14 @@ export default function Page({ params }) {
     return "Произошла ошибка";
   }
 
+  const handleEditIngredient = (data) => {
+    if (!data) {
+      return;
+    }
+    const { ingredientId, count } = data;
+    editIngredient({ dishTemplateId, ingredientId, count });
+  };
+
   const handleDeleteIngredient = (ingredientId) => {
     deleteIngredient({ dishTemplateId, ingredientId });
   };
@@ -46,6 +56,8 @@ export default function Page({ params }) {
       />
       <IngredientList
         ingredients={dishTemplate.ingredients}
+        parentUrl={`/dishTemplates/${dishTemplateId}`}
+        onChanged={handleEditIngredient}
         onDelete={handleDeleteIngredient}
       />
       <Link href={`/dishTemplates/${dishTemplateId}/ingredients`}>

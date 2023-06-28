@@ -17,6 +17,11 @@ router.post(
   authMiddleware,
   asyncWrapper(dishTemplateController.addIngredient)
 );
+router.put(
+  "/:dishTemplateId/ingredients/:ingredientId",
+  authMiddleware,
+  asyncWrapper(dishTemplateController.updateIngredient)
+);
 router.delete(
   "/:dishTemplateId/ingredients/:ingredientId",
   authMiddleware,

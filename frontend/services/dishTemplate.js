@@ -6,3 +6,18 @@ export async function addIngredient(dishTemplateId, productId, count = 0) {
     body: JSON.stringify({ productId, count }),
   });
 }
+
+export async function editIngredient(
+  dishTemplateId,
+  ingredientId,
+  productId,
+  count
+) {
+  return fetchBase(
+    `/dishTemplates/${dishTemplateId}/ingredients/${ingredientId}`,
+    {
+      method: "PUT",
+      body: JSON.stringify({ productId, count }),
+    }
+  );
+}

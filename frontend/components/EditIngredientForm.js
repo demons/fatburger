@@ -12,7 +12,8 @@ export default function EditIngredientForm({ ingredient, onApply }) {
     if (count === "" || parseInt(count) === ingredient.count) {
       return onApply(null);
     }
-    onApply(count);
+    const { ingredientId } = ingredient;
+    onApply({ ingredientId, count });
   };
 
   const handleChange = (e) => {
