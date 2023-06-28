@@ -10,6 +10,7 @@ router.get(
   authMiddleware,
   asyncWrapper(dishTemplateController.getOne)
 );
+router.post("/", authMiddleware, asyncWrapper(dishTemplateController.create));
 
 // Ingredients
 router.post(

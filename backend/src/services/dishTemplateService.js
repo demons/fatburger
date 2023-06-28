@@ -24,6 +24,10 @@ class DishTemplateService {
     return result;
   }
 
+  async create(userId, title) {
+    return await DishTemplate.create({ userId, title });
+  }
+
   async addIngredient(userId, dishTemplateId, productId, count) {
     const dishTemplate = await DishTemplate.findOne({
       where: { id: dishTemplateId, userId },
@@ -50,7 +54,7 @@ class DishTemplateService {
       where: { id: dishTemplateId, userId },
     });
     if (!dishTemplate) {
-      throw new ApiError(404, "Шаблон блюда с указанным id не найден");
+      throw new ApiError(404, "Шаблон блюда с указанным id не найдена");
     }
     const result = await Ingredient.update(
       { productId, count },

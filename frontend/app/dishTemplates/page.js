@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useDishTemplatesQuery } from "@/hooks";
+import AddDishTemplateForm from "@/components/AddDishTemplateForm";
 
 export default function Page() {
   const { data, isLoading, isError } = useDishTemplatesQuery();
@@ -23,5 +24,10 @@ export default function Page() {
     );
   });
 
-  return <div>{renderedDishTemplates}</div>;
+  return (
+    <div>
+      {renderedDishTemplates}
+      <AddDishTemplateForm />
+    </div>
+  );
 }

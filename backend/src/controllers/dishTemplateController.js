@@ -16,6 +16,15 @@ class DishTemplateController {
     return res.json(dishTemplate);
   }
 
+  async create(req, res, next) {
+    const { title } = req.body;
+    if (!title) {
+      return next(new ApiError(400, "title is required"));
+    }
+    const dishTemplate = await dishTemplateService.create(req.user.id, title);
+    return res.json(dishTemplate);
+  }
+
   async addIngredient(req, res, next) {
     const { dishTemplateId } = req.params;
     const { productId, count } = req.body;

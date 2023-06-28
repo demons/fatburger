@@ -1,5 +1,12 @@
 import { fetchBase } from ".";
 
+export async function addDishTemplate(title) {
+  return fetchBase(`/dishTemplates`, {
+    method: "POST",
+    body: JSON.stringify({ title }),
+  });
+}
+
 export async function addIngredient(dishTemplateId, productId, count = 0) {
   return fetchBase(`/dishTemplates/${dishTemplateId}/ingredients`, {
     method: "POST",

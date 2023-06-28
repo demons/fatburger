@@ -1,5 +1,22 @@
-import { addIngredient, editIngredient } from "@/services/dishTemplate";
+import {
+  addDishTemplate,
+  addIngredient,
+  editIngredient,
+} from "@/services/dishTemplate";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+
+export function useAddDishTemplate() {
+  const client = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ title }) => {
+      return addDishTemplate(title);
+    },
+    onSuccess: () => {
+      client.invalidateQueries({ queryKey: ["dishTemplates"] });
+    },
+  });
+}
 
 export function useAddIngredient() {
   const client = useQueryClient();
