@@ -1,41 +1,38 @@
-import { useEditIngredient } from "@/hooks";
 import { useState } from "react";
 
-export default function EditIngredientForm({ groupItem, onApply, index }) {
+export default function EditIngredientForm({ ingredient, onApply }) {
   const [count, setCount] = useState("");
-  const { mutate: edit } = useEditIngredient();
-  const { groupId, ingredientId, productId, title } = groupItem;
 
-  const handleEditCancel = () => {
-    onApply();
+  const handleCancel = () => {
+    onApply(null);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (parseInt(count) === groupItem.count || !count) {
-      onApply();
-      return;
+    if (count === "" || parseInt(count) === ingredient.count) {
+      return onApply(null);
     }
-    edit({ groupId, ingredientId, productId, count });
-    onApply();
+    onApply(count);
   };
 
-  const handleChangeCount = (e) => {
+  const handleChange = (e) => {
     setCount(e.target.value);
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      {index}. {title}
+      {ingredient.title}
       <input
-        type="text"
+        type="number"
         value={count}
         autoFocus
-        placeholder={groupItem.count}
-        onChange={handleChangeCount}
+        placeholder={ingredient.count}
+        onChange={handleChange}
       />
       <button type="submit">Изменить</button>
-      <button onClick={handleEditCancel}>Отмена</button>
+      <button type="button" onClick={handleCancel}>
+        Отмена
+      </button>
     </form>
   );
 }
