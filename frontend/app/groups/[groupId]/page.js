@@ -6,10 +6,15 @@ import AmountItem from "@/components/AmountItem";
 import GroupItemList from "@/components/GroupItemList";
 import NotFoundPage from "@/components/NotFoundPage";
 import { useGroupQuery } from "@/hooks";
+import { useState } from "react";
+import EditTitleForm from "@/components/EditTitleForm";
+import { useUpdateGroup } from "@/hooks/group";
 
 export default function Page({ params }) {
+  const [state, setState] = useState("");
   const { groupId } = params;
   const { data, isLoading, isError } = useGroupQuery(groupId);
+  const { mutate: updateGroup } = useUpdateGroup();
   const router = useRouter();
 
   if (isLoading) {
@@ -22,12 +27,26 @@ export default function Page({ params }) {
 
   const { amount, group } = data;
 
+  const handleTitleApply = (title) => {
+    updateGroup({ groupId, title });
+    setState("");
+  };
+
+  const titleContent =
+    state === "edit" ? (
+      <EditTitleForm title={group.title} onApply={handleTitleApply} />
+    ) : (
+      <div className="title" onClick={() => setState("edit")}>
+        {group.title}
+      </div>
+    );
+
   return (
     <div className="edit-group">
       <button onClick={() => router.push(`/`)}>Готово</button>
       <AmountItem amount={amount} />
       <div className="header">
-        <div className="title">{group.title}</div>
+        {titleContent}
         <AmountItem
           amount={{
             energy: group.energy,
