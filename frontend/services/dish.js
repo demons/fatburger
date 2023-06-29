@@ -6,3 +6,7 @@ export async function addDish(groupId, dishTemplateId) {
     body: JSON.stringify({ dishTemplateId }),
   });
 }
+
+export async function fetchDish(groupId, dishId) {
+  return fetchBase(`/groups/${groupId}/dishes/${dishId}`);
+}
