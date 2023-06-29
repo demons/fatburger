@@ -40,7 +40,7 @@ export default function Page({ params }) {
       DishEdit groupId: {groupId}, dishId: {dishId}, title: {data.title}
       <IngredientList
         ingredients={data.ingredients}
-        parentUrl={`/dishes/${dishId}`}
+        parentUrl={`/groups/${groupId}/dishes/${dishId}`}
         onChanged={handleEditIngredient}
         onDelete={handleDeleteIngredient}
       />
