@@ -70,6 +70,12 @@ class GroupController {
     return res.json(result);
   }
 
+  async getDish(req, res, next) {
+    const { groupId, dishId } = req.params;
+    const dish = await groupService.getDish(req.user.id, groupId, dishId);
+    return res.json(dish);
+  }
+
   async addDish(req, res, next) {
     const { groupId } = req.params;
     const { dishTemplateId } = req.body;

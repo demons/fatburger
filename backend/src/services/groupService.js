@@ -57,6 +57,18 @@ class GroupService {
     return result;
   }
 
+  async getDish(userId, groupId, dishId) {
+    const group = await Group.findOne({ where: { id: groupId, userId } });
+    if (!group) {
+      throw new ApiError(404, "Группа с указанным id не найдена");
+    }
+    const dish = await Dish.findOne({
+      where: { id: dishId },
+      include: Ingredient,
+    });
+    return dish;
+  }
+
   async addDish(userId, groupId, dishTemplateId) {
     const group = await Group.findOne({ where: { id: groupId, userId } });
     if (!group) {

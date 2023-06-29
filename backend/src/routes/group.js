@@ -28,6 +28,11 @@ router.delete(
 );
 
 // Dishes
+router.get(
+  "/:groupId/dishes/:dishId",
+  authMiddleware,
+  asyncWrapper(groupController.getDish)
+);
 router.post(
   "/:groupId/dishes",
   authMiddleware,
