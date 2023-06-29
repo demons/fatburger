@@ -46,6 +46,9 @@ export default function Page({ params }) {
         onChanged={handleEditIngredient}
         onDelete={handleDeleteIngredient}
       />
+      <Link href={`/groups/${groupId}/dishes/${dishId}/ingredients`}>
+        Добавить ингредиент
+      </Link>
     </div>
   );
 }
