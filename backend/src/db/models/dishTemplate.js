@@ -40,7 +40,6 @@ module.exports = (sequelize, DataTypes) => {
         ORDER BY "createdAt";`;
 
       const [ingredients] = await sequelize.query(query);
-      console.log("ingredients", ingredients);
 
       return ingredients;
     }
