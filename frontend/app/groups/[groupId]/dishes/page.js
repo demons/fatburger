@@ -1,17 +1,25 @@
 "use client";
 
 import Link from "next/link";
-import { useGroups } from "@/store";
+import { useDishTemplatesQuery } from "@/hooks";
 
 export default function Page({ params }) {
-  const { dishTemplates } = useGroups();
+  const { data, isLoading, isError } = useDishTemplatesQuery();
   const { groupId } = params;
+
+  if (isLoading) {
+    return "Loading...";
+  }
+
+  if (isError) {
+    return "Произошла ошибка";
+  }
 
   const handleAdd = (dishTemplateId) => {
     console.log(dishTemplateId);
   };
 
-  const renderedDishTemplates = dishTemplates.map((dishTemplate) => {
+  const renderedDishTemplates = data.map((dishTemplate) => {
     const { id, title } = dishTemplate;
     return (
       <div key={id} className="dish-template">
