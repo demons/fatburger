@@ -7,7 +7,7 @@ import { useAddDish } from "@/hooks/dish";
 
 export default function Page({ params }) {
   const { data, isLoading, isError } = useDishTemplatesQuery();
-  const { mutate: addDish } = useAddDish();
+  const { mutateAsync: addDish } = useAddDish();
   const router = useRouter();
   const { groupId } = params;
 
@@ -19,9 +19,9 @@ export default function Page({ params }) {
     return "Произошла ошибка";
   }
 
-  const handleAdd = (dishTemplateId) => {
-    addDish({ groupId, dishTemplateId });
-    router.push(`/groups/${groupId}`);
+  const handleAdd = async (dishTemplateId) => {
+    const { id } = await addDish({ groupId, dishTemplateId });
+    router.push(`/groups/${groupId}/dishes/${id}`);
   };
 
   const renderedDishTemplates = data.map((dishTemplate) => {
