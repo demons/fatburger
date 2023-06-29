@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useGroups } from "@/store";
 
 export default function Page({ params }) {
@@ -20,5 +21,10 @@ export default function Page({ params }) {
     );
   });
 
-  return <div className="dish-templates">{renderedDishTemplates}</div>;
+  return (
+    <div className="dish-templates">
+      <Link href={`/groups/${groupId}`}>Отмена</Link>
+      {renderedDishTemplates}
+    </div>
+  );
 }
