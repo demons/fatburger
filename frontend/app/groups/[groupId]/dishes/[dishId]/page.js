@@ -39,6 +39,7 @@ export default function Page({ params }) {
   return (
     <div>
       <Link href={`/groups/${groupId}`}>Готово</Link>
+      <div>{data.title}</div>
       <IngredientList
         ingredients={data.ingredients}
         parentUrl={`/groups/${groupId}/dishes/${dishId}`}
