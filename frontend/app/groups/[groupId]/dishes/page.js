@@ -1,10 +1,14 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useDishTemplatesQuery } from "@/hooks";
+import { useAddDish } from "@/hooks/dish";
 
 export default function Page({ params }) {
   const { data, isLoading, isError } = useDishTemplatesQuery();
+  const { mutate: addDish } = useAddDish();
+  const router = useRouter();
   const { groupId } = params;
 
   if (isLoading) {
@@ -16,7 +20,8 @@ export default function Page({ params }) {
   }
 
   const handleAdd = (dishTemplateId) => {
-    console.log(dishTemplateId);
+    addDish({ groupId, dishTemplateId });
+    router.push(`/groups/${groupId}`);
   };
 
   const renderedDishTemplates = data.map((dishTemplate) => {
