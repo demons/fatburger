@@ -64,9 +64,15 @@ class GroupService {
     }
     const dish = await Dish.findOne({
       where: { id: dishId },
-      include: Ingredient,
     });
-    return dish;
+    const ingredients = await Dish.getIngredients(userId, dishId);
+
+    const result = {
+      ...dish.toJSON(),
+      ingredients,
+    };
+
+    return result;
   }
 
   async addDish(userId, groupId, dishTemplateId) {
