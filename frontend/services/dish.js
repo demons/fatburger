@@ -7,6 +7,13 @@ export async function addDish(groupId, dishTemplateId) {
   });
 }
 
+export async function updateDish(groupId, dishId, title) {
+  return fetchBase(`/groups/${groupId}/dishes/${dishId}`, {
+    method: "PUT",
+    body: JSON.stringify({ title }),
+  });
+}
+
 export async function fetchDish(groupId, dishId) {
   return fetchBase(`/groups/${groupId}/dishes/${dishId}`);
 }

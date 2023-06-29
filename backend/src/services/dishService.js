@@ -1,7 +1,15 @@
-const { Group, Ingredient } = require("../db/models");
+const { Group, Ingredient, Dish } = require("../db/models");
 const ApiError = require("../error/apiError");
 
 class DishService {
+  async update(userId, groupId, dishId, title) {
+    const group = await Group.findOne({ where: { id: groupId, userId } });
+    if (!group) {
+      throw new ApiError(404, "Группа с указанным id не найдена");
+    }
+    return await Dish.update({ title }, { where: { id: dishId } });
+  }
+
   async addIngredient(userId, groupId, dishId, productId, count) {
     const group = await Group.findOne({ where: { id: groupId, userId } });
     if (!group) {

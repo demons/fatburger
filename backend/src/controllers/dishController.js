@@ -2,6 +2,13 @@ const ApiError = require("../error/apiError");
 const dishService = require("../services/dishService");
 
 class DishController {
+  async update(req, res, next) {
+    const { groupId, dishId } = req.params;
+    const { title } = req.body;
+    const dish = await dishService.update(req.user.id, groupId, dishId, title);
+    return res.json(dish);
+  }
+
   async addIngredient(req, res, next) {
     const { groupId, dishId } = req.params;
     const { productId, count } = req.body;

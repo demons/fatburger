@@ -39,6 +39,11 @@ router.post(
   authMiddleware,
   asyncWrapper(groupController.addDish)
 );
+router.put(
+  "/:groupId/dishes/:dishId",
+  authMiddleware,
+  asyncWrapper(dishController.update)
+);
 router.delete(
   "/:groupId/dishes/:dishId",
   authMiddleware,

@@ -4,6 +4,7 @@ import {
   deleteIngredient,
   editIngredient,
   fetchDish,
+  updateDish,
 } from "@/services/dish";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
@@ -11,6 +12,19 @@ export function useAddDish() {
   return useMutation({
     mutationFn: ({ groupId, dishTemplateId }) => {
       return addDish(groupId, dishTemplateId);
+    },
+  });
+}
+
+export function useUpdateDish() {
+  const client = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ groupId, dishId, title }) => {
+      return updateDish(groupId, dishId, title);
+    },
+    onSuccess: () => {
+      client.invalidateQueries({ queryKey: ["dish"] });
     },
   });
 }
