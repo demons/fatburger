@@ -1,12 +1,18 @@
 "use client";
 
 import IngredientList from "@/components/IngredientList";
-import { useDishQuery } from "@/hooks/dish";
+import {
+  useDeleteIngredient,
+  useDishQuery,
+  useEditIngredient,
+} from "@/hooks/dish";
 import { useRouter } from "next/navigation";
 
 export default function Page({ params }) {
   const { groupId, dishId } = params;
   const { data, isLoading, isError } = useDishQuery(groupId, dishId);
+  const { mutate: editIngredient } = useEditIngredient();
+  const { mutate: deleteIngredient } = useDeleteIngredient();
   const router = useRouter();
 
   if (isLoading) {
@@ -22,11 +28,11 @@ export default function Page({ params }) {
       return;
     }
     const { ingredientId, count } = data;
-    console.log(data);
+    editIngredient({ groupId, dishId, ingredientId, count });
   };
 
   const handleDeleteIngredient = (ingredientId) => {
-    console.log(ingredientId);
+    deleteIngredient({ groupId, dishId, ingredientId });
   };
 
   return (
