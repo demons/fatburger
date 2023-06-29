@@ -6,6 +6,7 @@ import {
   useDishQuery,
   useEditIngredient,
 } from "@/hooks/dish";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 export default function Page({ params }) {
@@ -37,7 +38,7 @@ export default function Page({ params }) {
 
   return (
     <div>
-      DishEdit groupId: {groupId}, dishId: {dishId}, title: {data.title}
+      <Link href={`/groups/${groupId}`}>Готово</Link>
       <IngredientList
         ingredients={data.ingredients}
         parentUrl={`/groups/${groupId}/dishes/${dishId}`}
