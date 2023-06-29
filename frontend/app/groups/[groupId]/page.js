@@ -40,7 +40,7 @@ export default function Page({ params }) {
       <GroupItemList groupItems={group.groupItems} isEditable={true} />
       <div className="buttons">
         <Link href={`/groups/${groupId}/ingredients`}>Добавить ингредиент</Link>
-        <Link href={`/groups/${groupId}/dishTemplates`}>Добавить бюдо</Link>
+        <Link href={`/groups/${groupId}/dishes`}>Добавить бюдо</Link>
       </div>
     </div>
   );
