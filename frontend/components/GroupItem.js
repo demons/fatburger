@@ -24,7 +24,11 @@ function GroupItem({ groupItem, index }) {
   const { groupId, dishId, ingredientId, productId } = groupItem;
 
   const handleChangeProductClick = () => {
-    router.push(`/groups/${groupId}/ingredients/${ingredientId}`);
+    if (groupItem.dishId) {
+      router.push(`/groups/${groupId}/dishes/${groupItem.dishId}`);
+    } else if (groupItem.ingredientId) {
+      router.push(`/groups/${groupId}/ingredients/${ingredientId}`);
+    }
   };
   const handleEditClick = () => {
     setEditionIngredientId(ingredientId);
