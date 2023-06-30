@@ -32,7 +32,7 @@ process.on("uncaughtException", (err) => {
 
 (async () => {
   try {
-    await db.sequelize.sync({ force: true });
+    await db.sequelize.sync({ force: false });
 
     app.listen(PORT, () => console.log(`Server started on port: ${PORT}`));
   } catch (err) {
