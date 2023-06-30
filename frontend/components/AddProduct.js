@@ -132,6 +132,7 @@ export default function AddProduct({ product }) {
           id="protein"
           value={protein}
           onChange={handleChange}
+          step=".01"
         />
       </div>
       <div>
@@ -142,6 +143,7 @@ export default function AddProduct({ product }) {
           id="fat"
           value={fat}
           onChange={handleChange}
+          step=".01"
         />
       </div>
       <div>
@@ -152,6 +154,7 @@ export default function AddProduct({ product }) {
           id="carb"
           value={carb}
           onChange={handleChange}
+          step=".01"
         />
       </div>
 
