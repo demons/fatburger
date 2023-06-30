@@ -3,6 +3,7 @@ import UserProfile from "@/components/UserProfile";
 import "./globals.css";
 import { Inter } from "next/font/google";
 import { Providers } from "./providers";
+import Header from "@/components/Header";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,16 +17,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <Providers>
-          <UserProfile />
-          <span>
-            <Link href={`/products`}>Продукты</Link>
-          </span>
-          <span>
-            <Link href={`/`}>Группы</Link>
-          </span>
-          <span>
-            <Link href={`/dishTemplates`}>Шаблоны блюд</Link>
-          </span>
+          <Header />
           {children}
         </Providers>
       </body>
