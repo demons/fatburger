@@ -1,8 +1,8 @@
 import Link from "next/link";
 import UserProfile from "@/components/UserProfile";
-import CustomQueryProvider from "./CustomQueryProvider";
 import "./globals.css";
 import { Inter } from "next/font/google";
+import { Providers } from "./providers";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,7 +15,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <CustomQueryProvider>
+        <Providers>
           <UserProfile />
           <span>
             <Link href={`/products`}>Продукты</Link>
@@ -27,7 +27,7 @@ export default function RootLayout({ children }) {
             <Link href={`/dishTemplates`}>Шаблоны блюд</Link>
           </span>
           {children}
-        </CustomQueryProvider>
+        </Providers>
       </body>
     </html>
   );
