@@ -3,12 +3,13 @@
 import Link from "next/link";
 import { useDishTemplatesQuery } from "@/hooks";
 import AddDishTemplateForm from "@/components/AddDishTemplateForm";
+import Spinner from "@/components/Spinner";
 
 export default function Page() {
   const { data, isLoading, isError } = useDishTemplatesQuery();
 
   if (isLoading) {
-    return "Loading...";
+    return <Spinner />;
   }
 
   if (isError) {

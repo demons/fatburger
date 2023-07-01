@@ -2,6 +2,7 @@
 
 import EditTitleForm from "@/components/EditTitleForm";
 import IngredientList from "@/components/IngredientList";
+import Spinner from "@/components/Spinner";
 import {
   useDeleteIngredient,
   useDishQuery,
@@ -22,7 +23,7 @@ export default function Page({ params }) {
   const router = useRouter();
 
   if (isLoading) {
-    return "Loading...";
+    return <Spinner />;
   }
 
   if (isError) {

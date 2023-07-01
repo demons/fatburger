@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useDishTemplatesQuery } from "@/hooks";
 import { useAddDish } from "@/hooks/dish";
+import Spinner from "@/components/Spinner";
 
 export default function Page({ params }) {
   const { data, isLoading, isError } = useDishTemplatesQuery();
@@ -12,7 +13,7 @@ export default function Page({ params }) {
   const { groupId } = params;
 
   if (isLoading) {
-    return "Loading...";
+    return <Spinner />;
   }
 
   if (isError) {

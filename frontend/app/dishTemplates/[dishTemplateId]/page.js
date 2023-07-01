@@ -23,7 +23,7 @@ export default function Page({ params }) {
   const { mutate: updateDishTemplate } = useUpdateDishTemplate();
 
   if (isLoading) {
-    return "Loading...";
+    return <Spinner />;
   }
 
   if (isError) {

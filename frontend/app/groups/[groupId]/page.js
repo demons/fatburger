@@ -9,6 +9,7 @@ import { useGroupQuery } from "@/hooks";
 import { useState } from "react";
 import EditTitleForm from "@/components/EditTitleForm";
 import { useUpdateGroup } from "@/hooks/group";
+import Spinner from "@/components/Spinner";
 
 export default function Page({ params }) {
   const [state, setState] = useState("");
@@ -18,7 +19,7 @@ export default function Page({ params }) {
   const router = useRouter();
 
   if (isLoading) {
-    return "Loading...";
+    return <Spinner />;
   }
 
   if (isError) {

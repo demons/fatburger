@@ -2,13 +2,14 @@
 
 import Link from "next/link";
 import { useDeleteProduct, useProductsQuery } from "@/hooks";
+import Spinner from "@/components/Spinner";
 
 export default function Page() {
   const { data: products, isLoading, isError } = useProductsQuery();
   const { mutate: deleteProduct } = useDeleteProduct();
 
   if (isLoading) {
-    return "Loading...";
+    return <Spinner />;
   }
 
   if (isError) {

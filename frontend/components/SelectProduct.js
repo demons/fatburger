@@ -1,12 +1,13 @@
 "use client";
 
 import { useProductsQuery } from "@/hooks";
+import Spinner from "./Spinner";
 
 export default function SelectProduct({ onApply }) {
   const { data, isLoading, isError } = useProductsQuery();
 
   if (isLoading) {
-    return "Loading...";
+    return <Spinner />;
   }
 
   if (isError) {

@@ -1,6 +1,7 @@
 "use client";
 
 import AddProduct from "@/components/AddProduct";
+import Spinner from "@/components/Spinner";
 import { useProductQuery } from "@/hooks";
 
 export default function Page({ params }) {
@@ -8,7 +9,7 @@ export default function Page({ params }) {
   const { data, isLoading, isError } = useProductQuery(productId);
 
   if (isLoading) {
-    return "Loading...";
+    return <Spinner />;
   }
 
   if (isError) {
