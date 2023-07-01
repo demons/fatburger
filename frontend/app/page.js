@@ -1,6 +1,6 @@
 "use client";
 
-import { Container, Box } from "@chakra-ui/react";
+import { Container, Center } from "@chakra-ui/react";
 import AddGroupForm from "@/components/AddGroupForm";
 import AmountItem from "@/components/AmountItem";
 import GroupList from "@/components/GroupList";
@@ -20,9 +20,9 @@ export default function GroupListPage() {
   return (
     <main>
       <Container maxW="container.lg">
-        <Box border="1px" my="1" borderColor="gray.200">
+        <Center border="1px" my="1" borderColor="gray.200">
           <AmountItem amount={data.amount} />
-        </Box>
+        </Center>
         <GroupList groups={data.groups} />
         <AddGroupForm />
       </Container>
