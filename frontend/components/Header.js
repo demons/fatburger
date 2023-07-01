@@ -22,7 +22,7 @@ export default function Header() {
     >
       <Container maxW="container.lg">
         <Flex justifyContent="space-between" alignItems="center">
-          <Image src="logo.png" alt="Logo" boxSize="48px" />
+          <Image src="/logo.png" alt="Logo" boxSize="48px" />
           <HStack>
             <Link href="/" as={NextLink}>
               Главная
