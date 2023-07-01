@@ -1,5 +1,3 @@
-import Link from "next/link";
-import UserProfile from "@/components/UserProfile";
 import "./globals.css";
 import { Inter } from "next/font/google";
 import { Providers } from "./providers";
