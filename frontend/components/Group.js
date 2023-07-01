@@ -1,4 +1,5 @@
 import { useRouter } from "next/navigation";
+import { Flex, Card, CardHeader, Heading, CardBody } from "@chakra-ui/react";
 import AmountItem from "./AmountItem";
 import GroupItemList from "./GroupItemList";
 import { useRemoveGroupMutation } from "@/hooks";
@@ -19,16 +20,16 @@ export default function Group({ group }) {
   };
 
   return (
-    <div className="group">
-      <div className="header">
-        <div className="title">{group.title}</div>
-        <AmountItem amount={amount} />
-        <div>
-          <button onClick={handleEdit}>Редактировать</button>
-          <button onClick={handleRemove}>Удалить</button>
-        </div>
-      </div>
-      <GroupItemList groupItems={groupItems} />
-    </div>
+    <Card my="3" onClick={handleEdit}>
+      <CardHeader>
+        <Flex justifyContent="space-between" alignItems="center">
+          <Heading size="md">{group.title}</Heading>
+          <AmountItem amount={amount} />
+        </Flex>
+      </CardHeader>
+      <CardBody>
+        <GroupItemList groupItems={groupItems} isCompact={true} />
+      </CardBody>
+    </Card>
   );
 }

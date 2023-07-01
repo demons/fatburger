@@ -8,7 +8,7 @@ import AmountItem from "./AmountItem";
 import EditIngredientForm from "./EditIngredientForm";
 import { useStore } from "@/store";
 
-function GroupItem({ groupItem, index }) {
+function GroupItem({ groupItem, index, isCompact }) {
   const router = useRouter();
   const { mutate: deleteDish } = useDeleteDish();
   const { mutate: deleteIngredient } = useDeleteIngredientFromGroup();
@@ -24,6 +24,9 @@ function GroupItem({ groupItem, index }) {
   const { groupId, dishId, ingredientId, productId } = groupItem;
 
   const handleChangeProductClick = () => {
+    if (isCompact) {
+      return;
+    }
     if (groupItem.dishId) {
       router.push(`/groups/${groupId}/dishes/${groupItem.dishId}`);
     } else if (groupItem.ingredientId) {
@@ -31,6 +34,9 @@ function GroupItem({ groupItem, index }) {
     }
   };
   const handleEditClick = () => {
+    if (isCompact) {
+      return;
+    }
     setEditionIngredientId(ingredientId);
   };
 
@@ -65,7 +71,7 @@ function GroupItem({ groupItem, index }) {
           </span>{" "}
           <AmountItem amount={amount} />
           <span onClick={handleEditClick}>{groupItem.count}</span>
-          <button onClick={deleteGroupItem}>Удалить</button>
+          {!isCompact && <button onClick={deleteGroupItem}>Удалить</button>}
         </div>
       </>
     );
