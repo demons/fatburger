@@ -1,6 +1,13 @@
 "use client";
 
-import { Box, Container, Flex, Image, useMediaQuery } from "@chakra-ui/react";
+import {
+  Box,
+  Container,
+  Flex,
+  Image,
+  useMediaQuery,
+  HStack,
+} from "@chakra-ui/react";
 import BurgerMenu from "./BurgerMenu";
 import HorizontalMenu from "./HorizontalMenu";
 import Button from "./Button";
@@ -15,9 +22,12 @@ export default function Header() {
       <Flex justifyContent="space-between" alignItems="center">
         <Image src="/logo.png" alt="Logo" boxSize="48px" />
         <HorizontalMenu />
-        <Button href={`/logout`} colorScheme="pink">
-          Выйти
-        </Button>
+        <HStack>
+          <Button href={`/stories`}>Дневник</Button>
+          <Button href={`/logout`} colorScheme="pink">
+            Выйти
+          </Button>
+        </HStack>
       </Flex>
     );
   } else {
