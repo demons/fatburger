@@ -1,22 +1,30 @@
 "use client";
 
-import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { Flex, Heading, HStack } from "@chakra-ui/react";
 import AmountItem from "@/components/AmountItem";
 import GroupItemList from "@/components/GroupItemList";
 import NotFoundPage from "@/components/NotFoundPage";
 import { useGroupQuery } from "@/hooks";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import EditTitleForm from "@/components/EditTitleForm";
 import { useUpdateGroup } from "@/hooks/group";
 import Spinner from "@/components/Spinner";
+import Button from "@/components/Button";
+import { useStore } from "@/store";
 
 export default function Page({ params }) {
   const [state, setState] = useState("");
   const { groupId } = params;
   const { data, isLoading, isError } = useGroupQuery(groupId);
   const { mutate: updateGroup } = useUpdateGroup();
-  const router = useRouter();
+  const setAmount = useStore((state) => state.setAmount);
+
+  useEffect(() => {
+    if (data) {
+      const { amount } = data;
+      setAmount(amount);
+    }
+  }, [data]);
 
   if (isLoading) {
     return <Spinner />;
@@ -26,7 +34,7 @@ export default function Page({ params }) {
     return <NotFoundPage timeout={1500} />;
   }
 
-  const { amount, group } = data;
+  const { group } = data;
 
   const handleTitleApply = (title) => {
     updateGroup({ groupId, title });
@@ -43,11 +51,22 @@ export default function Page({ params }) {
     );
 
   return (
-    <div className="edit-group">
-      <button onClick={() => router.push(`/`)}>Готово</button>
-      <AmountItem amount={amount} />
-      <div className="header">
-        {titleContent}
+    <>
+      <Flex justifyContent="space-between" alignItems="center" my="1">
+        <HStack>
+          <Button href={`/`} colorScheme="green">
+            Готово
+          </Button>
+          <Button href={`/groups/${groupId}/ingredients`}>
+            Добавить ингредиент
+          </Button>
+          <Button href={`/groups/${groupId}/dishes`}>Добавить бюдо</Button>
+        </HStack>
+      </Flex>
+      <Flex justifyContent="space-between" alignItems="center">
+        <Heading as="h3" size="md">
+          {titleContent}
+        </Heading>
         <AmountItem
           amount={{
             energy: group.energy,
@@ -56,12 +75,8 @@ export default function Page({ params }) {
             carb: group.carb,
           }}
         />
-      </div>
+      </Flex>
       <GroupItemList groupItems={group.groupItems} isEditable={true} />
-      <div className="buttons">
-        <Link href={`/groups/${groupId}/ingredients`}>Добавить ингредиент</Link>
-        <Link href={`/groups/${groupId}/dishes`}>Добавить бюдо</Link>
-      </div>
-    </div>
+    </>
   );
 }
