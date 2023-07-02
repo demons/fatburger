@@ -26,7 +26,7 @@ class StoryService {
   }
 
   async delete(userId, storyId) {
-    return await Story.destory({ where: { userId, id: storyId } });
+    return await Story.destroy({ where: { userId, id: storyId } });
   }
 }
 
