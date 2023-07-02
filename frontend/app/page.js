@@ -1,15 +1,22 @@
 "use client";
 
-import { Container, Center } from "@chakra-ui/react";
 import AddGroupForm from "@/components/AddGroupForm";
-import AmountItem from "@/components/AmountItem";
 import GroupList from "@/components/GroupList";
 import { useGroupsQuery } from "@/hooks";
 import Spinner from "@/components/Spinner";
 import ErrorAlert from "@/components/ErrorAlert";
+import { useEffect } from "react";
+import { useStore } from "@/store";
 
 export default function GroupListPage() {
   const { data, status, error } = useGroupsQuery();
+  const setAmount = useStore((state) => state.setAmount);
+
+  useEffect(() => {
+    if (data) {
+      setAmount(data.amount);
+    }
+  }, [data]);
 
   if (status === "loading") {
     return <Spinner />;
@@ -20,14 +27,9 @@ export default function GroupListPage() {
   }
 
   return (
-    <main>
-      <Container maxW="container.lg">
-        <Center border="1px" my="1" borderColor="gray.200">
-          <AmountItem amount={data.amount} />
-        </Center>
-        <GroupList groups={data.groups} />
-        <AddGroupForm />
-      </Container>
-    </main>
+    <>
+      <GroupList groups={data.groups} />
+      <AddGroupForm />
+    </>
   );
 }
