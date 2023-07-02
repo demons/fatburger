@@ -14,6 +14,12 @@ export async function updateDishTemplate(dishTemplateId, title) {
   });
 }
 
+export async function deleteDishTemplate(dishTemplateId) {
+  return fetchBase(`/dishTemplates/${dishTemplateId}`, {
+    method: "DELETE",
+  });
+}
+
 export async function addIngredient(dishTemplateId, productId, count = 0) {
   return fetchBase(`/dishTemplates/${dishTemplateId}/ingredients`, {
     method: "POST",

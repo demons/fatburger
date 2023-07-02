@@ -35,6 +35,13 @@ class DishTemplateService {
     );
   }
 
+  async delete(userId, dishTemplateId) {
+    const result = await DishTemplate.destroy({
+      where: { id: dishTemplateId, userId },
+    });
+    return result;
+  }
+
   async addIngredient(userId, dishTemplateId, productId, count) {
     const dishTemplate = await DishTemplate.findOne({
       where: { id: dishTemplateId, userId },
