@@ -1,5 +1,6 @@
 "use client";
 
+import { Box, Flex, Heading } from "@chakra-ui/react";
 import EditTitleForm from "@/components/EditTitleForm";
 import ErrorAlert from "@/components/ErrorAlert";
 import IngredientList from "@/components/IngredientList";
@@ -13,6 +14,7 @@ import {
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import Button from "@/components/Button";
 
 export default function Page({ params }) {
   const [state, setState] = useState("");
@@ -56,18 +58,23 @@ export default function Page({ params }) {
     );
 
   return (
-    <div>
-      <Link href={`/groups/${groupId}`}>Готово</Link>
-      {titleContent}
+    <Box my="2">
+      <Button href={`/groups/${groupId}`}>Готово</Button>
+      <Heading as="h2" size="lg">
+        {titleContent}
+      </Heading>
       <IngredientList
         ingredients={data.ingredients}
         parentUrl={`/groups/${groupId}/dishes/${dishId}`}
         onChanged={handleEditIngredient}
         onDelete={handleDeleteIngredient}
       />
-      <Link href={`/groups/${groupId}/dishes/${dishId}/ingredients`}>
+      <Button
+        href={`/groups/${groupId}/dishes/${dishId}/ingredients`}
+        colorScheme="green"
+      >
         Добавить ингредиент
-      </Link>
-    </div>
+      </Button>
+    </Box>
   );
 }
