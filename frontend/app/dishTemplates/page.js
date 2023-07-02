@@ -33,7 +33,15 @@ export default function Page() {
   const renderedDishTemplates = data.map((dishTemplate) => {
     const { id, title } = dishTemplate;
     return (
-      <Flex key={id} justifyContent="space-between" alignItems="center" my="2">
+      <Flex
+        key={id}
+        justifyContent="space-between"
+        alignItems="center"
+        my="2"
+        border="1px"
+        p="2"
+        borderColor="gray.200"
+      >
         <Text>{title}</Text>
         <HStack>
           <IconButton
