@@ -18,8 +18,12 @@ export const useGroups = create((set, get) => ({
 
 export const useStore = create((set, get) => ({
   editionIngredientId: null,
+  amount: null,
 
   setEditionIngredientId(ingredientId) {
     set({ editionIngredientId: ingredientId });
+  },
+  setAmount(amount) {
+    set({ amount });
   },
 }));
