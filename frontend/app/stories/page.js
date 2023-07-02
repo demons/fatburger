@@ -1,16 +1,15 @@
 "use client";
 
-import { Box, Flex, Stack, Text, HStack, IconButton } from "@chakra-ui/react";
+import { Flex, Stack, Text, HStack, IconButton } from "@chakra-ui/react";
 import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
 import ErrorAlert from "@/components/ErrorAlert";
 import Spinner from "@/components/Spinner";
-import { useGroupsQuery } from "@/hooks";
 import { useDeleteStory, useStoriesQuery } from "@/hooks/story";
 import AmountItem from "@/components/AmountItem";
+import Button from "@/components/Button";
 
 export default function Page({ params }) {
   const { data: stories, status, error } = useStoriesQuery();
-  const { data: groups } = useGroupsQuery();
   const { mutate: deleteStory } = useDeleteStory();
 
   if (status === "loading") {
@@ -57,5 +56,14 @@ export default function Page({ params }) {
     );
   });
 
-  return <Box>{renderedStories}</Box>;
+  return (
+    <Stack my="2">
+      <HStack>
+        <Button href={`/stories/add`} colorScheme="green">
+          Добавить
+        </Button>
+      </HStack>
+      {renderedStories}
+    </Stack>
+  );
 }
