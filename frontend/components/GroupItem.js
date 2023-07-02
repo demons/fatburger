@@ -4,6 +4,8 @@ import {
   useDeleteIngredientFromGroup,
   useEditIngredient,
 } from "@/hooks";
+import { Flex, IconButton, Text, HStack, Stack } from "@chakra-ui/react";
+import { DeleteIcon } from "@chakra-ui/icons";
 import AmountItem from "./AmountItem";
 import EditIngredientForm from "./EditIngredientForm";
 import { useStore } from "@/store";
@@ -56,6 +58,18 @@ function GroupItem({ groupItem, index, isCompact }) {
     }
   };
 
+  const countContent = groupItem.ingredientId && (
+    <Text
+      as="b"
+      width="100px"
+      textAlign="center"
+      fontSize="sm"
+      onClick={handleEditClick}
+    >
+      {groupItem.count} г.
+    </Text>
+  );
+
   let content;
 
   if (editionIngredientId && editionIngredientId === ingredientId) {
@@ -64,16 +78,31 @@ function GroupItem({ groupItem, index, isCompact }) {
     );
   } else {
     content = (
-      <>
-        <div className="header">
-          <span onClick={handleChangeProductClick}>
+      <Flex
+        py="2"
+        justifyContent="space-between"
+        alignItems="center"
+        borderBottom="1px"
+        borderColor="gray.200"
+      >
+        <Stack>
+          <Text onClick={handleChangeProductClick}>
             {index}. {groupItem.title}
-          </span>{" "}
+          </Text>
           <AmountItem amount={amount} />
-          <span onClick={handleEditClick}>{groupItem.count}</span>
-          {!isCompact && <button onClick={deleteGroupItem}>Удалить</button>}
-        </div>
-      </>
+        </Stack>
+        <HStack>
+          {countContent}
+          {!isCompact && (
+            <IconButton
+              onClick={deleteGroupItem}
+              size="sm"
+              colorScheme="red"
+              icon={<DeleteIcon />}
+            />
+          )}
+        </HStack>
+      </Flex>
     );
   }
 
