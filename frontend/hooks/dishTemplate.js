@@ -1,6 +1,7 @@
 import {
   addDishTemplate,
   addIngredient,
+  deleteDishTemplate,
   editIngredient,
   updateDishTemplate,
 } from "@/services/dishTemplate";
@@ -28,6 +29,19 @@ export function useUpdateDishTemplate() {
     },
     onSuccess: () => {
       client.invalidateQueries({ queryKey: ["dishTemplate"] });
+    },
+  });
+}
+
+export function useDeleteDishTemplate() {
+  const client = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ dishTemplateId }) => {
+      return deleteDishTemplate(dishTemplateId);
+    },
+    onSuccess: () => {
+      client.invalidateQueries({ queryKey: ["dishTemplates"] });
     },
   });
 }

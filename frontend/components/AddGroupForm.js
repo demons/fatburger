@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Input, Button, HStack, Center } from "@chakra-ui/react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createGroup } from "@/services";
 
@@ -24,12 +25,17 @@ function AddGroupForm() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-      />
-      <button type="submit">Добавить</button>
+      <HStack maxW="lg" mx="auto" my="2">
+        <Input
+          placeholder="Название группы"
+          size="sm"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
+        <Button type="submit" colorScheme="green" size="sm">
+          Добавить
+        </Button>
+      </HStack>
     </form>
   );
 }

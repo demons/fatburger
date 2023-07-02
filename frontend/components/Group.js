@@ -1,11 +1,20 @@
 import { useRouter } from "next/navigation";
+import {
+  Flex,
+  Box,
+  Heading,
+  IconButton,
+  HStack,
+  Stack,
+} from "@chakra-ui/react";
+import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
+import { useRemoveGroupMutation } from "@/hooks";
 import AmountItem from "./AmountItem";
 import GroupItemList from "./GroupItemList";
-import { useRemoveGroupMutation } from "@/hooks";
 
 export default function Group({ group }) {
-  const router = useRouter();
   const { mutate: removeGroup } = useRemoveGroupMutation();
+  const router = useRouter();
 
   const { energy, protein, fat, carb, groupItems } = group;
   const amount = { energy, protein, fat, carb };
@@ -19,16 +28,31 @@ export default function Group({ group }) {
   };
 
   return (
-    <div className="group">
-      <div className="header">
-        <div className="title">{group.title}</div>
-        <AmountItem amount={amount} />
-        <div>
-          <button onClick={handleEdit}>Редактировать</button>
-          <button onClick={handleRemove}>Удалить</button>
-        </div>
-      </div>
-      <GroupItemList groupItems={groupItems} />
-    </div>
+    <Box my="3">
+      <Flex
+        justifyContent="space-between"
+        alignItems="center"
+        my="1"
+        borderBottom="1px"
+        borderColor="gray.200"
+      >
+        <Stack>
+          <Heading as="h3" size="md">
+            {group.title}
+          </Heading>
+          <AmountItem amount={amount} />
+        </Stack>
+        <HStack>
+          <IconButton onClick={handleEdit} size="sm" icon={<EditIcon />} />
+          <IconButton
+            onClick={handleRemove}
+            size="sm"
+            colorScheme="red"
+            icon={<DeleteIcon />}
+          />
+        </HStack>
+      </Flex>
+      <GroupItemList groupItems={groupItems} isCompact={true} />
+    </Box>
   );
 }
