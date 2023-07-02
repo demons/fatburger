@@ -1,26 +1,22 @@
-import { Flex, Box, Text } from "@chakra-ui/react";
+import { Flex, Text } from "@chakra-ui/react";
 
 function AmountItem({ amount }) {
   const { energy, protein, fat, carb } = amount;
 
   return (
-    <Flex width="300px" justifyContent="space-between">
-      <Box>
-        <Text>Калории</Text>
-        <Text textAlign="center">{energy}</Text>
-      </Box>
-      <Box>
-        <Text>Белки</Text>
-        <Text textAlign="center">{protein}</Text>
-      </Box>
-      <Box>
-        <Text>Жиры</Text>
-        <Text textAlign="center">{fat}</Text>
-      </Box>
-      <Box>
-        <Text>Углеводы</Text>
-        <Text textAlign="center">{carb}</Text>
-      </Box>
+    <Flex width="250px" justifyContent="space-between">
+      <Text fontSize="sm" color="gray.500">
+        К: <i>{energy}</i>
+      </Text>
+      <Text fontSize="sm" color="gray.500">
+        Б: <i>{protein}</i>
+      </Text>
+      <Text fontSize="sm" color="gray.500">
+        Ж: <i>{fat}</i>
+      </Text>
+      <Text fontSize="sm" color="gray.500">
+        У: <i>{carb}</i>
+      </Text>
     </Flex>
   );
 }
