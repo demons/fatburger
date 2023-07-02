@@ -17,8 +17,8 @@ export function useCreateStory() {
   const client = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ date, energy, protein, fat, carb, comment }) => {
-      return createStory(date, energy, protein, fat, carb, comment);
+    mutationFn: ({ date, energy, protein, fat, carb, type, comment }) => {
+      return createStory(date, energy, protein, fat, carb, type, comment);
     },
     onSuccess: () => {
       client.invalidateQueries({ queryKey: ["stories"] });
