@@ -10,6 +10,7 @@ import { useState } from "react";
 import { useEditIngredient, useUpdateDishTemplate } from "@/hooks/dishTemplate";
 import EditTitleForm from "@/components/EditTitleForm";
 import ErrorAlert from "@/components/ErrorAlert";
+import Spinner from "@/components/Spinner";
 
 export default function Page({ params }) {
   const [state, setState] = useState("");
