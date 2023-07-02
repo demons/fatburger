@@ -1,6 +1,7 @@
 "use client";
 
 import EditTitleForm from "@/components/EditTitleForm";
+import ErrorAlert from "@/components/ErrorAlert";
 import IngredientList from "@/components/IngredientList";
 import Spinner from "@/components/Spinner";
 import {
@@ -16,18 +17,18 @@ import { useState } from "react";
 export default function Page({ params }) {
   const [state, setState] = useState("");
   const { groupId, dishId } = params;
-  const { data, isLoading, isError } = useDishQuery(groupId, dishId);
+  const { data, status, error } = useDishQuery(groupId, dishId);
   const { mutate: updateDish } = useUpdateDish();
   const { mutate: editIngredient } = useEditIngredient();
   const { mutate: deleteIngredient } = useDeleteIngredient();
   const router = useRouter();
 
-  if (isLoading) {
+  if (status === "loading") {
     return <Spinner />;
   }
 
-  if (isError) {
-    return "Произошла ошибка";
+  if (status === "error") {
+    return <ErrorAlert message={error.message} />;
   }
 
   const handleTitleApply = (title) => {

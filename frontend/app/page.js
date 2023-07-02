@@ -6,16 +6,17 @@ import AmountItem from "@/components/AmountItem";
 import GroupList from "@/components/GroupList";
 import { useGroupsQuery } from "@/hooks";
 import Spinner from "@/components/Spinner";
+import ErrorAlert from "@/components/ErrorAlert";
 
 export default function GroupListPage() {
-  const { data, isLoading, isError } = useGroupsQuery();
+  const { data, status, error } = useGroupsQuery();
 
-  if (isLoading) {
+  if (status === "loading") {
     return <Spinner />;
   }
 
-  if (isError) {
-    return "Произошла ошибка...";
+  if (status === "error") {
+    return <ErrorAlert message={error.message} />;
   }
 
   return (

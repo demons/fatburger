@@ -9,25 +9,26 @@ import {
 import { useState } from "react";
 import { useEditIngredient, useUpdateDishTemplate } from "@/hooks/dishTemplate";
 import EditTitleForm from "@/components/EditTitleForm";
+import ErrorAlert from "@/components/ErrorAlert";
 
 export default function Page({ params }) {
   const [state, setState] = useState("");
   const { dishTemplateId } = params;
   const {
     data: dishTemplate,
-    isLoading,
-    isError,
+    status,
+    error,
   } = useDishTemplateQuery(dishTemplateId);
   const { mutate: editIngredient } = useEditIngredient();
   const { mutate: deleteIngredient } = useDeleteIngredientFromDishTemplate();
   const { mutate: updateDishTemplate } = useUpdateDishTemplate();
 
-  if (isLoading) {
+  if (status === "loading") {
     return <Spinner />;
   }
 
-  if (isError) {
-    return "Произошла ошибка";
+  if (status === "error") {
+    return <ErrorAlert message={error.message} />;
   }
 
   const { title } = dishTemplate;

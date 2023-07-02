@@ -2,16 +2,17 @@
 
 import { useProductsQuery } from "@/hooks";
 import Spinner from "./Spinner";
+import ErrorAlert from "./ErrorAlert";
 
 export default function SelectProduct({ onApply }) {
-  const { data, isLoading, isError } = useProductsQuery();
+  const { data, status, error } = useProductsQuery();
 
-  if (isLoading) {
+  if (status === "loading") {
     return <Spinner />;
   }
 
-  if (isError) {
-    return "Произошла ошибка";
+  if (status === "error") {
+    return <ErrorAlert message={error.message} />;
   }
 
   const renderedProducts = data.map((product) => {

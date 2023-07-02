@@ -33,9 +33,6 @@ export function useDishQuery(groupId, dishId) {
   return useQuery({
     queryKey: ["dish"],
     queryFn: () => fetchDish(groupId, dishId),
-    onError: (e) => {
-      alert(e.message);
-    },
   });
 }
 

@@ -4,16 +4,17 @@ import Link from "next/link";
 import { useDishTemplatesQuery } from "@/hooks";
 import AddDishTemplateForm from "@/components/AddDishTemplateForm";
 import Spinner from "@/components/Spinner";
+import ErrorAlert from "@/components/ErrorAlert";
 
 export default function Page() {
-  const { data, isLoading, isError } = useDishTemplatesQuery();
+  const { data, status, error } = useDishTemplatesQuery();
 
-  if (isLoading) {
+  if (status === "loading") {
     return <Spinner />;
   }
 
-  if (isError) {
-    return "Произошла ошибка";
+  if (status === "error") {
+    return <ErrorAlert message={error.message} />;
   }
 
   const renderedDishTemplates = data.map((dishTemplate) => {

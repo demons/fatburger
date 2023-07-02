@@ -21,9 +21,6 @@ export function useGroupsQuery() {
   return useQuery({
     queryKey: ["groups"],
     queryFn: fetchGroups,
-    onError: (e) => {
-      alert(e.message);
-    },
   });
 }
 
@@ -31,9 +28,6 @@ export function useGroupQuery(groupId) {
   return useQuery({
     queryKey: ["group"],
     queryFn: () => fetchGroup(groupId),
-    onError: (e) => {
-      alert(e.message);
-    },
   });
 }
 
@@ -41,9 +35,6 @@ export function useProductsQuery() {
   return useQuery({
     queryKey: ["products"],
     queryFn: fetchProducts,
-    onError: (e) => {
-      alert(e.message);
-    },
   });
 }
 
@@ -142,9 +133,6 @@ export function useProductQuery(productId) {
   return useQuery({
     queryKey: ["product"],
     queryFn: () => fetchProduct(productId),
-    onError: (e) => {
-      alert(e.message);
-    },
   });
 }
 
@@ -165,9 +153,6 @@ export function useDishTemplatesQuery() {
   return useQuery({
     queryKey: ["dishTemplates"],
     queryFn: fetchDishTemplates,
-    onError: (e) => {
-      alert(e.message);
-    },
   });
 }
 
@@ -175,9 +160,6 @@ export function useDishTemplateQuery(dishTemplateId) {
   return useQuery({
     queryKey: ["dishTemplate"],
     queryFn: () => fetchDishTemplate(dishTemplateId),
-    onError: (e) => {
-      alert(e.message);
-    },
   });
 }
 

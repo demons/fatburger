@@ -5,19 +5,20 @@ import { useRouter } from "next/navigation";
 import { useDishTemplatesQuery } from "@/hooks";
 import { useAddDish } from "@/hooks/dish";
 import Spinner from "@/components/Spinner";
+import ErrorAlert from "@/components/ErrorAlert";
 
 export default function Page({ params }) {
-  const { data, isLoading, isError } = useDishTemplatesQuery();
+  const { data, status, error } = useDishTemplatesQuery();
   const { mutateAsync: addDish } = useAddDish();
   const router = useRouter();
   const { groupId } = params;
 
-  if (isLoading) {
+  if (status === "loading") {
     return <Spinner />;
   }
 
-  if (isError) {
-    return "Произошла ошибка";
+  if (status === "error") {
+    return <ErrorAlert message={error.message} />;
   }
 
   const handleAdd = async (dishTemplateId) => {
