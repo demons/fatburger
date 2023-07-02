@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { Box, HStack, Heading } from "@chakra-ui/react";
 import IngredientList from "@/components/IngredientList";
 import {
   useDeleteIngredientFromDishTemplate,
@@ -11,6 +11,7 @@ import { useEditIngredient, useUpdateDishTemplate } from "@/hooks/dishTemplate";
 import EditTitleForm from "@/components/EditTitleForm";
 import ErrorAlert from "@/components/ErrorAlert";
 import Spinner from "@/components/Spinner";
+import Button from "@/components/Button";
 
 export default function Page({ params }) {
   const [state, setState] = useState("");
@@ -59,18 +60,24 @@ export default function Page({ params }) {
     );
 
   return (
-    <div>
-      <Link href={`/dishTemplates`}>Готово</Link>
-      {titleContent}
+    <Box my="2">
+      <HStack>
+        <Button href={`/dishTemplates`} colorScheme="green">
+          Готово
+        </Button>
+        <Button href={`/dishTemplates/${dishTemplateId}/ingredients`}>
+          Добавить ингредиент
+        </Button>
+      </HStack>
+      <Heading as="h3" size="lg">
+        {titleContent}
+      </Heading>
       <IngredientList
         ingredients={dishTemplate.ingredients}
         parentUrl={`/dishTemplates/${dishTemplateId}`}
         onChanged={handleEditIngredient}
         onDelete={handleDeleteIngredient}
       />
-      <Link href={`/dishTemplates/${dishTemplateId}/ingredients`}>
-        Добавить ингредиент
-      </Link>
-    </div>
+    </Box>
   );
 }
