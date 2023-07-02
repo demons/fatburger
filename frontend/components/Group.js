@@ -2,21 +2,15 @@ import { useRouter } from "next/navigation";
 import { Flex, Card, CardHeader, Heading, CardBody } from "@chakra-ui/react";
 import AmountItem from "./AmountItem";
 import GroupItemList from "./GroupItemList";
-import { useRemoveGroupMutation } from "@/hooks";
 
 export default function Group({ group }) {
   const router = useRouter();
-  const { mutate: removeGroup } = useRemoveGroupMutation();
 
   const { energy, protein, fat, carb, groupItems } = group;
   const amount = { energy, protein, fat, carb };
 
   const handleEdit = () => {
     router.push(`/groups/${group.id}`);
-  };
-
-  const handleRemove = () => {
-    removeGroup(group.id);
   };
 
   return (
