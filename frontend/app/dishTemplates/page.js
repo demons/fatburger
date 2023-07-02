@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { Flex, Text, IconButton, HStack } from "@chakra-ui/react";
+import { Flex, Text, IconButton, HStack, Box, Heading } from "@chakra-ui/react";
 import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
 import { useDishTemplatesQuery } from "@/hooks";
 import AddDishTemplateForm from "@/components/AddDishTemplateForm";
@@ -61,9 +61,12 @@ export default function Page() {
   });
 
   return (
-    <div>
+    <Box>
+      <Heading as="h2" size="lg">
+        Блюда
+      </Heading>
       {renderedDishTemplates}
       <AddDishTemplateForm />
-    </div>
+    </Box>
   );
 }
