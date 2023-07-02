@@ -1,5 +1,7 @@
 import { useAddDishTemplate } from "@/hooks/dishTemplate";
 import { useState } from "react";
+import { Input, HStack } from "@chakra-ui/react";
+import Button from "./Button";
 
 export default function AddDishTemplateForm() {
   const [title, setTitle] = useState("");
@@ -17,8 +19,18 @@ export default function AddDishTemplateForm() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <input type="text" value={title} onChange={handleChange} required />
-      <button type="submit">Добавить</button>
+      <HStack maxW="sm" m="auto">
+        <Input
+          type="text"
+          value={title}
+          onChange={handleChange}
+          size="sm"
+          required
+        />
+        <Button type="submit" colorScheme="green">
+          Добавить
+        </Button>
+      </HStack>
     </form>
   );
 }
