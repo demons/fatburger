@@ -1,17 +1,34 @@
 "use client";
 
-import NextLink from "next/link";
-import {
-  Box,
-  Container,
-  Flex,
-  Image,
-  Avatar,
-  HStack,
-  Link,
-} from "@chakra-ui/react";
+import { Box, Container, Flex, Image, useMediaQuery } from "@chakra-ui/react";
+import BurgerMenu from "./BurgerMenu";
+import HorizontalMenu from "./HorizontalMenu";
+import Button from "./Button";
 
 export default function Header() {
+  const [isLargerThan800] = useMediaQuery("(min-width: 700px)");
+
+  let content;
+
+  if (isLargerThan800) {
+    content = (
+      <Flex justifyContent="space-between" alignItems="center">
+        <Image src="/logo.png" alt="Logo" boxSize="48px" />
+        <HorizontalMenu />
+        <Button href={`/logout`} colorScheme="pink">
+          Выйти
+        </Button>
+      </Flex>
+    );
+  } else {
+    content = (
+      <Flex justifyContent="space-between" alignItems="center">
+        <Image src="/logo.png" alt="Logo" boxSize="48px" />
+        <BurgerMenu />
+      </Flex>
+    );
+  }
+
   return (
     <Box
       as="header"
@@ -20,25 +37,7 @@ export default function Header() {
       bg="white"
       py="2"
     >
-      <Container maxW="container.lg">
-        <Flex justifyContent="space-between" alignItems="center">
-          <Image src="/logo.png" alt="Logo" boxSize="48px" />
-          <HStack>
-            <Link href="/" as={NextLink}>
-              Главная
-            </Link>
-            <Link href="/products" as={NextLink}>
-              Продукты
-            </Link>
-            <Link href="/dishTemplates" as={NextLink}>
-              Блюда
-            </Link>
-          </HStack>
-          <HStack>
-            <Avatar size="md" />
-          </HStack>
-        </Flex>
-      </Container>
+      <Container maxW="container.lg">{content}</Container>
     </Box>
   );
 }
