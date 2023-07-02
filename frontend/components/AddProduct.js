@@ -101,6 +101,7 @@ export default function AddProduct({ product }) {
           <Input
             type="text"
             name="title"
+            size="sm"
             value={title}
             onChange={handleChange}
             required
@@ -111,6 +112,7 @@ export default function AddProduct({ product }) {
           <Input
             type="text"
             name="maker"
+            size="sm"
             value={maker}
             onChange={handleChange}
           />
@@ -120,6 +122,7 @@ export default function AddProduct({ product }) {
           <Input
             type="number"
             name="energy"
+            size="sm"
             value={energy}
             onChange={handleChange}
             step="1"
@@ -130,6 +133,7 @@ export default function AddProduct({ product }) {
           <Input
             type="number"
             name="protein"
+            size="sm"
             value={protein}
             onChange={handleChange}
             step=".01"
@@ -140,6 +144,7 @@ export default function AddProduct({ product }) {
           <Input
             type="number"
             name="fat"
+            size="sm"
             value={fat}
             onChange={handleChange}
             step=".01"
@@ -150,6 +155,7 @@ export default function AddProduct({ product }) {
           <Input
             type="number"
             name="carb"
+            size="sm"
             value={carb}
             onChange={handleChange}
             step=".01"
