@@ -8,9 +8,10 @@ export async function fetchBase(path, options = {}) {
     },
   });
 
-  if (res.status === 401) {
-    localStorage.removeItem("user");
+  if (res.status === 401 && location.pathname !== "/login") {
     location.href = "/login";
+    localStorage.removeItem("user");
+    return;
   }
 
   if (!res.ok) throw new Error("Произошла ошибка при получении...");
