@@ -4,18 +4,18 @@ function AmountItem({ amount }) {
   const { energy, protein, fat, carb } = amount;
 
   return (
-    <Flex width="250px" justifyContent="space-between">
-      <Text fontSize="sm" color="gray.500">
-        К: <i>{energy}</i>
+    <Flex justifyContent="space-between">
+      <Text fontSize="sm" color="gray.500" px="2">
+        <b>К</b>: <i>{energy}</i>
       </Text>
-      <Text fontSize="sm" color="gray.500">
-        Б: <i>{protein}</i>
+      <Text fontSize="sm" color="gray.500" px="2">
+        <b>Б</b>: <i>{protein}</i>
       </Text>
-      <Text fontSize="sm" color="gray.500">
-        Ж: <i>{fat}</i>
+      <Text fontSize="sm" color="gray.500" px="2">
+        <b>Ж</b>: <i>{fat}</i>
       </Text>
-      <Text fontSize="sm" color="gray.500">
-        У: <i>{carb}</i>
+      <Text fontSize="sm" color="gray.500" px="2">
+        <b>У</b>: <i>{carb}</i>
       </Text>
     </Flex>
   );
