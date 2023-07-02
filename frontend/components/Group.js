@@ -1,11 +1,19 @@
 import { useRouter } from "next/navigation";
 import {
   Flex,
+  Box,
   Card,
+  Text,
   CardHeader,
   Heading,
   CardBody,
   IconButton,
+  Stack,
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionPanel,
+  AccordionIcon,
   HStack,
 } from "@chakra-ui/react";
 import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
@@ -29,25 +37,23 @@ export default function Group({ group }) {
   };
 
   return (
-    <Card my="3">
-      <CardHeader>
-        <Flex justifyContent="space-between" alignItems="center">
-          <Heading size="md">{group.title}</Heading>
-          <AmountItem amount={amount} />
-          <HStack>
-            <IconButton onClick={handleEdit} size="sm" icon={<EditIcon />} />
-            <IconButton
-              onClick={handleRemove}
-              size="sm"
-              colorScheme="red"
-              icon={<DeleteIcon />}
-            />
-          </HStack>
-        </Flex>
-      </CardHeader>
-      <CardBody>
-        <GroupItemList groupItems={groupItems} isCompact={true} />
-      </CardBody>
-    </Card>
+    <Box my="3">
+      <Flex justifyContent="space-between" alignItems="center" my="1">
+        <Heading as="h3" size="md">
+          {group.title}
+        </Heading>
+        <AmountItem amount={amount} />
+        <HStack>
+          <IconButton onClick={handleEdit} size="sm" icon={<EditIcon />} />
+          <IconButton
+            onClick={handleRemove}
+            size="sm"
+            colorScheme="red"
+            icon={<DeleteIcon />}
+          />
+        </HStack>
+      </Flex>
+      <GroupItemList groupItems={groupItems} isCompact={true} />
+    </Box>
   );
 }
