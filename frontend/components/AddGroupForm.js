@@ -25,19 +25,17 @@ function AddGroupForm() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <Center>
-        <HStack>
-          <Input
-            placeholder="Название группы"
-            size="sm"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-          <Button type="submit" colorScheme="green" size="sm">
-            Добавить
-          </Button>
-        </HStack>
-      </Center>
+      <HStack maxW="lg" mx="auto" my="2">
+        <Input
+          placeholder="Название группы"
+          size="sm"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
+        <Button type="submit" colorScheme="green" size="sm">
+          Добавить
+        </Button>
+      </HStack>
     </form>
   );
 }
