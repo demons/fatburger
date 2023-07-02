@@ -30,8 +30,26 @@ export function useUpdateStory() {
   const client = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ storyId, date, energy, protein, fat, carb, comment }) => {
-      return updateStory(storyId, date, energy, protein, fat, carb, comment);
+    mutationFn: ({
+      storyId,
+      date,
+      energy,
+      protein,
+      fat,
+      carb,
+      type,
+      comment,
+    }) => {
+      return updateStory(
+        storyId,
+        date,
+        energy,
+        protein,
+        fat,
+        carb,
+        type,
+        comment
+      );
     },
     onSuccess: () => {
       client.invalidateQueries({ queryKey: ["stories"] });

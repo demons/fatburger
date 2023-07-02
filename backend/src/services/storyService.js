@@ -3,10 +3,13 @@ const ApiError = require("../error/apiError");
 
 class StoryService {
   async getAll(userId) {
-    return await Story.findAll({ where: { userId } });
+    return await Story.findAll({
+      where: { userId },
+      order: [["date", "DESC"]],
+    });
   }
 
-  async create(userId, date, energy, protein, fat, carb, comment) {
+  async create(userId, date, energy, protein, fat, carb, type, comment) {
     return await Story.create({
       userId,
       date,
@@ -14,13 +17,24 @@ class StoryService {
       protein,
       fat,
       carb,
+      type,
       comment,
     });
   }
 
-  async update(userId, storyId, date, energy, protein, fat, carb, comment) {
+  async update(
+    userId,
+    storyId,
+    date,
+    energy,
+    protein,
+    fat,
+    carb,
+    type,
+    comment
+  ) {
     return await Story.update(
-      { date, energy, protein, fat, carb, comment },
+      { date, energy, protein, fat, carb, type, comment },
       { where: { userId, id: storyId } }
     );
   }

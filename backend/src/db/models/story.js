@@ -39,6 +39,11 @@ module.exports = (sequelize, DataTypes) => {
       comment: {
         type: DataTypes.STRING(255),
         allowNull: false,
+        defaultValue: "",
+      },
+      type: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
       },
     },
     {

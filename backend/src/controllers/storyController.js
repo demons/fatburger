@@ -8,7 +8,7 @@ class StoryController {
   }
 
   async create(req, res, next) {
-    const { date, energy, protein, fat, carb, comment } = req.body;
+    const { date, energy, protein, fat, carb, type, comment } = req.body;
     const story = await storyService.create(
       req.user.id,
       date,
@@ -16,6 +16,7 @@ class StoryController {
       protein,
       fat,
       carb,
+      type,
       comment
     );
     return res.json(story);
@@ -23,7 +24,7 @@ class StoryController {
 
   async update(req, res, next) {
     const { storyId } = req.params;
-    const { date, energy, protein, fat, carb, comment } = req.body;
+    const { date, energy, protein, fat, carb, type, comment } = req.body;
     const result = await storyService.update(
       req.user.id,
       storyId,
@@ -32,6 +33,7 @@ class StoryController {
       protein,
       fat,
       carb,
+      type,
       comment
     );
     return res.json(result);
