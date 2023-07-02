@@ -1,21 +1,5 @@
 import { useRouter } from "next/navigation";
-import {
-  Flex,
-  Box,
-  Card,
-  Text,
-  CardHeader,
-  Heading,
-  CardBody,
-  IconButton,
-  Stack,
-  Accordion,
-  AccordionItem,
-  AccordionButton,
-  AccordionPanel,
-  AccordionIcon,
-  HStack,
-} from "@chakra-ui/react";
+import { Flex, Box, Heading, IconButton, HStack } from "@chakra-ui/react";
 import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
 import { useRemoveGroupMutation } from "@/hooks";
 import AmountItem from "./AmountItem";
