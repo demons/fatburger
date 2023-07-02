@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { Input, Flex, HStack } from "@chakra-ui/react";
+import Button from "./Button";
 
 export default function EditIngredientForm({ ingredient, onApply }) {
   const [count, setCount] = useState("");
@@ -22,18 +24,26 @@ export default function EditIngredientForm({ ingredient, onApply }) {
 
   return (
     <form onSubmit={handleSubmit}>
-      {ingredient.title}
-      <input
-        type="number"
-        value={count}
-        autoFocus
-        placeholder={ingredient.count}
-        onChange={handleChange}
-      />
-      <button type="submit">Изменить</button>
-      <button type="button" onClick={handleCancel}>
-        Отмена
-      </button>
+      <Flex justifyContent="space-between" alignItems="center">
+        {ingredient.title}
+        <HStack>
+          <Input
+            type="number"
+            value={count}
+            autoFocus
+            placeholder={ingredient.count}
+            onChange={handleChange}
+            size="sm"
+            width="100px"
+          />
+          <Button type="submit" colorScheme="green">
+            Изменить
+          </Button>
+          <Button type="button" colorScheme="red" onClick={handleCancel}>
+            Отмена
+          </Button>
+        </HStack>
+      </Flex>
     </form>
   );
 }
