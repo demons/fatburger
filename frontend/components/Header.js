@@ -35,8 +35,7 @@ export default function Header() {
             </Link>
           </HStack>
           <HStack>
-            <Box>sanek49@yandex.ru</Box>
-            <Avatar size="md" src="https://bit.ly/broken-link" />
+            <Avatar size="md" />
           </HStack>
         </Flex>
       </Container>
