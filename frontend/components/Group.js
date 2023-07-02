@@ -1,5 +1,12 @@
 import { useRouter } from "next/navigation";
-import { Flex, Box, Heading, IconButton, HStack } from "@chakra-ui/react";
+import {
+  Flex,
+  Box,
+  Heading,
+  IconButton,
+  HStack,
+  Stack,
+} from "@chakra-ui/react";
 import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
 import { useRemoveGroupMutation } from "@/hooks";
 import AmountItem from "./AmountItem";
@@ -22,11 +29,19 @@ export default function Group({ group }) {
 
   return (
     <Box my="3">
-      <Flex justifyContent="space-between" alignItems="center" my="1">
-        <Heading as="h3" size="md">
-          {group.title}
-        </Heading>
-        <AmountItem amount={amount} />
+      <Flex
+        justifyContent="space-between"
+        alignItems="center"
+        my="1"
+        borderBottom="1px"
+        borderColor="gray.200"
+      >
+        <Stack>
+          <Heading as="h3" size="md">
+            {group.title}
+          </Heading>
+          <AmountItem amount={amount} />
+        </Stack>
         <HStack>
           <IconButton onClick={handleEdit} size="sm" icon={<EditIcon />} />
           <IconButton
