@@ -15,7 +15,7 @@ import { useStore } from "@/store";
 export default function Page({ params }) {
   const [state, setState] = useState("");
   const { groupId } = params;
-  const { data, isLoading, isError } = useGroupQuery(groupId);
+  const { data, status } = useGroupQuery(groupId);
   const { mutate: updateGroup } = useUpdateGroup();
   const setAmount = useStore((state) => state.setAmount);
 
@@ -26,11 +26,11 @@ export default function Page({ params }) {
     }
   }, [data]);
 
-  if (isLoading) {
+  if (status === "loading") {
     return <Spinner />;
   }
 
-  if (isError) {
+  if (status === "error") {
     return <NotFoundPage timeout={1500} />;
   }
 
