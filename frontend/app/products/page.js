@@ -40,6 +40,9 @@ export default function Page() {
           justifyContent="space-between"
           alignItems="center"
           my="2"
+          border="1px"
+          p="2"
+          borderColor="gray.200"
         >
           <Stack>
             <HStack>
