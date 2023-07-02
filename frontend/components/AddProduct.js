@@ -1,8 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { HStack, Stack, FormControl, FormLabel, Input } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import { useAddProduct, useEditProduct } from "@/hooks";
+import Button from "./Button";
 
 export default function AddProduct({ product }) {
   const [title, setTitle] = useState("");
@@ -93,75 +95,75 @@ export default function AddProduct({ product }) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="title">Название</label>
-        <input
-          type="text"
-          name="title"
-          id="title"
-          value={title}
-          onChange={handleChange}
-          required
-        />
-      </div>
-      <div>
-        <label htmlFor="maker">Производитель</label>
-        <input
-          type="text"
-          name="maker"
-          id="maker"
-          value={maker}
-          onChange={handleChange}
-        />
-      </div>
-      <div>
-        <label htmlFor="energy">Калории</label>
-        <input
-          type="number"
-          name="energy"
-          id="energy"
-          value={energy}
-          onChange={handleChange}
-        />
-      </div>
-      <div>
-        <label htmlFor="protein">Белки</label>
-        <input
-          type="number"
-          name="protein"
-          id="protein"
-          value={protein}
-          onChange={handleChange}
-          step=".01"
-        />
-      </div>
-      <div>
-        <label htmlFor="fat">Жиры</label>
-        <input
-          type="number"
-          name="fat"
-          id="fat"
-          value={fat}
-          onChange={handleChange}
-          step=".01"
-        />
-      </div>
-      <div>
-        <label htmlFor="carb">Углеводы</label>
-        <input
-          type="number"
-          name="carb"
-          id="carb"
-          value={carb}
-          onChange={handleChange}
-          step=".01"
-        />
-      </div>
-
-      <button type="submit">{product ? "Редактировать" : "Добавить"}</button>
-      <button type="button" onClick={handleCancel}>
-        Отмена
-      </button>
+      <Stack maxW="sm" m="auto">
+        <FormControl>
+          <FormLabel>Название</FormLabel>
+          <Input
+            type="text"
+            name="title"
+            value={title}
+            onChange={handleChange}
+            required
+          />
+        </FormControl>
+        <FormControl>
+          <FormLabel>Производитель</FormLabel>
+          <Input
+            type="text"
+            name="maker"
+            value={maker}
+            onChange={handleChange}
+          />
+        </FormControl>
+        <FormControl>
+          <FormLabel>Калории</FormLabel>
+          <Input
+            type="number"
+            name="energy"
+            value={energy}
+            onChange={handleChange}
+            step="1"
+          />
+        </FormControl>
+        <FormControl>
+          <FormLabel>Белки</FormLabel>
+          <Input
+            type="number"
+            name="protein"
+            value={protein}
+            onChange={handleChange}
+            step=".01"
+          />
+        </FormControl>
+        <FormControl>
+          <FormLabel>Жиры</FormLabel>
+          <Input
+            type="number"
+            name="fat"
+            value={fat}
+            onChange={handleChange}
+            step=".01"
+          />
+        </FormControl>
+        <FormControl>
+          <FormLabel>Углеводы</FormLabel>
+          <Input
+            type="number"
+            name="carb"
+            value={carb}
+            onChange={handleChange}
+            step=".01"
+          />
+        </FormControl>
+        <HStack>
+          <Button type="submit" colorScheme="green">
+            {product ? "Редактировать" : "Добавить"}
+          </Button>
+          <Button type="button" onClick={handleCancel} colorScheme="red">
+            Отмена
+          </Button>
+        </HStack>
+      </Stack>
     </form>
   );
 }
