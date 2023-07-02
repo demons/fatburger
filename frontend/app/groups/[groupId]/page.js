@@ -1,8 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import { Flex, Heading, HStack, Divider, IconButton } from "@chakra-ui/react";
-import { DeleteIcon } from "@chakra-ui/icons";
+import { Flex, Heading, HStack, Divider } from "@chakra-ui/react";
 import AmountItem from "@/components/AmountItem";
 import GroupItemList from "@/components/GroupItemList";
 import NotFoundPage from "@/components/NotFoundPage";
@@ -10,7 +8,6 @@ import { useGroupQuery } from "@/hooks";
 import { useEffect, useState } from "react";
 import EditTitleForm from "@/components/EditTitleForm";
 import { useUpdateGroup } from "@/hooks/group";
-import { useRemoveGroupMutation } from "@/hooks";
 import Spinner from "@/components/Spinner";
 import Button from "@/components/Button";
 import { useStore } from "@/store";
@@ -20,8 +17,6 @@ export default function Page({ params }) {
   const { groupId } = params;
   const { data, isLoading, isError } = useGroupQuery(groupId);
   const { mutate: updateGroup } = useUpdateGroup();
-  const { mutate: removeGroup } = useRemoveGroupMutation();
-  const router = useRouter();
   const setAmount = useStore((state) => state.setAmount);
 
   useEffect(() => {
@@ -52,11 +47,6 @@ export default function Page({ params }) {
     setState("");
   };
 
-  const handleRemove = () => {
-    removeGroup(group.id);
-    router.push(`/`);
-  };
-
   const titleContent =
     state === "edit" ? (
       <EditTitleForm title={group.title} onApply={handleTitleApply} />
@@ -84,12 +74,6 @@ export default function Page({ params }) {
           {titleContent}
         </Heading>
         <AmountItem amount={amount} />
-        <IconButton
-          onClick={handleRemove}
-          size="sm"
-          colorScheme="red"
-          icon={<DeleteIcon />}
-        />
       </Flex>
       <Divider />
       <GroupItemList groupItems={group.groupItems} isEditable={true} />
