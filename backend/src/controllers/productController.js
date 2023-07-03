@@ -15,12 +15,6 @@ class ProductController {
   }
 
   async create(req, res, next) {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return next(
-        ApiError.badRequest("Указаны не все параметры", errors.array())
-      );
-    }
     const { title, maker = "", energy, protein, fat, carb } = req.body;
     const product = await productService.create(
       req.user.id,

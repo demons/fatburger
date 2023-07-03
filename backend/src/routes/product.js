@@ -10,12 +10,6 @@ router.get("/:id", authMiddleware, asyncWrapper(productController.getOne));
 router.post(
   "/",
   authMiddleware,
-  body("title").isString(),
-  body("maker").isString(),
-  body("energy").isInt(),
-  body("protein").isDecimal(),
-  body("fat").isDecimal(),
-  body("carb").isDecimal(),
   asyncWrapper(productController.create)
 );
 router.put("/:id", authMiddleware, asyncWrapper(productController.update));
