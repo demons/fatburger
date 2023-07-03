@@ -66,7 +66,7 @@ export default function Page({ params }) {
           <Button href={`/groups/${groupId}/ingredients`}>
             Добавить ингредиент
           </Button>
-          <Button href={`/groups/${groupId}/dishes`}>Добавить бюдо</Button>
+          <Button href={`/groups/${groupId}/dishes`}>Добавить блюдо</Button>
         </HStack>
       </Flex>
       <Flex justifyContent="space-between" alignItems="center" my="3">
