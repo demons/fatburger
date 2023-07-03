@@ -15,7 +15,7 @@ class ProductService {
   }
 
   async getAll(userId) {
-    return await Product.findAll({ where: { userId } });
+    return await Product.findAll({ where: { userId }, order: [['title', 'ASC']] });
   }
 
   async getOne(userId, productId) {
