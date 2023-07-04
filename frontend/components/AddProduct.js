@@ -134,7 +134,7 @@ export default function AddProduct({ product }) {
             size="sm"
             value={energy}
             onChange={handleChange}
-            placeholder={product.energy}
+            placeholder={(product && product.energy) || 0}
             step="1"
           />
         </FormControl>
@@ -146,7 +146,7 @@ export default function AddProduct({ product }) {
             size="sm"
             value={protein}
             onChange={handleChange}
-            placeholder={product.protein}
+            placeholder={(product && product.protein) || 0}
             step=".01"
           />
         </FormControl>
@@ -158,7 +158,7 @@ export default function AddProduct({ product }) {
             size="sm"
             value={fat}
             onChange={handleChange}
-            placeholder={product.fat}
+            placeholder={(product && product.fat) || 0}
             step=".01"
           />
         </FormControl>
@@ -170,7 +170,7 @@ export default function AddProduct({ product }) {
             size="sm"
             value={carb}
             onChange={handleChange}
-            placeholder={product.carb}
+            placeholder={(product && product.carb) || 0}
             step=".01"
           />
         </FormControl>
@@ -182,7 +182,7 @@ export default function AddProduct({ product }) {
             size="sm"
             value={fib}
             onChange={handleChange}
-            placeholder={product.fib}
+            placeholder={(product && product.fib) || 0}
             step=".01"
           />
         </FormControl>
@@ -193,7 +193,7 @@ export default function AddProduct({ product }) {
             name="weight"
             size="sm"
             value={weight}
-            placeholder={product.weight}
+            placeholder={(product && product.weight) || 0}
             min="1"
             onChange={handleChange}
           />
