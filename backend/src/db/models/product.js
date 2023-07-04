@@ -42,10 +42,19 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.DECIMAL(5, 2),
         allowNull: false,
       },
+      fib: {
+        type: DataTypes.DECIMAL(5, 2),
+        allowNull: false,
+      },
       weight: {
         type: DataTypes.INTEGER,
         allowNull: false,
         defaultValue: 1,
+      },
+      isVisibleFib: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+        allowNull: false,
       },
       isDeleted: {
         type: DataTypes.BOOLEAN,
