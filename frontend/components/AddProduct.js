@@ -175,7 +175,7 @@ export default function AddProduct({ product }) {
           />
         </FormControl>
         <FormControl>
-          <FormLabel>Углеводы</FormLabel>
+          <FormLabel>Клетчатка</FormLabel>
           <Input
             type="number"
             name="fib"
