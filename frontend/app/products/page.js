@@ -54,6 +54,7 @@ export default function Page() {
             <AmountItem amount={product} />
           </Stack>
           <HStack>
+            {product.weight > 1 && <Text as="b">шт.</Text>}
             <IconButton
               onClick={() => handleEdit(id)}
               size="sm"

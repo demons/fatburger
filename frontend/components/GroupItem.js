@@ -58,6 +58,8 @@ function GroupItem({ groupItem, index, isCompact }) {
     }
   };
 
+  const measure = ingredientId && (groupItem.weight > 1 ? "шт." : "г.");
+
   const countContent = groupItem.ingredientId && (
     <Text
       as="b"
@@ -66,7 +68,7 @@ function GroupItem({ groupItem, index, isCompact }) {
       fontSize="sm"
       onClick={handleEditClick}
     >
-      {groupItem.count} г.
+      {groupItem.count} {measure}
     </Text>
   );
 

@@ -11,7 +11,7 @@ export default function Ingredient({
   onDelete,
 }) {
   const { editionIngredientId, setEditionIngredientId } = useStore();
-  const { ingredientId, title, count } = ingredient;
+  const { ingredientId, title, count, weight } = ingredient;
 
   const handleEdit = () => {
     setEditionIngredientId(ingredientId);
@@ -30,6 +30,8 @@ export default function Ingredient({
     return <EditIngredientForm ingredient={ingredient} onApply={handleApply} />;
   }
 
+  const measure = weight > 1 ? "шт." : "г.";
+
   return (
     <Flex
       justifyContent="space-between"
@@ -41,8 +43,8 @@ export default function Ingredient({
     >
       <Link href={`${parentUrl}/ingredients/${ingredientId}`}>{title}</Link>
       <HStack>
-        <Text as="b" width="100px" align="center" fontSize="sm">
-          {count} г.
+        <Text as="b" width="100px" align="right" pr="2" fontSize="sm">
+          {count} {measure}
         </Text>
         <IconButton onClick={handleEdit} size="sm" icon={<EditIcon />} />
         <IconButton

@@ -22,6 +22,10 @@ export default function EditIngredientForm({ ingredient, onApply }) {
     setCount(e.target.value);
   };
 
+  const placeholder = `${ingredient.count} ${
+    ingredient.weight > 0 ? "шт." : "г."
+  }`;
+
   return (
     <form onSubmit={handleSubmit}>
       <Flex justifyContent="space-between" alignItems="center">
@@ -31,7 +35,7 @@ export default function EditIngredientForm({ ingredient, onApply }) {
             type="number"
             value={count}
             autoFocus
-            placeholder={ingredient.count}
+            placeholder={placeholder}
             onChange={handleChange}
             size="sm"
             width="100px"

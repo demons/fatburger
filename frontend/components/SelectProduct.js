@@ -35,7 +35,11 @@ export default function SelectProduct({ onApply }) {
             {maker}
           </Text>
         </HStack>
-        <Button onClick={() => onApply(id)}>Выбрать</Button>
+
+        <HStack>
+          <Text>{product.weight > 1 && "шт."}</Text>
+          <Button onClick={() => onApply(id)}>Выбрать</Button>
+        </HStack>
       </Flex>
     );
   });
