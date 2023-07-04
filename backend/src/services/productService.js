@@ -2,7 +2,18 @@ const { Product, Ingredient } = require("../db/models");
 const ApiError = require("../error/apiError");
 
 class ProductService {
-  async create(userId, title, maker, energy, protein, fat, carb, weight) {
+  async create(
+    userId,
+    title,
+    maker,
+    energy,
+    protein,
+    fat,
+    carb,
+    fib,
+    weight,
+    isVisibleFib
+  ) {
     return await Product.create({
       userId,
       title,
@@ -11,7 +22,9 @@ class ProductService {
       protein,
       fat,
       carb,
+      fib,
       weight,
+      isVisibleFib,
     });
   }
 
@@ -30,9 +43,21 @@ class ProductService {
     return product;
   }
 
-  async update(userId, id, title, maker, energy, protein, fat, carb, weight) {
+  async update(
+    userId,
+    id,
+    title,
+    maker,
+    energy,
+    protein,
+    fat,
+    carb,
+    fib,
+    weight,
+    isVisibleFib
+  ) {
     return await Product.update(
-      { title, maker, energy, protein, fat, carb, weight },
+      { title, maker, energy, protein, fat, carb, fib, weight, isVisibleFib },
       { where: { userId, id } }
     );
   }

@@ -13,6 +13,7 @@ const getQuery = (userId) => {
       protein,
       fat,
       carb,
+      fib,
       NULL weight,
       NULL count,
       NULL "ingredientId",
@@ -26,8 +27,9 @@ const getQuery = (userId) => {
         ROUND(SUM(protein *  count * weight / 100), 2) protein,
         ROUND(SUM(fat *  count * weight / 100), 2) fat,
         ROUND(SUM(carb *  count * weight / 100), 2) carb
+        ROUND(SUM(fib *  count * weight / 100), 2) fib
       FROM (
-        SELECT "dishId", count, energy, protein, fat, carb, weight
+        SELECT "dishId", count, energy, protein, fat, carb, fib, weight
         FROM ingredients i
         LEFT JOIN products p ON p.id = i."productId"
         WHERE "dishId" IN (
@@ -52,6 +54,7 @@ const getQuery = (userId) => {
       ROUND(p.protein * count * weight / 100, 2) protein,
       ROUND(p.fat * count * weight / 100, 2) fat,
       ROUND(p.carb * count * weight / 100, 2) carb,
+      ROUND(p.fib * count * weight / 100, 2) fib,
       weight,
       count,
       i.id "ingredientId",
@@ -79,6 +82,7 @@ const computeGroups = (rawGroups, groupItems) => {
         protein: 0,
         fat: 0,
         carb: 0,
+        fib: 0,
       };
       return target;
     }, {});
@@ -90,10 +94,11 @@ const computeGroups = (rawGroups, groupItems) => {
       protein: 0,
       fat: 0,
       carb: 0,
+      fib: 0,
     };
   }
 
-  const amount = { energy: 0, protein: 0, fat: 0, carb: 0 };
+  const amount = { energy: 0, protein: 0, fat: 0, carb: 0, fib: 0 };
 
   groupItems.forEach((groupItem) => {
     // To float
@@ -101,6 +106,7 @@ const computeGroups = (rawGroups, groupItems) => {
     groupItem.protein = parseFloat(groupItem.protein | 0);
     groupItem.fat = parseFloat(groupItem.fat | 0);
     groupItem.carb = parseFloat(groupItem.carb | 0);
+    groupItem.fib = parseFloat(groupItem.fib | 0);
 
     // Amount for group
     if (groups[groupItem.groupId]) {
@@ -109,6 +115,7 @@ const computeGroups = (rawGroups, groupItems) => {
       group.protein = +(group.protein + groupItem.protein).toFixed(2);
       group.fat = +(group.fat + groupItem.fat).toFixed(2);
       group.carb = +(group.carb + groupItem.carb).toFixed(2);
+      group.fib = +(group.fib + groupItem.fib).toFixed(2);
       group.groupItems.push(groupItem);
     }
 
@@ -117,6 +124,7 @@ const computeGroups = (rawGroups, groupItems) => {
     amount.protein = +(amount.protein + groupItem.protein).toFixed(2);
     amount.fat = +(amount.fat + groupItem.fat).toFixed(2);
     amount.carb = +(amount.carb + groupItem.carb).toFixed(2);
+    amount.fib = +(amount.fib + groupItem.fib).toFixed(2);
   });
 
   return { result: groups, amount };
