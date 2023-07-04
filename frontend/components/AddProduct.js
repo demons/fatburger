@@ -80,11 +80,11 @@ export default function AddProduct({ product }) {
     const temp = {
       title,
       maker: maker || "",
-      energy: energy || 0,
-      protein: protein || 0,
-      fat: fat || 0,
-      carb: carb || 0,
-      weight: weight || 1,
+      energy: energy || (product && product.energy) || 0,
+      protein: protein || (product && product.protein) || 0,
+      fat: fat || (product && product.fat) || 0,
+      carb: carb || (product && product.carb) || 0,
+      weight: weight || (product && product.weight) || 1,
     };
 
     if (product) {
