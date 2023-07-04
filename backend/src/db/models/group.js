@@ -26,7 +26,7 @@ const getQuery = (userId) => {
         ROUND(SUM(energy *  count * weight / 100), 2) energy,
         ROUND(SUM(protein *  count * weight / 100), 2) protein,
         ROUND(SUM(fat *  count * weight / 100), 2) fat,
-        ROUND(SUM(carb *  count * weight / 100), 2) carb
+        ROUND(SUM(carb *  count * weight / 100), 2) carb,
         ROUND(SUM(fib *  count * weight / 100), 2) fib
       FROM (
         SELECT "dishId", count, energy, protein, fat, carb, fib, weight
