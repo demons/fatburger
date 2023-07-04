@@ -2,7 +2,7 @@ const { Product, Ingredient } = require("../db/models");
 const ApiError = require("../error/apiError");
 
 class ProductService {
-  async create(userId, title, maker, energy, protein, fat, carb) {
+  async create(userId, title, maker, energy, protein, fat, carb, weight) {
     return await Product.create({
       userId,
       title,
@@ -11,11 +11,15 @@ class ProductService {
       protein,
       fat,
       carb,
+      weight,
     });
   }
 
   async getAll(userId) {
-    return await Product.findAll({ where: { userId }, order: [['title', 'ASC']] });
+    return await Product.findAll({
+      where: { userId },
+      order: [["title", "ASC"]],
+    });
   }
 
   async getOne(userId, productId) {
@@ -26,9 +30,9 @@ class ProductService {
     return product;
   }
 
-  async update(userId, id, title, maker, energy, protein, fat, carb) {
+  async update(userId, id, title, maker, energy, protein, fat, carb, weight) {
     return await Product.update(
-      { title, maker, energy, protein, fat, carb },
+      { title, maker, energy, protein, fat, carb, weight },
       { where: { userId, id } }
     );
   }

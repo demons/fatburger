@@ -15,7 +15,7 @@ class ProductController {
   }
 
   async create(req, res, next) {
-    const { title, maker = "", energy, protein, fat, carb } = req.body;
+    const { title, maker = "", energy, protein, fat, carb, weight } = req.body;
     const product = await productService.create(
       req.user.id,
       title,
@@ -23,14 +23,15 @@ class ProductController {
       energy,
       protein,
       fat,
-      carb
+      carb,
+      weight
     );
     return res.json(product);
   }
 
   async update(req, res, next) {
     const { id } = req.params;
-    const { title, maker, energy, protein, fat, carb } = req.body;
+    const { title, maker, energy, protein, fat, carb, weight } = req.body;
 
     const product = await productService.update(
       req.user.id,
@@ -40,7 +41,8 @@ class ProductController {
       energy,
       protein,
       fat,
-      carb
+      carb,
+      weight
     );
     return res.json(product);
   }

@@ -24,10 +24,11 @@ module.exports = (sequelize, DataTypes) => {
         SELECT
           i."dishId",
           p.title,
-          ROUND(p.energy * count / 100, 2) energy,
-          ROUND(p.protein * count / 100, 2) protein,
-          ROUND(p.fat * count / 100, 2) fat,
-          ROUND(p.carb * count / 100, 2) carb,
+          ROUND(p.energy * count * weight / 100, 2) energy,
+          ROUND(p.protein * count * weight / 100, 2) protein,
+          ROUND(p.fat * count * weight / 100, 2) fat,
+          ROUND(p.carb * count * weight / 100, 2) carb,
+          weight,
           count,
           i.id "ingredientId",
           "createdAt"

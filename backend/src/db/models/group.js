@@ -13,6 +13,7 @@ const getQuery = (userId) => {
       protein,
       fat,
       carb,
+      NULL weight,
       NULL count,
       NULL "ingredientId",
       d.id "dishId",
@@ -21,12 +22,12 @@ const getQuery = (userId) => {
     LEFT JOIN (
       SELECT
         "dishId",
-        ROUND(SUM(energy *  count / 100), 2) energy,
-        ROUND(SUM(protein *  count / 100), 2) protein,
-        ROUND(SUM(fat *  count / 100), 2) fat,
-        ROUND(SUM(carb *  count / 100), 2) carb
+        ROUND(SUM(energy *  count * weight / 100), 2) energy,
+        ROUND(SUM(protein *  count * weight / 100), 2) protein,
+        ROUND(SUM(fat *  count * weight / 100), 2) fat,
+        ROUND(SUM(carb *  count * weight / 100), 2) carb
       FROM (
-        SELECT "dishId", count, energy, protein, fat, carb
+        SELECT "dishId", count, energy, protein, fat, carb, weight
         FROM ingredients i
         LEFT JOIN products p ON p.id = i."productId"
         WHERE "dishId" IN (
@@ -47,10 +48,11 @@ const getQuery = (userId) => {
     SELECT
       i."groupId",
       p.title,
-      ROUND(p.energy * count / 100, 2) energy,
-      ROUND(p.protein * count / 100, 2) protein,
-      ROUND(p.fat * count / 100, 2) fat,
-      ROUND(p.carb * count / 100, 2) carb,
+      ROUND(p.energy * count * weight / 100, 2) energy,
+      ROUND(p.protein * count * weight / 100, 2) protein,
+      ROUND(p.fat * count * weight / 100, 2) fat,
+      ROUND(p.carb * count * weight / 100, 2) carb,
+      weight,
       count,
       i.id "ingredientId",
       NULL "dishId",
