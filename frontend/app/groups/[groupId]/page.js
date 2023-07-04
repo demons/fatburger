@@ -40,6 +40,7 @@ export default function Page({ params }) {
     protein: group.protein,
     fat: group.fat,
     carb: group.carb,
+    fib: group.fib,
   };
 
   const handleTitleApply = (title) => {

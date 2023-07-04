@@ -13,6 +13,7 @@ export default function AddProduct({ product }) {
   const [protein, setProtein] = useState("");
   const [fat, setFat] = useState("");
   const [carb, setCarb] = useState("");
+  const [fib, setFib] = useState("");
   const [weight, setWeight] = useState("");
   const router = useRouter();
   const { mutate: addProduct } = useAddProduct();
@@ -63,6 +64,11 @@ export default function AddProduct({ product }) {
           setCarb(value);
         }
         break;
+      case "fib":
+        {
+          setFib(value);
+        }
+        break;
       case "weight":
         {
           setWeight(value);
@@ -84,6 +90,7 @@ export default function AddProduct({ product }) {
       protein: protein || (product && product.protein) || 0,
       fat: fat || (product && product.fat) || 0,
       carb: carb || (product && product.carb) || 0,
+      fib: fib || (product && product.fib) || 0,
       weight: weight || (product && product.weight) || 1,
     };
 
@@ -164,6 +171,18 @@ export default function AddProduct({ product }) {
             value={carb}
             onChange={handleChange}
             placeholder={product.carb}
+            step=".01"
+          />
+        </FormControl>
+        <FormControl>
+          <FormLabel>Углеводы</FormLabel>
+          <Input
+            type="number"
+            name="fib"
+            size="sm"
+            value={fib}
+            onChange={handleChange}
+            placeholder={product.fib}
             step=".01"
           />
         </FormControl>

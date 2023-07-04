@@ -23,6 +23,9 @@ export default function Amount() {
       <Skeleton isLoaded={amount}>
         <Text fontSize="sm">Углеводы: {amount && amount.carb}</Text>
       </Skeleton>
+      <Skeleton isLoaded={amount}>
+        <Text fontSize="sm">Клетчатка: {amount && amount.fib}</Text>
+      </Skeleton>
     </Flex>
   );
 }
