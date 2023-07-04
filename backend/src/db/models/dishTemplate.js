@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
           ROUND(p.protein * count * weight / 100, 2) protein,
           ROUND(p.fat * count * weight / 100, 2) fat,
           ROUND(p.carb * count * weight / 100, 2) carb,
-          weight
+          weight,
           count,
           i.id "ingredientId",
           "createdAt"
