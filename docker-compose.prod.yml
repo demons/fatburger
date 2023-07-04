@@ -4,7 +4,7 @@ services:
   nginx:
     image: nginx:stable-alpine
     restart: unless-stopped
-    container_name: nginx
+    container_name: fb_nginx
     volumes:
       - ./backend/default.conf:/etc/nginx/conf.d/default.conf:ro
     depends_on:
@@ -39,8 +39,8 @@ services:
   # https://habr.com/ru/post/578744/
   db:
     image: postgres:14.4-alpine
-    container_name: fb_db
     restart: unless-stopped
+    container_name: fb_db
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -d ${DB_NAME} -U ${DB_USER}"]
       interval: 10s
