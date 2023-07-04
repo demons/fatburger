@@ -16,8 +16,8 @@ export default function Group({ group }) {
   const { mutate: removeGroup } = useRemoveGroupMutation();
   const router = useRouter();
 
-  const { energy, protein, fat, carb, groupItems } = group;
-  const amount = { energy, protein, fat, carb };
+  const { energy, protein, fat, carb, fib, groupItems } = group;
+  const amount = { energy, protein, fat, carb, fib };
 
   const handleEdit = () => {
     router.push(`/groups/${group.id}`);

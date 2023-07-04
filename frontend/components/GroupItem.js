@@ -21,8 +21,8 @@ function GroupItem({ groupItem, index, isCompact }) {
     (state) => state.setEditionIngredientId
   );
 
-  const { energy, protein, fat, carb } = groupItem;
-  const amount = { energy, protein, fat, carb };
+  const { energy, protein, fat, carb, fib } = groupItem;
+  const amount = { energy, protein, fat, carb, fib };
   const { groupId, dishId, ingredientId, productId } = groupItem;
 
   const handleChangeProductClick = () => {

@@ -1,7 +1,7 @@
 import { Flex, Text } from "@chakra-ui/react";
 
 function AmountItem({ amount }) {
-  const { energy, protein, fat, carb } = amount;
+  const { energy, protein, fat, carb, fib } = amount;
 
   return (
     <Flex justifyContent="space-between">
@@ -16,6 +16,9 @@ function AmountItem({ amount }) {
       </Text>
       <Text fontSize="sm" color="gray.500" px="2">
         <b>У</b>: <i>{carb}</i>
+      </Text>
+      <Text fontSize="sm" color="gray.500" px="2">
+        <b>Кл</b>: <i>{fib}</i>
       </Text>
     </Flex>
   );

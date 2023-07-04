@@ -58,8 +58,8 @@ export default function AddStoryForm() {
       });
       return;
     }
-    const { energy, protein, fat, carb } = groups.amount;
-    createStory({ date, energy, protein, fat, carb, type, comment });
+    const { energy, protein, fat, carb, fib } = groups.amount;
+    createStory({ date, energy, protein, fat, carb, fib, type, comment });
 
     setDate(dayjs().format("YYYY-MM-DD"));
     setComment("");

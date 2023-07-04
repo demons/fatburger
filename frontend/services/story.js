@@ -10,12 +10,22 @@ export async function createStory(
   protein,
   fat,
   carb,
+  fib,
   type,
   comment
 ) {
   return fetchBase(`/stories`, {
     method: "POST",
-    body: JSON.stringify({ date, energy, protein, fat, carb, type, comment }),
+    body: JSON.stringify({
+      date,
+      energy,
+      protein,
+      fat,
+      carb,
+      fib,
+      type,
+      comment,
+    }),
   });
 }
 
@@ -26,11 +36,21 @@ export async function updateStory(
   protein,
   fat,
   carb,
+  fib,
   comment
 ) {
   return fetchBase(`/stories/${storyId}`, {
     method: "PUT",
-    body: JSON.stringify({ date, energy, protein, fat, carb, type, comment }),
+    body: JSON.stringify({
+      date,
+      energy,
+      protein,
+      fat,
+      carb,
+      fib,
+      type,
+      comment,
+    }),
   });
 }
 
