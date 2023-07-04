@@ -9,7 +9,7 @@ module.exports = {
           "products",
           "fib",
           {
-            type: Sequelize.DataTypes.DDECIMAL(5, 2),
+            type: Sequelize.DataTypes.DECIMAL(5, 2),
             allowNull: false,
           },
           { transaction: t }
