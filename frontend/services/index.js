@@ -104,10 +104,18 @@ export async function deleteProduct(productId) {
   });
 }
 
-export async function addProduct(title, maker, energy, protein, fat, carb) {
+export async function addProduct(
+  title,
+  maker,
+  energy,
+  protein,
+  fat,
+  carb,
+  weight
+) {
   return fetchBase(`/products`, {
     method: "POST",
-    body: JSON.stringify({ title, maker, energy, protein, fat, carb }),
+    body: JSON.stringify({ title, maker, energy, protein, fat, carb, weight }),
   });
 }
 
@@ -122,11 +130,12 @@ export async function editProduct(
   energy,
   protein,
   fat,
-  carb
+  carb,
+  weight
 ) {
   return fetchBase(`/products/${productId}`, {
     method: "PUT",
-    body: JSON.stringify({ title, maker, energy, protein, fat, carb }),
+    body: JSON.stringify({ title, maker, energy, protein, fat, carb, weight }),
   });
 }
 

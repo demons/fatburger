@@ -120,8 +120,8 @@ export function useAddProduct() {
   const client = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ title, maker, energy, protein, fat, carb }) => {
-      return addProduct(title, maker, energy, protein, fat, carb);
+    mutationFn: ({ title, maker, energy, protein, fat, carb, weight }) => {
+      return addProduct(title, maker, energy, protein, fat, carb, weight);
     },
     onSuccess: () => {
       client.invalidateQueries({ queryKey: ["products"] });
@@ -140,8 +140,26 @@ export function useEditProduct() {
   const client = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ productId, title, maker, energy, protein, fat, carb }) => {
-      return editProduct(productId, title, maker, energy, protein, fat, carb);
+    mutationFn: ({
+      productId,
+      title,
+      maker,
+      energy,
+      protein,
+      fat,
+      carb,
+      weight,
+    }) => {
+      return editProduct(
+        productId,
+        title,
+        maker,
+        energy,
+        protein,
+        fat,
+        carb,
+        weight
+      );
     },
     onSuccess: () => {
       client.invalidateQueries({ queryKey: ["product"] });

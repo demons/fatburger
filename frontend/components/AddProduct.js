@@ -13,19 +13,15 @@ export default function AddProduct({ product }) {
   const [protein, setProtein] = useState("");
   const [fat, setFat] = useState("");
   const [carb, setCarb] = useState("");
+  const [weight, setWeight] = useState("");
   const router = useRouter();
   const { mutate: addProduct } = useAddProduct();
   const { mutate: editProduct } = useEditProduct();
 
   useEffect(() => {
     if (product) {
-      const { title, maker, energy, protein, fat, carb } = product;
-      setTitle(title);
-      setMaker(maker);
-      setEnergy(energy);
-      setProtein(protein);
-      setFat(fat);
-      setCarb(carb);
+      setTitle(product.title);
+      setMaker(product.maker);
     }
   }, [product]);
 
@@ -67,6 +63,11 @@ export default function AddProduct({ product }) {
           setCarb(value);
         }
         break;
+      case "weight":
+        {
+          setWeight(value);
+        }
+        break;
     }
   };
 
@@ -83,6 +84,7 @@ export default function AddProduct({ product }) {
       protein: protein || 0,
       fat: fat || 0,
       carb: carb || 0,
+      weight: weight || 1,
     };
 
     if (product) {
@@ -125,6 +127,7 @@ export default function AddProduct({ product }) {
             size="sm"
             value={energy}
             onChange={handleChange}
+            placeholder={product.energy}
             step="1"
           />
         </FormControl>
@@ -136,6 +139,7 @@ export default function AddProduct({ product }) {
             size="sm"
             value={protein}
             onChange={handleChange}
+            placeholder={product.protein}
             step=".01"
           />
         </FormControl>
@@ -147,6 +151,7 @@ export default function AddProduct({ product }) {
             size="sm"
             value={fat}
             onChange={handleChange}
+            placeholder={product.fat}
             step=".01"
           />
         </FormControl>
@@ -158,7 +163,20 @@ export default function AddProduct({ product }) {
             size="sm"
             value={carb}
             onChange={handleChange}
+            placeholder={product.carb}
             step=".01"
+          />
+        </FormControl>
+        <FormControl>
+          <FormLabel>Вес</FormLabel>
+          <Input
+            type="number"
+            name="weight"
+            size="sm"
+            value={weight}
+            placeholder={product.weight}
+            min="1"
+            onChange={handleChange}
           />
         </FormControl>
         <HStack>
