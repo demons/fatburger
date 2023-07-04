@@ -45,6 +45,7 @@ module.exports = (sequelize, DataTypes) => {
       fib: {
         type: DataTypes.DECIMAL(5, 2),
         allowNull: false,
+        defaultValue: 0,
       },
       weight: {
         type: DataTypes.INTEGER,

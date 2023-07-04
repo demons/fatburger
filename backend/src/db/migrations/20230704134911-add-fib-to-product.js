@@ -11,6 +11,7 @@ module.exports = {
           {
             type: Sequelize.DataTypes.DECIMAL(5, 2),
             allowNull: false,
+            defaultValue: 0,
           },
           { transaction: t }
         ),
