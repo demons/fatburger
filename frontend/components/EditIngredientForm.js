@@ -23,7 +23,7 @@ export default function EditIngredientForm({ ingredient, onApply }) {
   };
 
   const placeholder = `${ingredient.count} ${
-    ingredient.weight > 0 ? "шт." : "г."
+    ingredient.weight > 1 ? "шт." : "г."
   }`;
 
   return (
