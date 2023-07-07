@@ -112,6 +112,28 @@ const computeGroups = (rawGroups, groupItems) => {
     groupItem.carb = parseFloat(groupItem.carb | 0);
     groupItem.fib = parseFloat(groupItem.fib | 0);
 
+    // Если указан вес готового блюда
+    if (groupItem.dishWeight > 0) {
+      groupItem.energy =
+        (((groupItem.energy * 100) / groupItem.dishWeight) *
+          groupItem.dishCount) /
+        100;
+      groupItem.protein =
+        (((groupItem.protein * 100) / groupItem.dishWeight) *
+          groupItem.dishCount) /
+        100;
+      groupItem.fat =
+        (((groupItem.fat * 100) / groupItem.dishWeight) * groupItem.dishCount) /
+        100;
+      groupItem.carb =
+        (((groupItem.carb * 100) / groupItem.dishWeight) *
+          groupItem.dishCount) /
+        100;
+      groupItem.fib =
+        (((groupItem.fib * 100) / groupItem.dishWeight) * groupItem.dishCount) /
+        100;
+    }
+
     // Amount for group
     if (groups[groupItem.groupId]) {
       const group = groups[groupItem.groupId];
