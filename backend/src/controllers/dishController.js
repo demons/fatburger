@@ -4,8 +4,15 @@ const dishService = require("../services/dishService");
 class DishController {
   async update(req, res, next) {
     const { groupId, dishId } = req.params;
-    const { title } = req.body;
-    const dish = await dishService.update(req.user.id, groupId, dishId, title);
+    const { title, weight, count } = req.body;
+    const dish = await dishService.update(
+      req.user.id,
+      groupId,
+      dishId,
+      title,
+      weight,
+      count
+    );
     return res.json(dish);
   }
 

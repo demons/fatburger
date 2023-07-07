@@ -78,11 +78,13 @@ class GroupController {
 
   async addDish(req, res, next) {
     const { groupId } = req.params;
-    const { dishTemplateId } = req.body;
+    const { dishTemplateId, weight, count } = req.body;
     const result = await groupService.addDish(
       req.user.id,
       groupId,
-      dishTemplateId
+      dishTemplateId,
+      weight,
+      count
     );
     return res.json(result);
   }
