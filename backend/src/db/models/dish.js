@@ -39,7 +39,7 @@ module.exports = (sequelize, DataTypes) => {
           SELECT id FROM "dishes" WHERE ${condition}
         )
 
-        ORDER BY "createdAt";`;
+        ORDER BY i.id;`;
 
       const [ingredients] = await sequelize.query(query);
 
