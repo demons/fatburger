@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Flex, Heading } from "@chakra-ui/react";
+import { Box, HStack, Heading, Input, Text } from "@chakra-ui/react";
 import EditTitleForm from "@/components/EditTitleForm";
 import ErrorAlert from "@/components/ErrorAlert";
 import IngredientList from "@/components/IngredientList";
@@ -11,13 +11,14 @@ import {
   useEditIngredient,
   useUpdateDish,
 } from "@/hooks/dish";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Button from "@/components/Button";
 
 export default function Page({ params }) {
   const [state, setState] = useState("");
+  const [weight, setWeight] = useState("");
+  const [count, setCount] = useState("");
   const { groupId, dishId } = params;
   const { data, status, error } = useDishQuery(groupId, dishId);
   const { mutate: updateDish } = useUpdateDish();
@@ -50,6 +51,19 @@ export default function Page({ params }) {
     deleteIngredient({ groupId, dishId, ingredientId });
   };
 
+  const handleApply = () => {
+    if (weight !== "" && count !== "") {
+      updateDish({
+        groupId,
+        dishId,
+        title: data.title,
+        weight: Math.round(weight),
+        count: Math.round(count),
+      });
+    }
+    router.push(`/groups/${groupId}`);
+  };
+
   const titleContent =
     state === "edit" ? (
       <EditTitleForm title={data.title} onApply={handleTitleApply} />
@@ -59,7 +73,31 @@ export default function Page({ params }) {
 
   return (
     <Box my="2">
-      <Button href={`/groups/${groupId}`}>Готово</Button>
+      <HStack>
+        <Button onClick={handleApply}>Готово</Button>
+        <Text>Вес:</Text>
+        <Input
+          type="number"
+          name="weight"
+          size="sm"
+          w="100px"
+          value={weight}
+          onChange={({ target }) => setWeight(target.value)}
+          placeholder={data.weight || "Не указан"}
+          step="1"
+        />
+        <Text>Кол-во:</Text>
+        <Input
+          type="number"
+          name="count"
+          size="sm"
+          w="100px"
+          value={count}
+          onChange={({ target }) => setCount(target.value)}
+          placeholder={data.count || "Не указан"}
+          step="1"
+        />
+      </HStack>
       <Heading as="h2" size="lg">
         {titleContent}
       </Heading>
