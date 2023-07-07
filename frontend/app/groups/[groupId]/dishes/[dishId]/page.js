@@ -52,15 +52,13 @@ export default function Page({ params }) {
   };
 
   const handleApply = () => {
-    if (weight !== "" && count !== "") {
-      updateDish({
-        groupId,
-        dishId,
-        title: data.title,
-        weight: Math.round(weight),
-        count: Math.round(count),
-      });
-    }
+    updateDish({
+      groupId,
+      dishId,
+      title: data.title,
+      weight: Math.round(weight || data.weight || 0),
+      count: Math.round(count || data.count || 0),
+    });
     router.push(`/groups/${groupId}`);
   };
 
