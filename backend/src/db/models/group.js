@@ -126,11 +126,11 @@ const computeGroups = (rawGroups, groupItems) => {
 
   groupItems.forEach((groupItem) => {
     // To float
-    groupItem.energy = parseInt(groupItem.energy | 0);
-    groupItem.protein = parseFloat(groupItem.protein | 0);
-    groupItem.fat = parseFloat(groupItem.fat | 0);
-    groupItem.carb = parseFloat(groupItem.carb | 0);
-    groupItem.fib = parseFloat(groupItem.fib | 0);
+    groupItem.energy = groupItem.energy ? parseInt(groupItem.energy) : 0;
+    groupItem.protein = groupItem.protein ? parseFloat(groupItem.protein) : 0;
+    groupItem.fat = groupItem.fat ? parseFloat(groupItem.fat) : 0;
+    groupItem.carb = groupItem.carb ? parseFloat(groupItem.carb) : 0;
+    groupItem.fib = groupItem.fib ? parseFloat(groupItem.fib) : 0;
 
     // Amount for group
     if (groups[groupItem.groupId]) {
