@@ -39,7 +39,7 @@ module.exports = (sequelize, DataTypes) => {
           SELECT id FROM "dishes" WHERE ${condition}
         )
 
-        ORDER BY "createdAt";`;
+        ORDER BY i.id;`;
 
       const [ingredients] = await sequelize.query(query);
 
@@ -56,6 +56,16 @@ module.exports = (sequelize, DataTypes) => {
       createdAt: {
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW,
+      },
+      weight: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 0,
+      },
+      count: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 0,
       },
     },
     {

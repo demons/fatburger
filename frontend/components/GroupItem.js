@@ -60,17 +60,27 @@ function GroupItem({ groupItem, index, isCompact }) {
 
   const measure = ingredientId && (groupItem.weight > 1 ? "шт." : "г.");
 
-  const countContent = groupItem.ingredientId && (
-    <Text
-      as="b"
-      width="100px"
-      textAlign="center"
-      fontSize="sm"
-      onClick={handleEditClick}
-    >
-      {groupItem.count} {measure}
-    </Text>
-  );
+  let countContent;
+  console.log(groupItem);
+  if (groupItem.ingredientId) {
+    countContent = (
+      <Text
+        as="b"
+        width="100px"
+        textAlign="center"
+        fontSize="sm"
+        onClick={handleEditClick}
+      >
+        {groupItem.count} {measure}
+      </Text>
+    );
+  } else if (groupItem.dishId && groupItem.dishWeight > 0) {
+    countContent = (
+      <Text as="b" width="100px" textAlign="center" fontSize="sm">
+        {groupItem.dishCount} гр.
+      </Text>
+    );
+  }
 
   let content;
 

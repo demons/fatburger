@@ -86,12 +86,12 @@ export default function AddProduct({ product }) {
     const temp = {
       title,
       maker: maker || "",
-      energy: energy || (product && product.energy) || 0,
+      energy: Math.round(energy || (product && product.energy) || 0),
       protein: protein || (product && product.protein) || 0,
       fat: fat || (product && product.fat) || 0,
       carb: carb || (product && product.carb) || 0,
       fib: fib || (product && product.fib) || 0,
-      weight: weight || (product && product.weight) || 1,
+      weight: Math.round(weight || (product && product.weight) || 1),
     };
 
     if (product) {
@@ -134,7 +134,7 @@ export default function AddProduct({ product }) {
             size="sm"
             value={energy}
             onChange={handleChange}
-            placeholder={product.energy}
+            placeholder={(product && product.energy) || 0}
             step="1"
           />
         </FormControl>
@@ -146,7 +146,7 @@ export default function AddProduct({ product }) {
             size="sm"
             value={protein}
             onChange={handleChange}
-            placeholder={product.protein}
+            placeholder={(product && product.protein) || 0}
             step=".01"
           />
         </FormControl>
@@ -158,7 +158,7 @@ export default function AddProduct({ product }) {
             size="sm"
             value={fat}
             onChange={handleChange}
-            placeholder={product.fat}
+            placeholder={(product && product.fat) || 0}
             step=".01"
           />
         </FormControl>
@@ -170,19 +170,19 @@ export default function AddProduct({ product }) {
             size="sm"
             value={carb}
             onChange={handleChange}
-            placeholder={product.carb}
+            placeholder={(product && product.carb) || 0}
             step=".01"
           />
         </FormControl>
         <FormControl>
-          <FormLabel>Углеводы</FormLabel>
+          <FormLabel>Клетчатка</FormLabel>
           <Input
             type="number"
             name="fib"
             size="sm"
             value={fib}
             onChange={handleChange}
-            placeholder={product.fib}
+            placeholder={(product && product.fib) || 0}
             step=".01"
           />
         </FormControl>
@@ -193,7 +193,7 @@ export default function AddProduct({ product }) {
             name="weight"
             size="sm"
             value={weight}
-            placeholder={product.weight}
+            placeholder={(product && product.weight) || 0}
             min="1"
             onChange={handleChange}
           />

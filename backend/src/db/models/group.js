@@ -9,12 +9,34 @@ const getQuery = (userId) => {
     SELECT
       "groupId",
       title,
-      energy,
-      protein,
-      fat,
-      carb,
-      fib,
+      ROUND(CASE
+        WHEN d.weight > 0
+        THEN energy * 100 / d.weight * d.count / 100
+        ELSE energy
+      END, 2) energy,
+      ROUND(CASE
+        WHEN d.weight > 0
+        THEN protein * 100 / d.weight * d.count / 100
+        ELSE protein
+      END, 2) protein,
+      ROUND(CASE
+        WHEN d.weight > 0
+        THEN fat * 100 / d.weight * d.count / 100
+        ELSE fat
+      END, 2) fat,
+      ROUND(CASE
+        WHEN d.weight > 0
+        THEN carb * 100 / d.weight * d.count / 100
+        ELSE carb
+      END, 2) carb,
+      ROUND(CASE
+        WHEN d.weight > 0
+        THEN fib * 100 / d.weight * d.count / 100
+        ELSE fib
+      END, 2) fib,
       NULL weight,
+      d.weight "dishWeight",
+      d.count "dishCount",
       NULL count,
       NULL "ingredientId",
       d.id "dishId",
@@ -23,11 +45,11 @@ const getQuery = (userId) => {
     LEFT JOIN (
       SELECT
         "dishId",
-        ROUND(SUM(energy *  count * weight / 100), 2) energy,
-        ROUND(SUM(protein *  count * weight / 100), 2) protein,
-        ROUND(SUM(fat *  count * weight / 100), 2) fat,
-        ROUND(SUM(carb *  count * weight / 100), 2) carb,
-        ROUND(SUM(fib *  count * weight / 100), 2) fib
+        SUM(energy *  count * weight / 100) energy,
+        SUM(protein *  count * weight / 100) protein,
+        SUM(fat *  count * weight / 100) fat,
+        SUM(carb *  count * weight / 100) carb,
+        SUM(fib *  count * weight / 100) fib
       FROM (
         SELECT "dishId", count, energy, protein, fat, carb, fib, weight
         FROM ingredients i
@@ -56,6 +78,8 @@ const getQuery = (userId) => {
       ROUND(p.carb * count * weight / 100, 2) carb,
       ROUND(p.fib * count * weight / 100, 2) fib,
       weight,
+      NULL,
+      NULL,
       count,
       i.id "ingredientId",
       NULL "dishId",
@@ -102,11 +126,11 @@ const computeGroups = (rawGroups, groupItems) => {
 
   groupItems.forEach((groupItem) => {
     // To float
-    groupItem.energy = parseInt(groupItem.energy | 0);
-    groupItem.protein = parseFloat(groupItem.protein | 0);
-    groupItem.fat = parseFloat(groupItem.fat | 0);
-    groupItem.carb = parseFloat(groupItem.carb | 0);
-    groupItem.fib = parseFloat(groupItem.fib | 0);
+    groupItem.energy = groupItem.energy ? parseInt(groupItem.energy) : 0;
+    groupItem.protein = groupItem.protein ? parseFloat(groupItem.protein) : 0;
+    groupItem.fat = groupItem.fat ? parseFloat(groupItem.fat) : 0;
+    groupItem.carb = groupItem.carb ? parseFloat(groupItem.carb) : 0;
+    groupItem.fib = groupItem.fib ? parseFloat(groupItem.fib) : 0;
 
     // Amount for group
     if (groups[groupItem.groupId]) {

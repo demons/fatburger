@@ -111,11 +111,21 @@ export async function addProduct(
   protein,
   fat,
   carb,
+  fib,
   weight
 ) {
   return fetchBase(`/products`, {
     method: "POST",
-    body: JSON.stringify({ title, maker, energy, protein, fat, carb, weight }),
+    body: JSON.stringify({
+      title,
+      maker,
+      energy,
+      protein,
+      fat,
+      carb,
+      fib,
+      weight,
+    }),
   });
 }
 

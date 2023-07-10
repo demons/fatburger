@@ -6,3 +6,6 @@ dev:
 
 migrate:
 	docker exec -it fb_backend npx sequelize-cli db:migrate
+
+skeleton:
+	docker exec -it fb_backend npx sequelize-cli migration:generate --name migration-skeleton
