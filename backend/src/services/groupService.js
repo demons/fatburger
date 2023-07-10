@@ -75,7 +75,7 @@ class GroupService {
     return result;
   }
 
-  async addDish(userId, groupId, dishTemplateId) {
+  async addDish(userId, groupId, dishTemplateId, weight, count) {
     const group = await Group.findOne({ where: { id: groupId, userId } });
     if (!group) {
       throw new ApiError(404, "Группа с указанным id не найдена");
@@ -100,6 +100,8 @@ class GroupService {
       {
         title: dishTemplate.title,
         groupId,
+        weight,
+        count,
         ingredients: ingredients,
       },
       { include: [Ingredient] }
