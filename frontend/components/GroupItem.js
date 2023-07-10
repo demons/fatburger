@@ -61,7 +61,6 @@ function GroupItem({ groupItem, index, isCompact }) {
   const measure = ingredientId && (groupItem.weight > 1 ? "шт." : "г.");
 
   let countContent;
-  console.log(groupItem);
   if (groupItem.ingredientId) {
     countContent = (
       <Text
