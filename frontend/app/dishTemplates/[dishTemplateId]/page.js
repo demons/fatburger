@@ -1,6 +1,7 @@
 "use client";
 
-import { Box, HStack, Heading } from "@chakra-ui/react";
+import { useRouter } from "next/navigation";
+import { Box, HStack, Heading, Text, Input } from "@chakra-ui/react";
 import IngredientList from "@/components/IngredientList";
 import {
   useDeleteIngredientFromDishTemplate,
@@ -15,6 +16,7 @@ import Button from "@/components/Button";
 
 export default function Page({ params }) {
   const [state, setState] = useState("");
+  const [weight, setWeight] = useState("");
   const { dishTemplateId } = params;
   const {
     data: dishTemplate,
@@ -24,6 +26,7 @@ export default function Page({ params }) {
   const { mutate: editIngredient } = useEditIngredient();
   const { mutate: deleteIngredient } = useDeleteIngredientFromDishTemplate();
   const { mutate: updateDishTemplate } = useUpdateDishTemplate();
+  const router = useRouter();
 
   if (status === "loading") {
     return <Spinner />;
@@ -35,7 +38,15 @@ export default function Page({ params }) {
 
   const { title } = dishTemplate;
 
-  const handleApply = (title) => {
+  const handleApply = () => {
+    updateDishTemplate({
+      dishTemplateId,
+      weight: Math.round(weight || dishTemplate.weight || 0),
+    });
+    router.push(`/dishTemplates`);
+  };
+
+  const handleTitleEditApply = (title) => {
     updateDishTemplate({ dishTemplateId, title });
     setState("");
   };
@@ -54,7 +65,7 @@ export default function Page({ params }) {
 
   const titleContent =
     state === "edit" ? (
-      <EditTitleForm title={title} onApply={handleApply} />
+      <EditTitleForm title={title} onApply={handleTitleEditApply} />
     ) : (
       <span onClick={() => setState("edit")}>{title}</span>
     );
@@ -62,12 +73,23 @@ export default function Page({ params }) {
   return (
     <Box my="2">
       <HStack>
-        <Button href={`/dishTemplates`} colorScheme="green">
+        <Button onClick={handleApply} colorScheme="green">
           Готово
         </Button>
         <Button href={`/dishTemplates/${dishTemplateId}/ingredients`}>
           Добавить ингредиент
         </Button>
+        <Text>Вес:</Text>
+        <Input
+          type="number"
+          name="weight"
+          size="sm"
+          w="100px"
+          value={weight}
+          onChange={({ target }) => setWeight(target.value)}
+          placeholder={dishTemplate.weight || "Не указан"}
+          step="1"
+        />
       </HStack>
       <Heading as="h3" size="lg">
         {titleContent}
