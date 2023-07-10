@@ -11,8 +11,8 @@ export function useAddDishTemplate() {
   const client = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ title }) => {
-      return addDishTemplate(title);
+    mutationFn: ({ title, weight }) => {
+      return addDishTemplate(title, weight);
     },
     onSuccess: () => {
       client.invalidateQueries({ queryKey: ["dishTemplates"] });
@@ -24,8 +24,8 @@ export function useUpdateDishTemplate() {
   const client = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ dishTemplateId, title }) => {
-      return updateDishTemplate(dishTemplateId, title);
+    mutationFn: ({ dishTemplateId, title, weight }) => {
+      return updateDishTemplate(dishTemplateId, title, weight);
     },
     onSuccess: () => {
       client.invalidateQueries({ queryKey: ["dishTemplate"] });
