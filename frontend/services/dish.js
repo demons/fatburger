@@ -1,16 +1,16 @@
 import { fetchBase } from ".";
 
-export async function addDish(groupId, dishTemplateId, weight, count) {
+export async function addDish(groupId, dishTemplateId, count) {
   return fetchBase(`/groups/${groupId}/dishes`, {
     method: "POST",
-    body: JSON.stringify({ dishTemplateId, weight, count }),
+    body: JSON.stringify({ dishTemplateId, count }),
   });
 }
 
-export async function updateDish(groupId, dishId, title, weight, count) {
+export async function updateDish(groupId, dishId, title, count) {
   return fetchBase(`/groups/${groupId}/dishes/${dishId}`, {
     method: "PUT",
-    body: JSON.stringify({ title, weight, count }),
+    body: JSON.stringify({ title, count }),
   });
 }
 
