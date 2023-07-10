@@ -31,7 +31,7 @@ export default function Page() {
   };
 
   const renderedDishTemplates = data.map((dishTemplate) => {
-    const { id, title } = dishTemplate;
+    const { id, title, weight } = dishTemplate;
     return (
       <Flex
         key={id}
@@ -44,6 +44,11 @@ export default function Page() {
       >
         <Text>{title}</Text>
         <HStack>
+          {weight > 0 && (
+            <Text as="b" width="100px" textAlign="center" fontSize="sm">
+              {weight} гр.
+            </Text>
+          )}
           <IconButton
             onClick={() => handleEdit(id)}
             size="sm"
