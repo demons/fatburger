@@ -17,7 +17,6 @@ import Button from "@/components/Button";
 
 export default function Page({ params }) {
   const [state, setState] = useState("");
-  const [weight, setWeight] = useState("");
   const [count, setCount] = useState("");
   const { groupId, dishId } = params;
   const { data, status, error } = useDishQuery(groupId, dishId);
@@ -56,7 +55,6 @@ export default function Page({ params }) {
       groupId,
       dishId,
       title: data.title,
-      weight: Math.round(weight || data.weight || 0),
       count: Math.round(count || data.count || 0),
     });
     router.push(`/groups/${groupId}`);
@@ -73,17 +71,12 @@ export default function Page({ params }) {
     <Box my="2">
       <HStack>
         <Button onClick={handleApply}>Готово</Button>
-        <Text>Вес:</Text>
-        <Input
-          type="number"
-          name="weight"
-          size="sm"
-          w="100px"
-          value={weight}
-          onChange={({ target }) => setWeight(target.value)}
-          placeholder={data.weight || "Не указан"}
-          step="1"
-        />
+        <Text>
+          Вес:{" "}
+          <Text as="span" fontSize="sm">
+            {data.weight || "Не указан"}
+          </Text>
+        </Text>
         <Text>Кол-во:</Text>
         <Input
           type="number"
