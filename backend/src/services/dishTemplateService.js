@@ -24,13 +24,13 @@ class DishTemplateService {
     return result;
   }
 
-  async create(userId, title) {
-    return await DishTemplate.create({ userId, title });
+  async create(userId, title, weight) {
+    return await DishTemplate.create({ userId, title, weight });
   }
 
-  async update(userId, dishTemplateId, title) {
+  async update(userId, dishTemplateId, title, weight) {
     return await DishTemplate.update(
-      { title },
+      { title, weight },
       { where: { id: dishTemplateId, userId } }
     );
   }
