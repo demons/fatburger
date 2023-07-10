@@ -81,6 +81,8 @@ function GroupItem({ groupItem, index, isCompact }) {
     );
   }
 
+  const color = groupItem.ingredientId ? "lightgreen" : "blue";
+
   let content;
 
   if (editionIngredientId && editionIngredientId === ingredientId) {
@@ -96,7 +98,7 @@ function GroupItem({ groupItem, index, isCompact }) {
         borderBottom="1px"
         borderColor="gray.200"
       >
-        <Stack>
+        <Stack borderLeft="4px" borderLeftColor={color} pl="3px">
           <Text onClick={handleChangeProductClick}>
             {index}. {groupItem.title}
           </Text>
