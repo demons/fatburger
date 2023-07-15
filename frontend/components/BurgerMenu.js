@@ -27,6 +27,9 @@ export default function BurgerMenu() {
         <MenuItem as={NextLink} href={`/dishTemplates`}>
           Блюда
         </MenuItem>
+        <MenuItem as={NextLink} href={`/categories`}>
+          Категории
+        </MenuItem>
         <MenuItem as={NextLink} href={`/stories`}>
           Дневник
         </MenuItem>
