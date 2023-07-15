@@ -118,7 +118,10 @@ export default function Page() {
       <Button href={`/products/add`} colorScheme="green">
         Добавить
       </Button>
-      <CategoryFilter onChanged={handleChangedFilter} />
+      <CategoryFilter
+        categories={queryCategories}
+        onChanged={handleChangedFilter}
+      />
       {renderedProducts}
     </Box>
   );

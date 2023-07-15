@@ -1,26 +1,12 @@
-import { useCategoriesQuery } from "@/hooks/category";
-import Spinner from "./Spinner";
 import { Wrap, WrapItem } from "@chakra-ui/react";
 import Button from "./Button";
-import ErrorAlert from "./ErrorAlert";
 import { useStore } from "@/store";
-import { useEffect } from "react";
 
-export default function CategoryFilter({ onChanged }) {
-  const { data, status, error } = useCategoriesQuery();
+export default function CategoryFilter({ categories, onChanged }) {
   const categoryFilter = useStore((state) => state.categoryFilter);
   const addCategoryFilter = useStore((state) => state.addCategoryFilter);
   const deleteCategoryFilter = useStore((state) => state.deleteCategoryFilter);
   const clearCategoryFilter = useStore((state) => state.clearCategoryFilter);
-  const getCategoryFilter = useStore((state) => state.getCategoryFilter);
-
-  if (status === "loading") {
-    return <Spinner />;
-  }
-
-  if (status === "error") {
-    return <ErrorAlert message={error.message} />;
-  }
 
   const handleClear = () => {
     if (!categoryFilter) {
@@ -50,7 +36,7 @@ export default function CategoryFilter({ onChanged }) {
     </WrapItem>
   );
 
-  const renderedCategories = data.map(({ id, title }) => {
+  const renderedCategories = categories.map(({ id, title }) => {
     return (
       <WrapItem key={id}>
         <Button
