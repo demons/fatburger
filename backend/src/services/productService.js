@@ -12,7 +12,8 @@ class ProductService {
     carb,
     fib,
     weight,
-    isVisibleFib
+    isVisibleFib,
+    categoryId
   ) {
     return await Product.create({
       userId,
@@ -25,6 +26,7 @@ class ProductService {
       fib,
       weight,
       isVisibleFib,
+      categoryId,
     });
   }
 
@@ -54,10 +56,22 @@ class ProductService {
     carb,
     fib,
     weight,
-    isVisibleFib
+    isVisibleFib,
+    categoryId
   ) {
     return await Product.update(
-      { title, maker, energy, protein, fat, carb, fib, weight, isVisibleFib },
+      {
+        title,
+        maker,
+        energy,
+        protein,
+        fat,
+        carb,
+        fib,
+        weight,
+        isVisibleFib,
+        categoryId,
+      },
       { where: { userId, id } }
     );
   }

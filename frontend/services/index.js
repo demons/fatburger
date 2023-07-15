@@ -112,7 +112,8 @@ export async function addProduct(
   fat,
   carb,
   fib,
-  weight
+  weight,
+  categoryId
 ) {
   return fetchBase(`/products`, {
     method: "POST",
@@ -125,6 +126,7 @@ export async function addProduct(
       carb,
       fib,
       weight,
+      categoryId,
     }),
   });
 }
@@ -142,7 +144,8 @@ export async function editProduct(
   fat,
   carb,
   fib,
-  weight
+  weight,
+  categoryId
 ) {
   return fetchBase(`/products/${productId}`, {
     method: "PUT",
@@ -155,6 +158,7 @@ export async function editProduct(
       carb,
       fib,
       weight,
+      categoryId,
     }),
   });
 }
