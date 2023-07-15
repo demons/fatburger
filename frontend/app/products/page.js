@@ -11,10 +11,13 @@ import Button from "@/components/Button";
 import CategoryFilter from "@/components/CategoryFilter";
 import { useEffect, useState } from "react";
 import { useStore } from "@/store";
+import { useCategoriesQuery } from "@/hooks/category";
 
 export default function Page() {
   const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState({});
   const getCategoryFilter = useStore((state) => state.getCategoryFilter);
+  const { data: queryCategories } = useCategoriesQuery();
   const { data, status, error } = useProductsQuery();
   const { mutate: deleteProduct } = useDeleteProduct();
   const router = useRouter();
@@ -27,6 +30,17 @@ export default function Page() {
       handleChangedFilter();
     }
   }, [data]);
+
+  useEffect(() => {
+    if (queryCategories) {
+      setCategories(
+        queryCategories.reduce((prev, curr) => {
+          prev[curr.id] = curr.title;
+          return prev;
+        }, {})
+      );
+    }
+  }, [queryCategories]);
 
   if (status === "loading") {
     return <Spinner />;
@@ -56,7 +70,7 @@ export default function Page() {
   };
 
   const renderProduct = (product) => {
-    const { id, title, maker } = product;
+    const { id, title, maker, categoryId } = product;
     return (
       <Flex
         key={id}
@@ -74,6 +88,9 @@ export default function Page() {
               {maker}
             </Text>
           </HStack>
+          <Text fontSize="xs" color="blue">
+            {categories[categoryId]}
+          </Text>
           <AmountItem amount={product} />
         </Stack>
         <HStack>
