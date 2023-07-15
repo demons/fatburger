@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Input, HStack } from "@chakra-ui/react";
 import Button from "./Button";
 
-export default function EditTitleForm({ title, onApply }) {
+export default function EditTitleForm({ title, placeholder = "", onApply }) {
   const [value, setValue] = useState("");
 
   useEffect(() => {
@@ -12,6 +12,7 @@ export default function EditTitleForm({ title, onApply }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     onApply(value.trim());
+    setValue("");
   };
 
   return (
@@ -21,6 +22,7 @@ export default function EditTitleForm({ title, onApply }) {
           type="text"
           value={value}
           onChange={(e) => setValue(e.target.value)}
+          placeholder={placeholder}
           size="sm"
           autoFocus
         />

@@ -4,6 +4,7 @@ import EditTitleForm from "@/components/EditTitleForm";
 import Spinner from "@/components/Spinner";
 import Item from "@/components/common/Item";
 import {
+  useAddCategory,
   useCategoriesQuery,
   useDeleteCategory,
   useUpdateCategory,
@@ -15,6 +16,7 @@ export default function Page() {
   const { data, status, error } = useCategoriesQuery();
   const { mutate: updateCategory } = useUpdateCategory();
   const { mutate: deleteCategory } = useDeleteCategory();
+  const { mutate: createCategory } = useAddCategory();
 
   if (status === "loading") {
     return <Spinner />;
@@ -35,6 +37,13 @@ export default function Page() {
 
   const handleDelete = (categoryId) => {
     deleteCategory({ categoryId });
+  };
+
+  const handleAddCategory = (title) => {
+    if (!title) {
+      return;
+    }
+    createCategory({ title });
   };
 
   const renderedCategories = data.map(({ id, title }) => {
@@ -58,6 +67,11 @@ export default function Page() {
     <>
       <h1>Список категорий</h1>
       <div>{renderedCategories}</div>
+      <EditTitleForm
+        title=""
+        placeholder="Название категории"
+        onApply={handleAddCategory}
+      />
     </>
   );
 }
