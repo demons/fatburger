@@ -28,18 +28,21 @@ export default function AddProduct({ product }) {
   const router = useRouter();
   const { mutate: addProduct } = useAddProduct();
   const { mutate: editProduct } = useEditProduct();
-  const { data } = useCategoriesQuery();
+  const { data: queryCategories } = useCategoriesQuery();
 
   useEffect(() => {
     if (product) {
       setTitle(product.title);
       setMaker(product.maker);
     }
-    if (data) {
+  }, [product]);
+
+  useEffect(() => {
+    if (queryCategories) {
       setCategories(data);
       setCategoryId(product.categoryId);
     }
-  }, [product, data]);
+  }, [queryCategories]);
 
   const handleChange = (e) => {
     let { value, type } = e.target;
