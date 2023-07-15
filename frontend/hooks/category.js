@@ -1,4 +1,9 @@
-import { addCategory, fetchCategories } from "@/services/category";
+import {
+  addCategory,
+  deleteCategory,
+  fetchCategories,
+  updateCategory,
+} from "@/services/category";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 export function useCategoriesQuery() {
@@ -26,10 +31,10 @@ export function useUpdateCategory() {
 
   return useMutation({
     mutationFn: ({ categoryId, title }) => {
-      return updateDishTemplate(categoryId, title);
+      return updateCategory(categoryId, title);
     },
     onSuccess: () => {
-      client.invalidateQueries({ queryKey: ["category"] });
+      client.invalidateQueries({ queryKey: ["categories"] });
     },
   });
 }
@@ -39,7 +44,7 @@ export function useDeleteCategory() {
 
   return useMutation({
     mutationFn: ({ categoryId }) => {
-      return deleteDishTemplate(categoryId);
+      return deleteCategory(categoryId);
     },
     onSuccess: () => {
       client.invalidateQueries({ queryKey: ["categories"] });
