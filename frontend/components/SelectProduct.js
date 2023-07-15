@@ -5,9 +5,38 @@ import { useProductsQuery } from "@/hooks";
 import Spinner from "./Spinner";
 import ErrorAlert from "./ErrorAlert";
 import Button from "./Button";
+import CategoryFilter from "./CategoryFilter";
+import { useCategoriesQuery } from "@/hooks/category";
+import { useEffect, useState } from "react";
+import { useStore } from "@/store";
 
 export default function SelectProduct({ onApply }) {
-  const { data, status, error } = useProductsQuery();
+  const [categories, setCategories] = useState({});
+  const [products, setProducts] = useState([]);
+  const getCategoryFilter = useStore((state) => state.getCategoryFilter);
+  const { data: queryProducts, status, error } = useProductsQuery();
+  const { data: queryCategories } = useCategoriesQuery();
+
+  const getAll = () =>
+    queryProducts.filter((product) => product.isDeleted === false);
+
+  useEffect(() => {
+    if (queryProducts) {
+      setProducts(getAll());
+      handleChangedFilter();
+    }
+  }, [queryProducts]);
+
+  useEffect(() => {
+    if (queryCategories) {
+      setCategories(
+        queryCategories.reduce((prev, curr) => {
+          prev[curr.id] = curr.title;
+          return prev;
+        }, {})
+      );
+    }
+  }, [queryCategories]);
 
   if (status === "loading") {
     return <Spinner />;
@@ -17,7 +46,18 @@ export default function SelectProduct({ onApply }) {
     return <ErrorAlert message={error.message} />;
   }
 
-  const renderedProducts = data.map((product) => {
+  const handleChangedFilter = () => {
+    const categories = getCategoryFilter() || {};
+    const length = Object.keys(categories).length;
+    const filteredProducts =
+      length > 0
+        ? getAll().filter(({ categoryId }) => categories[categoryId])
+        : getAll();
+
+    setProducts(filteredProducts);
+  };
+
+  const renderedProducts = products.map((product) => {
     const { id, title, maker } = product;
     return (
       <Flex
@@ -44,5 +84,15 @@ export default function SelectProduct({ onApply }) {
     );
   });
 
-  return <div>{renderedProducts}</div>;
+  return (
+    <>
+      {queryCategories && (
+        <CategoryFilter
+          categories={queryCategories}
+          onChanged={handleChangedFilter}
+        />
+      )}
+      {renderedProducts}
+    </>
+  );
 }
