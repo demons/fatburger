@@ -55,6 +55,6 @@ export const useStore = create(
         set({ categoryFilter });
       },
     }),
-    { name: "common-store", storage: createJSONStorage(() => sessionStorage) }
+    { name: "common-store", storage: createJSONStorage(() => localStorage) }
   )
 );
