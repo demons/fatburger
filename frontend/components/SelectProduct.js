@@ -1,6 +1,6 @@
 "use client";
 
-import { Flex, Text, HStack } from "@chakra-ui/react";
+import { Flex, Text, HStack, Stack } from "@chakra-ui/react";
 import { useProductsQuery } from "@/hooks";
 import Spinner from "./Spinner";
 import ErrorAlert from "./ErrorAlert";
@@ -58,7 +58,7 @@ export default function SelectProduct({ onApply }) {
   };
 
   const renderedProducts = products.map((product) => {
-    const { id, title, maker } = product;
+    const { id, title, maker, categoryId } = product;
     return (
       <Flex
         key={id}
@@ -69,13 +69,17 @@ export default function SelectProduct({ onApply }) {
         borderColor="gray.200"
         p="2"
       >
-        <HStack>
-          <Text as="b">{title}</Text>
-          <Text as="span" fontSize="xs">
-            {maker}
+        <Stack>
+          <HStack>
+            <Text as="b">{title}</Text>
+            <Text as="span" fontSize="xs">
+              {maker}
+            </Text>
+          </HStack>
+          <Text fontSize="xs" color="blue">
+            {categories[categoryId]}
           </Text>
-        </HStack>
-
+        </Stack>
         <HStack>
           <Text>{product.weight > 1 && "шт."}</Text>
           <Button onClick={() => onApply(id)}>Выбрать</Button>
