@@ -8,11 +8,25 @@ import Spinner from "@/components/Spinner";
 import ErrorAlert from "@/components/ErrorAlert";
 import AmountItem from "@/components/AmountItem";
 import Button from "@/components/Button";
+import CategoryFilter from "@/components/CategoryFilter";
+import { useEffect, useState } from "react";
+import { useStore } from "@/store";
 
 export default function Page() {
-  const { data: products, status, error } = useProductsQuery();
+  const [products, setProducts] = useState([]);
+  const getCategoryFilter = useStore((state) => state.getCategoryFilter);
+  const { data, status, error } = useProductsQuery();
   const { mutate: deleteProduct } = useDeleteProduct();
   const router = useRouter();
+
+  const getAll = () => data.filter((product) => product.isDeleted === false);
+
+  useEffect(() => {
+    if (data) {
+      setProducts(getAll());
+      handleChangedFilter();
+    }
+  }, [data]);
 
   if (status === "loading") {
     return <Spinner />;
@@ -30,52 +44,64 @@ export default function Page() {
     deleteProduct({ productId });
   };
 
-  const renderedProducts = products
-    .filter((product) => product.isDeleted === false)
-    .map((product) => {
-      const { id, title, maker } = product;
-      return (
-        <Flex
-          key={id}
-          justifyContent="space-between"
-          alignItems="center"
-          my="2"
-          border="1px"
-          p="2"
-          borderColor="gray.200"
-        >
-          <Stack>
-            <HStack>
-              <Text as="b">{title}</Text>
-              <Text as="span" fontSize="xs">
-                {maker}
-              </Text>
-            </HStack>
-            <AmountItem amount={product} />
-          </Stack>
+  const handleChangedFilter = () => {
+    const categories = getCategoryFilter() || {};
+    const length = Object.keys(categories).length;
+    const filteredProducts =
+      length > 0
+        ? getAll().filter(({ categoryId }) => categories[categoryId])
+        : getAll();
+
+    setProducts(filteredProducts);
+  };
+
+  const renderProduct = (product) => {
+    const { id, title, maker } = product;
+    return (
+      <Flex
+        key={id}
+        justifyContent="space-between"
+        alignItems="center"
+        my="2"
+        border="1px"
+        p="2"
+        borderColor="gray.200"
+      >
+        <Stack>
           <HStack>
-            {product.weight > 1 && <Text as="b">шт.</Text>}
-            <IconButton
-              onClick={() => handleEdit(id)}
-              size="sm"
-              icon={<EditIcon />}
-            />
-            <IconButton
-              onClick={() => handleDelete(id)}
-              size="sm"
-              colorScheme="red"
-              icon={<DeleteIcon />}
-            />
+            <Text as="b">{title}</Text>
+            <Text as="span" fontSize="xs">
+              {maker}
+            </Text>
           </HStack>
-        </Flex>
-      );
-    });
+          <AmountItem amount={product} />
+        </Stack>
+        <HStack>
+          {product.weight > 1 && <Text as="b">шт.</Text>}
+          <IconButton
+            onClick={() => handleEdit(id)}
+            size="sm"
+            icon={<EditIcon />}
+          />
+          <IconButton
+            onClick={() => handleDelete(id)}
+            size="sm"
+            colorScheme="red"
+            icon={<DeleteIcon />}
+          />
+        </HStack>
+      </Flex>
+    );
+  };
+
+  const renderedProducts = products.map((product) => renderProduct(product));
 
   return (
     <Box my="2">
       <Button href={`/products/add`} colorScheme="green">
         Добавить
       </Button>
+      <CategoryFilter onChanged={handleChangedFilter} />
       {renderedProducts}
     </Box>
   );
