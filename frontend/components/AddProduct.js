@@ -40,7 +40,9 @@ export default function AddProduct({ product }) {
   useEffect(() => {
     if (queryCategories) {
       setCategories(queryCategories);
-      setCategoryId(product.categoryId);
+      if (product) {
+        setCategoryId(product.categoryId);
+      }
     }
   }, [queryCategories]);
 
