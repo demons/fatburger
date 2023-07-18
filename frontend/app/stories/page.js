@@ -27,7 +27,30 @@ export default function Page({ params }) {
   };
 
   const renderedStories = stories.map((story) => {
-    const { id, date, comment, ...amount } = story;
+    const { id, date, comment, type, ...amount } = story;
+    let color = "";
+    switch (type) {
+      case 1:
+        {
+          color = "red";
+        }
+        break;
+      case 2:
+        {
+          color = "orange";
+        }
+        break;
+      case 3:
+        {
+          color = "green";
+        }
+        break;
+    }
+    const settings = {
+      borderLeftColor: color,
+      borderLeftWidth: "5px",
+    };
+
     return (
       <Flex
         key={id}
@@ -35,6 +58,7 @@ export default function Page({ params }) {
         alignItems="center"
         border="1px"
         borderColor="gray.200"
+        {...settings}
         my="2"
         p="2"
       >
