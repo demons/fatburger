@@ -1,10 +1,18 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { HStack, Stack, FormControl, FormLabel, Input } from "@chakra-ui/react";
+import {
+  HStack,
+  Stack,
+  FormControl,
+  FormLabel,
+  Input,
+  Select,
+} from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import { useAddProduct, useEditProduct } from "@/hooks";
 import Button from "./Button";
+import { useCategoriesQuery } from "@/hooks/category";
 
 export default function AddProduct({ product }) {
   const [title, setTitle] = useState("");
@@ -15,9 +23,12 @@ export default function AddProduct({ product }) {
   const [carb, setCarb] = useState("");
   const [fib, setFib] = useState("");
   const [weight, setWeight] = useState("");
+  const [categoryId, setCategoryId] = useState(null);
+  const [categories, setCategories] = useState([]);
   const router = useRouter();
   const { mutate: addProduct } = useAddProduct();
   const { mutate: editProduct } = useEditProduct();
+  const { data: queryCategories } = useCategoriesQuery();
 
   useEffect(() => {
     if (product) {
@@ -25,6 +36,15 @@ export default function AddProduct({ product }) {
       setMaker(product.maker);
     }
   }, [product]);
+
+  useEffect(() => {
+    if (queryCategories) {
+      setCategories(queryCategories);
+      if (product) {
+        setCategoryId(product.categoryId);
+      }
+    }
+  }, [queryCategories]);
 
   const handleChange = (e) => {
     let { value, type } = e.target;
@@ -92,6 +112,7 @@ export default function AddProduct({ product }) {
       carb: carb || (product && product.carb) || 0,
       fib: fib || (product && product.fib) || 0,
       weight: Math.round(weight || (product && product.weight) || 1),
+      categoryId: categoryId > 0 ? categoryId : null,
     };
 
     if (product) {
@@ -197,6 +218,21 @@ export default function AddProduct({ product }) {
             min="1"
             onChange={handleChange}
           />
+        </FormControl>
+        <FormControl>
+          <FormLabel>Категория</FormLabel>
+          <Select
+            size="sm"
+            value={categoryId || 0}
+            onChange={({ target }) => setCategoryId(target.value)}
+          >
+            <option value={-1}>Выбрать категорию...</option>
+            {categories.map(({ id, title }) => (
+              <option key={id} value={id}>
+                {title}
+              </option>
+            ))}
+          </Select>
         </FormControl>
         <HStack>
           <Button type="submit" colorScheme="green">

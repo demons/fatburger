@@ -3,7 +3,10 @@ const ApiError = require("../error/apiError");
 
 class DishTemplateService {
   async getAll(userId) {
-    return await DishTemplate.findAll({ where: { userId } });
+    return await DishTemplate.findAll({
+      where: { userId },
+      order: [["title", "ASC"]],
+    });
   }
 
   async getOne(userId, dishTemplateId) {
@@ -24,13 +27,13 @@ class DishTemplateService {
     return result;
   }
 
-  async create(userId, title) {
-    return await DishTemplate.create({ userId, title });
+  async create(userId, title, weight) {
+    return await DishTemplate.create({ userId, title, weight });
   }
 
-  async update(userId, dishTemplateId, title) {
+  async update(userId, dishTemplateId, title, weight) {
     return await DishTemplate.update(
-      { title },
+      { title, weight },
       { where: { id: dishTemplateId, userId } }
     );
   }

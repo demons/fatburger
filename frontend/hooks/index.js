@@ -120,8 +120,28 @@ export function useAddProduct() {
   const client = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ title, maker, energy, protein, fat, carb, fib, weight }) => {
-      return addProduct(title, maker, energy, protein, fat, carb, fib, weight);
+    mutationFn: ({
+      title,
+      maker,
+      energy,
+      protein,
+      fat,
+      carb,
+      fib,
+      weight,
+      categoryId,
+    }) => {
+      return addProduct(
+        title,
+        maker,
+        energy,
+        protein,
+        fat,
+        carb,
+        fib,
+        weight,
+        categoryId
+      );
     },
     onSuccess: () => {
       client.invalidateQueries({ queryKey: ["products"] });
@@ -150,6 +170,7 @@ export function useEditProduct() {
       carb,
       fib,
       weight,
+      categoryId,
     }) => {
       return editProduct(
         productId,
@@ -160,7 +181,8 @@ export function useEditProduct() {
         fat,
         carb,
         fib,
-        weight
+        weight,
+        categoryId
       );
     },
     onSuccess: () => {

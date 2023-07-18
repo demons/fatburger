@@ -10,8 +10,8 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 export function useAddDish() {
   return useMutation({
-    mutationFn: ({ groupId, dishTemplateId, weight, count }) => {
-      return addDish(groupId, dishTemplateId, weight, count);
+    mutationFn: ({ groupId, dishTemplateId, count }) => {
+      return addDish(groupId, dishTemplateId, count);
     },
   });
 }
@@ -20,8 +20,8 @@ export function useUpdateDish() {
   const client = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ groupId, dishId, title, weight, count }) => {
-      return updateDish(groupId, dishId, title, weight, count);
+    mutationFn: ({ groupId, dishId, title, count }) => {
+      return updateDish(groupId, dishId, title, count);
     },
     onSuccess: () => {
       client.invalidateQueries({ queryKey: ["dish"] });

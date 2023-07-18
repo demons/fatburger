@@ -17,21 +17,26 @@ class DishTemplateController {
   }
 
   async create(req, res, next) {
-    const { title } = req.body;
+    const { title, weight } = req.body;
     if (!title) {
       return next(new ApiError(400, "title is required"));
     }
-    const dishTemplate = await dishTemplateService.create(req.user.id, title);
+    const dishTemplate = await dishTemplateService.create(
+      req.user.id,
+      title,
+      weight
+    );
     return res.json(dishTemplate);
   }
 
   async update(req, res, next) {
     const { dishTemplateId } = req.params;
-    const { title } = req.body;
+    const { title, weight } = req.body;
     const dishTemplate = await dishTemplateService.update(
       req.user.id,
       dishTemplateId,
-      title
+      title,
+      weight
     );
     return res.json(dishTemplate);
   }

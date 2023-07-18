@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
+import { Input, HStack } from "@chakra-ui/react";
+import Button from "./Button";
 
-export default function EditTitleForm({ title, onApply }) {
+export default function EditTitleForm({ title, placeholder = "", onApply }) {
   const [value, setValue] = useState("");
 
   useEffect(() => {
@@ -10,17 +12,24 @@ export default function EditTitleForm({ title, onApply }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     onApply(value.trim());
+    setValue("");
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-        autoFocus
-      />
-      <button type="submit">Готово</button>
+      <HStack>
+        <Input
+          type="text"
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          placeholder={placeholder}
+          size="sm"
+          autoFocus
+        />
+        <Button type="submit" colorScheme="green">
+          Готово
+        </Button>
+      </HStack>
     </form>
   );
 }
