@@ -41,8 +41,12 @@ export default function Page({ params }) {
         <Stack>
           <Text>{date}</Text>
           <AmountItem amount={amount} />
+          {comment && (
+            <Text borderTop="1px" borderColor="gray.200" py="1" w="90%">
+              {comment}
+            </Text>
+          )}
         </Stack>
-        <Text>{comment}</Text>
         <HStack>
           <IconButton onClick={handleEdit} size="sm" icon={<EditIcon />} />
           <IconButton
