@@ -13,6 +13,9 @@ export default function HorizontalMenu() {
       <Link href="/dishTemplates" as={NextLink}>
         Блюда
       </Link>
+      <Link href="/categories" as={NextLink}>
+        Категории
+      </Link>
     </HStack>
   );
 }

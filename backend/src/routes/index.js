@@ -9,6 +9,7 @@ const subgroup = require("./subgroup");
 const auth = require("./auth");
 const dishTemplate = require("./dishTemplate");
 const story = require("./story");
+const category = require("./category");
 
 const asyncWrapper = (cb) => {
   return async (req, res, next) => {
@@ -27,6 +28,7 @@ router.use("/ingredients", ingredient);
 router.use("/subgroups", subgroup);
 router.use("/dishTemplates", dishTemplate);
 router.use("/stories", story);
+router.use("/categories", category);
 router.use(auth);
 
 module.exports = router;

@@ -25,6 +25,7 @@ class ProductController {
       fib,
       weight,
       isVisibleFib,
+      categoryId = null,
     } = req.body;
     const product = await productService.create(
       req.user.id,
@@ -36,7 +37,8 @@ class ProductController {
       carb,
       fib,
       weight,
-      isVisibleFib
+      isVisibleFib,
+      categoryId
     );
     return res.json(product);
   }
@@ -53,6 +55,7 @@ class ProductController {
       fib,
       weight,
       isVisibleFib,
+      categoryId = null,
     } = req.body;
 
     const product = await productService.update(
@@ -66,7 +69,8 @@ class ProductController {
       carb,
       fib,
       weight,
-      isVisibleFib
+      isVisibleFib,
+      categoryId
     );
     return res.json(product);
   }
