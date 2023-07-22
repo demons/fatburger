@@ -43,6 +43,7 @@ export async function updateStory(
   fat,
   carb,
   fib,
+  type,
   comment,
   weight
 ) {

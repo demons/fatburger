@@ -65,6 +65,7 @@ export function useUpdateStory() {
       protein,
       fat,
       carb,
+      fib,
       type,
       comment,
       weight,
@@ -76,6 +77,7 @@ export function useUpdateStory() {
         protein,
         fat,
         carb,
+        fib,
         type,
         comment,
         weight
