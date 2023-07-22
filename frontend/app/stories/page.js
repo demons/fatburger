@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { Flex, Stack, Text, HStack, IconButton } from "@chakra-ui/react";
 import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
 import ErrorAlert from "@/components/ErrorAlert";
@@ -11,16 +12,19 @@ import Button from "@/components/Button";
 export default function Page({ params }) {
   const { data: stories, status, error } = useStoriesQuery();
   const { mutate: deleteStory } = useDeleteStory();
+  const router = useRouter();
 
   if (status === "loading") {
     return <Spinner />;
   }
 
   if (status === "error") {
-    return <ErrorAlert />;
+    return <ErrorAlert message={error.message} />;
   }
 
-  const handleEdit = () => {};
+  const handleEdit = (storyId) => {
+    router.push(`/stories/${storyId}`);
+  };
 
   const handleDelete = (storyId) => {
     deleteStory({ storyId });
@@ -75,7 +79,11 @@ export default function Page({ params }) {
           )}
         </Stack>
         <HStack>
-          <IconButton onClick={handleEdit} size="sm" icon={<EditIcon />} />
+          <IconButton
+            onClick={() => handleEdit(id)}
+            size="sm"
+            icon={<EditIcon />}
+          />
           <IconButton
             onClick={() => handleDelete(id)}
             size="sm"
