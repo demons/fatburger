@@ -9,23 +9,35 @@ import {
   FormLabel,
   RadioGroup,
   Radio,
+  HStack,
   useToast,
 } from "@chakra-ui/react";
 import Button from "./Button";
-import { useState } from "react";
-import { useCreateStory } from "@/hooks/story";
+import { useEffect, useState } from "react";
+import { useCreateStory, useUpdateStory } from "@/hooks/story";
 import { useGroupsQuery } from "@/hooks";
 import dayjs from "dayjs";
 
-export default function AddStoryForm() {
+export default function AddStoryForm({ editData }) {
   const [date, setDate] = useState(dayjs().format("YYYY-MM-DD"));
-  const [weight, setWeight] = useState();
+  const [weight, setWeight] = useState("");
   const [type, setType] = useState();
   const [comment, setComment] = useState("");
   const toast = useToast();
   const { data: groups } = useGroupsQuery();
   const { mutate: createStory } = useCreateStory();
+  const { mutate: updateStory } = useUpdateStory();
   const router = useRouter();
+
+  useEffect(() => {
+    if (editData) {
+      const { date, type, comment, weight } = editData;
+      date && setDate(date);
+      weight && setWeight(weight);
+      type && setType(type.toString());
+      comment && setComment(comment);
+    }
+  }, [editData]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -64,12 +76,36 @@ export default function AddStoryForm() {
       });
       return;
     }
-    const { energy, protein, fat, carb, fib } = groups.amount;
-    createStory({ date, energy, protein, fat, carb, fib, type, comment });
 
-    setDate(dayjs().format("YYYY-MM-DD"));
-    setComment("");
-    setType(null);
+    if (editData) {
+      const { id: storyId, energy, protein, fat, carb, fib } = editData;
+      updateStory({
+        storyId,
+        date,
+        energy,
+        protein,
+        fat,
+        carb,
+        fib,
+        type,
+        comment,
+        weight: weight || null,
+      });
+    } else {
+      const { energy, protein, fat, carb, fib } = groups.amount;
+      createStory({
+        date,
+        energy,
+        protein,
+        fat,
+        carb,
+        fib,
+        type,
+        comment,
+        weight: weight || null,
+      });
+    }
+
     router.push(`/stories`);
   };
 
@@ -94,6 +130,7 @@ export default function AddStoryForm() {
             size="sm"
             value={weight}
             onChange={handleChange}
+            placeholder={editData && weight ? weight : "Указать можно позже"}
             step=".01"
           />
         </FormControl>
@@ -101,7 +138,7 @@ export default function AddStoryForm() {
           <FormLabel>Комментарий</FormLabel>
           <Textarea name="comment" value={comment} onChange={handleChange} />
         </FormControl>
-        <RadioGroup my="4" mx="auto" name="type">
+        <RadioGroup my="4" mx="auto" name="type" value={type}>
           <Stack spacing={5} direction="row">
             <Radio
               colorScheme="red"
@@ -129,9 +166,12 @@ export default function AddStoryForm() {
             </Radio>
           </Stack>
         </RadioGroup>
-        <Button type="submit" colorScheme="green">
-          Добавить
-        </Button>
+        <HStack margin="auto">
+          <Button type="submit" colorScheme="green">
+            {editData ? "Обновить" : "Добавить"}
+          </Button>
+          <Button onClick={() => router.push(`/stories`)}>Отмена</Button>
+        </HStack>
       </Stack>
     </form>
   );
