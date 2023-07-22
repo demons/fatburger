@@ -19,6 +19,7 @@ import dayjs from "dayjs";
 
 export default function AddStoryForm() {
   const [date, setDate] = useState(dayjs().format("YYYY-MM-DD"));
+  const [weight, setWeight] = useState();
   const [type, setType] = useState();
   const [comment, setComment] = useState("");
   const toast = useToast();
@@ -32,6 +33,11 @@ export default function AddStoryForm() {
       case "date":
         {
           setDate(value);
+        }
+        break;
+      case "weight":
+        {
+          setWeight(value);
         }
         break;
       case "comment":
@@ -78,6 +84,17 @@ export default function AddStoryForm() {
             value={date}
             onChange={handleChange}
             required
+          />
+        </FormControl>
+        <FormControl>
+          <FormLabel>Вес</FormLabel>
+          <Input
+            type="number"
+            name="weight"
+            size="sm"
+            value={weight}
+            onChange={handleChange}
+            step=".01"
           />
         </FormControl>
         <FormControl>

@@ -12,7 +12,8 @@ export async function createStory(
   carb,
   fib,
   type,
-  comment
+  comment,
+  weight
 ) {
   return fetchBase(`/stories`, {
     method: "POST",
@@ -25,6 +26,7 @@ export async function createStory(
       fib,
       type,
       comment,
+      weight,
     }),
   });
 }
@@ -37,7 +39,8 @@ export async function updateStory(
   fat,
   carb,
   fib,
-  comment
+  comment,
+  weight
 ) {
   return fetchBase(`/stories/${storyId}`, {
     method: "PUT",
@@ -50,6 +53,7 @@ export async function updateStory(
       fib,
       type,
       comment,
+      weight,
     }),
   });
 }

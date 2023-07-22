@@ -27,7 +27,7 @@ export default function Page({ params }) {
   };
 
   const renderedStories = stories.map((story) => {
-    const { id, date, comment, type, ...amount } = story;
+    const { id, date, comment, type, weight, ...amount } = story;
     let color = "";
     switch (type) {
       case 1:
@@ -63,7 +63,10 @@ export default function Page({ params }) {
         p="2"
       >
         <Stack>
-          <Text>{date}</Text>
+          <Flex justifyContent="space-between">
+            <Text>{date}</Text>
+            <Text as="b">{weight}</Text>
+          </Flex>
           <AmountItem amount={amount} />
           {comment && (
             <Text borderTop="1px" borderColor="gray.200" py="1" w="90%">

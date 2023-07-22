@@ -17,8 +17,28 @@ export function useCreateStory() {
   const client = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ date, energy, protein, fat, carb, fib, type, comment }) => {
-      return createStory(date, energy, protein, fat, carb, fib, type, comment);
+    mutationFn: ({
+      date,
+      energy,
+      protein,
+      fat,
+      carb,
+      fib,
+      type,
+      comment,
+      weight,
+    }) => {
+      return createStory(
+        date,
+        energy,
+        protein,
+        fat,
+        carb,
+        fib,
+        type,
+        comment,
+        weight
+      );
     },
     onSuccess: () => {
       client.invalidateQueries({ queryKey: ["stories"] });
@@ -39,6 +59,7 @@ export function useUpdateStory() {
       carb,
       type,
       comment,
+      weight,
     }) => {
       return updateStory(
         storyId,
@@ -48,7 +69,8 @@ export function useUpdateStory() {
         fat,
         carb,
         type,
-        comment
+        comment,
+        weight
       );
     },
     onSuccess: () => {
