@@ -30,7 +30,9 @@ export default function Page({ params }) {
     deleteStory({ storyId });
   };
 
-  const renderedStories = stories.map((story) => {
+  const renderedStories = stories.map((story, index, array) => {
+    const prevStory = index + 1 >= array.length ? null : array[index + 1];
+
     const { id, date, comment, type, weight, ...amount } = story;
     let color = "";
     switch (type) {
@@ -55,6 +57,12 @@ export default function Page({ params }) {
       borderLeftWidth: "5px",
     };
 
+    const weightDiff =
+      prevStory && prevStory.weight
+        ? parseFloat((weight - prevStory.weight).toFixed(1))
+        : null;
+    let weightColor = weightDiff && (weightDiff > 0 ? "red" : "green");
+
     return (
       <Flex
         key={id}
@@ -69,7 +77,9 @@ export default function Page({ params }) {
         <Stack w="100%">
           <Flex justifyContent="space-between">
             <Text>{date}</Text>
-            <Text as="b">{weight}</Text>
+            <Text as="b" color={weightColor} w="110px">
+              {weight && weight} {weight && weightDiff && <>({weightDiff})</>}
+            </Text>
             <HStack>
               <IconButton
                 onClick={() => handleEdit(id)}
