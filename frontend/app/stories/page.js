@@ -66,10 +66,23 @@ export default function Page({ params }) {
         my="2"
         p="2"
       >
-        <Stack>
+        <Stack w="100%">
           <Flex justifyContent="space-between">
             <Text>{date}</Text>
             <Text as="b">{weight}</Text>
+            <HStack>
+              <IconButton
+                onClick={() => handleEdit(id)}
+                size="sm"
+                icon={<EditIcon />}
+              />
+              <IconButton
+                onClick={() => handleDelete(id)}
+                size="sm"
+                colorScheme="red"
+                icon={<DeleteIcon />}
+              />
+            </HStack>
           </Flex>
           <AmountItem amount={amount} />
           {comment && (
@@ -78,19 +91,6 @@ export default function Page({ params }) {
             </Text>
           )}
         </Stack>
-        <HStack>
-          <IconButton
-            onClick={() => handleEdit(id)}
-            size="sm"
-            icon={<EditIcon />}
-          />
-          <IconButton
-            onClick={() => handleDelete(id)}
-            size="sm"
-            colorScheme="red"
-            icon={<DeleteIcon />}
-          />
-        </HStack>
       </Flex>
     );
   });
