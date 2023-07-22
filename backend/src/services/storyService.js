@@ -9,7 +9,18 @@ class StoryService {
     });
   }
 
-  async create(userId, date, energy, protein, fat, carb, fib, type, comment) {
+  async create(
+    userId,
+    date,
+    energy,
+    protein,
+    fat,
+    carb,
+    fib,
+    type,
+    comment,
+    weight
+  ) {
     return await Story.create({
       userId,
       date,
@@ -20,6 +31,7 @@ class StoryService {
       fib,
       type,
       comment,
+      weight,
     });
   }
 
@@ -33,10 +45,11 @@ class StoryService {
     carb,
     fib,
     type,
-    comment
+    comment,
+    weight
   ) {
     return await Story.update(
-      { date, energy, protein, fat, carb, fib, type, comment },
+      { date, energy, protein, fat, carb, fib, type, comment, weight },
       { where: { userId, id: storyId } }
     );
   }
