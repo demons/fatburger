@@ -4,6 +4,10 @@ export async function fetchStories() {
   return fetchBase(`/stories`);
 }
 
+export async function fetchStory(storyId) {
+  return fetchBase(`/stories/${storyId}`);
+}
+
 export async function createStory(
   date,
   energy,

@@ -7,6 +7,12 @@ class StoryController {
     return res.json(stories);
   }
 
+  async getOne(req, res, next) {
+    const { storyId } = req.params;
+    const result = await storyService.getOne(req.user.id, storyId);
+    return res.json(result);
+  }
+
   async create(req, res, next) {
     const { date, energy, protein, fat, carb, fib, type, comment, weight } =
       req.body;

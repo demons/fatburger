@@ -2,6 +2,7 @@ import {
   createStory,
   deleteStory,
   fetchStories,
+  fetchStory,
   updateStory,
 } from "@/services/story";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
@@ -10,6 +11,13 @@ export function useStoriesQuery() {
   return useQuery({
     queryKey: ["stories"],
     queryFn: () => fetchStories(),
+  });
+}
+
+export function useStoryQuery(storyId) {
+  return useQuery({
+    queryKey: ["story"],
+    queryFn: () => fetchStory(storyId),
   });
 }
 

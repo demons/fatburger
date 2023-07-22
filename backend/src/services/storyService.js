@@ -9,6 +9,14 @@ class StoryService {
     });
   }
 
+  async getOne(userId, storyId) {
+    const story = await Story.findOne({ where: { id: storyId, userId } });
+    if (!story) {
+      throw new ApiError(404, "История с указанным id не найденаы");
+    }
+    return story;
+  }
+
   async create(
     userId,
     date,
