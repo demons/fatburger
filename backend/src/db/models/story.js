@@ -50,6 +50,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
+      weight: {
+        type: DataTypes.DECIMAL(3, 1),
+        allowNull: true,
+      },
     },
     {
       sequelize,

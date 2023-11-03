@@ -4,6 +4,10 @@ export async function fetchStories() {
   return fetchBase(`/stories`);
 }
 
+export async function fetchStory(storyId) {
+  return fetchBase(`/stories/${storyId}`);
+}
+
 export async function createStory(
   date,
   energy,
@@ -12,7 +16,8 @@ export async function createStory(
   carb,
   fib,
   type,
-  comment
+  comment,
+  weight
 ) {
   return fetchBase(`/stories`, {
     method: "POST",
@@ -25,6 +30,7 @@ export async function createStory(
       fib,
       type,
       comment,
+      weight,
     }),
   });
 }
@@ -37,7 +43,9 @@ export async function updateStory(
   fat,
   carb,
   fib,
-  comment
+  type,
+  comment,
+  weight
 ) {
   return fetchBase(`/stories/${storyId}`, {
     method: "PUT",
@@ -50,6 +58,7 @@ export async function updateStory(
       fib,
       type,
       comment,
+      weight,
     }),
   });
 }

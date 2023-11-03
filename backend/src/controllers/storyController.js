@@ -7,8 +7,15 @@ class StoryController {
     return res.json(stories);
   }
 
+  async getOne(req, res, next) {
+    const { storyId } = req.params;
+    const result = await storyService.getOne(req.user.id, storyId);
+    return res.json(result);
+  }
+
   async create(req, res, next) {
-    const { date, energy, protein, fat, carb, fib, type, comment } = req.body;
+    const { date, energy, protein, fat, carb, fib, type, comment, weight } =
+      req.body;
     const story = await storyService.create(
       req.user.id,
       date,
@@ -18,14 +25,16 @@ class StoryController {
       carb,
       fib,
       type,
-      comment
+      comment,
+      weight
     );
     return res.json(story);
   }
 
   async update(req, res, next) {
     const { storyId } = req.params;
-    const { date, energy, protein, fat, carb, fib, type, comment } = req.body;
+    const { date, energy, protein, fat, carb, fib, type, comment, weight } =
+      req.body;
     const result = await storyService.update(
       req.user.id,
       storyId,
@@ -36,7 +45,8 @@ class StoryController {
       carb,
       fib,
       type,
-      comment
+      comment,
+      weight
     );
     return res.json(result);
   }

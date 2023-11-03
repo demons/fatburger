@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { Flex, Stack, Text, HStack, IconButton } from "@chakra-ui/react";
 import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
 import ErrorAlert from "@/components/ErrorAlert";
@@ -11,23 +12,57 @@ import Button from "@/components/Button";
 export default function Page({ params }) {
   const { data: stories, status, error } = useStoriesQuery();
   const { mutate: deleteStory } = useDeleteStory();
+  const router = useRouter();
 
   if (status === "loading") {
     return <Spinner />;
   }
 
   if (status === "error") {
-    return <ErrorAlert />;
+    return <ErrorAlert message={error.message} />;
   }
 
-  const handleEdit = () => {};
+  const handleEdit = (storyId) => {
+    router.push(`/stories/${storyId}`);
+  };
 
   const handleDelete = (storyId) => {
     deleteStory({ storyId });
   };
 
-  const renderedStories = stories.map((story) => {
-    const { id, date, comment, ...amount } = story;
+  const renderedStories = stories.map((story, index, array) => {
+    const prevStory = index + 1 >= array.length ? null : array[index + 1];
+
+    const { id, date, comment, type, weight, ...amount } = story;
+    let color = "";
+    switch (type) {
+      case 1:
+        {
+          color = "red";
+        }
+        break;
+      case 2:
+        {
+          color = "orange";
+        }
+        break;
+      case 3:
+        {
+          color = "green";
+        }
+        break;
+    }
+    const settings = {
+      borderLeftColor: color,
+      borderLeftWidth: "5px",
+    };
+
+    const weightDiff =
+      prevStory && prevStory.weight
+        ? parseFloat((weight - prevStory.weight).toFixed(1))
+        : null;
+    let weightColor = weightDiff && (weightDiff > 0 ? "red" : "green");
+
     return (
       <Flex
         key={id}
@@ -35,23 +70,37 @@ export default function Page({ params }) {
         alignItems="center"
         border="1px"
         borderColor="gray.200"
+        {...settings}
         my="2"
         p="2"
       >
-        <Stack>
-          <Text>{date}</Text>
+        <Stack w="100%">
+          <Flex justifyContent="space-between">
+            <Text>{date}</Text>
+            <Text as="b" color={weightColor} w="110px">
+              {weight && weight} {weight && weightDiff && <>({weightDiff})</>}
+            </Text>
+            <HStack>
+              <IconButton
+                onClick={() => handleEdit(id)}
+                size="sm"
+                icon={<EditIcon />}
+              />
+              <IconButton
+                onClick={() => handleDelete(id)}
+                size="sm"
+                colorScheme="red"
+                icon={<DeleteIcon />}
+              />
+            </HStack>
+          </Flex>
           <AmountItem amount={amount} />
+          {comment && (
+            <Text borderTop="1px" borderColor="gray.200" py="1" w="90%">
+              {comment}
+            </Text>
+          )}
         </Stack>
-        <Text>{comment}</Text>
-        <HStack>
-          <IconButton onClick={handleEdit} size="sm" icon={<EditIcon />} />
-          <IconButton
-            onClick={() => handleDelete(id)}
-            size="sm"
-            colorScheme="red"
-            icon={<DeleteIcon />}
-          />
-        </HStack>
       </Flex>
     );
   });

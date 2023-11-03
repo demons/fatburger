@@ -9,7 +9,26 @@ class StoryService {
     });
   }
 
-  async create(userId, date, energy, protein, fat, carb, fib, type, comment) {
+  async getOne(userId, storyId) {
+    const story = await Story.findOne({ where: { id: storyId, userId } });
+    if (!story) {
+      throw new ApiError(404, "История с указанным id не найденаы");
+    }
+    return story;
+  }
+
+  async create(
+    userId,
+    date,
+    energy,
+    protein,
+    fat,
+    carb,
+    fib,
+    type,
+    comment,
+    weight
+  ) {
     return await Story.create({
       userId,
       date,
@@ -20,6 +39,7 @@ class StoryService {
       fib,
       type,
       comment,
+      weight,
     });
   }
 
@@ -33,10 +53,11 @@ class StoryService {
     carb,
     fib,
     type,
-    comment
+    comment,
+    weight
   ) {
     return await Story.update(
-      { date, energy, protein, fat, carb, fib, type, comment },
+      { date, energy, protein, fat, carb, fib, type, comment, weight },
       { where: { userId, id: storyId } }
     );
   }
