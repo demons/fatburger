@@ -16,3 +16,6 @@ rm $fileName
 # Restore
 # file=dump_2023-07-18_20-51-29.gz
 # gunzip -c $file | docker exec -i fb_db psql -U fatburger
+
+# Add crontab
+# sudo sh -c 'echo "00 02   * * *   alex     cd /home/alex/docker/fatburger && /usr/bin/bash make_backup.sh;\n\n" >> /etc/crontab'
